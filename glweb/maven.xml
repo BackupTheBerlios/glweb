@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
- $Id: maven.xml,v 1.6 2003/06/13 04:51:54 paxson Exp $
+ $Id: maven.xml,v 1.7 2003/09/22 16:51:07 primo Exp $
 -->
 
 <project default="glweb:war" xmlns:j="jelly:core"
@@ -241,7 +241,7 @@
     <goal name="hibernate-replace-jdbc-tokens-with-datasource" 
           description="Set hibernate files to use a Datasource."
     >
-        
+
         <j:if test="${use.database.datasource}">
             <replace dir="${maven.build.dir}" 
                      token="@JDBC_DATASOURCE@" 
@@ -532,8 +532,9 @@
                 <include name="commons-lang/jars/commons-lang-1.0.1.jar"/>
                 <include name="commons-logging/jars/commons-logging-1.1-dev.jar"/>
                 <include name="commons-validator/jars/commons-validator-1.0.1.jar"/>
+                <include name="commons-fileupload/jars/commons-fileupload-1.0.jar"/>
                 <include name="log4j/jars/log4j-1.2.8.jar"/>
-                <include name="struts/jars/struts-1.1-rc1.jar"/>
+                <include name="struts/jars/struts-1.1.jar"/>
                 <include name="hibernate/jars/hibernate-2.0-beta-6.jar"/>
                 <include name="jcs/jars/jcs-1.0-dev.jar"/>
                 <include name="cglib/jars/cglib-rc2-1.0.jar"/>
