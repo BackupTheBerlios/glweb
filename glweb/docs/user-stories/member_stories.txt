@@ -1,0 +1,63 @@
+$ID$
+
+--------------------------------------------------------------
+Hint:
+      {}: Name of the User Story
+      []: Name of the Section(page)
+      (): Maybe Function or Link
+      ##: Content List or String or Description
+      **: User for Special Name or Something Important
+      Each section([]) Divided by <br><br><br>
+      Each item(1) Divided by <br><br>
+      Each sub-item(1.1) Divided by <br>
+
+--------------------------------------------------------------
+
+{會員}
+
+  [會員宣告頁]  #member-1.html#
+  1. 會員註冊前的宣告文字
+  
+ 
+  2. Sumbit至[會員註冊頁]
+       
+
+  [會員註冊頁]  #member-2.html#
+  1. 會員註冊欄位參照
+     http://www.gl.com.tw/bbs/register.asp?mode=Register
+
+  2. Sumbit至[欄位檢查頁(.jsp)]
+    2.1 欄位檢查以平常使用慣例, 使用者姓名, 密碼, 資料
+        檢查欄位長度. Email檢查XXX@XX.XX
+
+    2.2 欄位資料錯誤以Pop-up小視窗顯示.
+
+  3. 檢查完後, link至[會員註冊成功頁]
+    3.1 註冊完成同時會send CONFIRM email, 會員收到認證email,
+        需link至認證的URL後, 才會成為正式會員
+
+    3.2 認證方式, 請參照外面常做的使用方式
+
+
+  [會員註冊成功頁] #NONE#
+  1. 參照#member-1.html#, 將網頁Content更改成一玩段註冊成功
+     之文字
+
+  
+  [會員資料頁] #member-3.html#
+  1. 在論壇網頁顯示出會員名字的連結, 點選即會link至[會員資料頁]
+     欄位及資料顯示參照 
+     http://www.gl.com.tw/bbs/pop_profile.asp?mode=display&id=4
+
+  
+  [會員資料更改頁]
+  1. 流程同[會員註冊頁]
+
+  2. 不需發CONFIRM Email
+
+
+  [會員類別]
+  1. 此部分跟{Group}有關, 於{Group}中詳述
+
+
+{/會員}
