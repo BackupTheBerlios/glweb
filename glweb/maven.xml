@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
- $Id: maven.xml,v 1.5 2003/05/23 10:11:08 paxson Exp $
+ $Id: maven.xml,v 1.6 2003/06/13 04:51:54 paxson Exp $
 -->
 
 <project default="glweb:war" xmlns:j="jelly:core"
@@ -499,6 +499,10 @@
     <goal name="prepare-web">
         <copy todir="${maven.build.dir}/webapp">
             <fileset dir="${maven.war.src}"/>
+        </copy>
+        
+        <copy todir="${maven.build.dir}/webapp/image">
+            <fileset dir="${maven.src.images.dir}"/>
         </copy>
         
         <copy todir="${maven.build.dir}/webapp/WEB-INF">
