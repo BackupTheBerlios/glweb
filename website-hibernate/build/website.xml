@@ -70,6 +70,9 @@
       <copy todir="${prj.build.java}" filtering="true">
           <fileset dir="${prj.ejb}">
               <include name="com/siwi/**/*.java"/>
+              <include name="com/siwi/**/*.ccf"/>
+              <include name="com/siwi/**/*.properties"/>
+              <include name="com/siwi/**/*.xml"/>
           </fileset>
       </copy>
       
@@ -89,7 +92,7 @@
       <!-- TestCase -->
       <copy todir="${prj.build.java}" filtering="true">
           <fileset dir="${prj.test}">
-              <include name="com/siwi/**/testcase/**/*.java"/>
+              <include name="com/siwi/**/*.java"/>
           </fileset>
       </copy>
   </target>
@@ -161,6 +164,9 @@
               <include name="com/siwi/website/ejb/**/*.class"/>
               <include name="com/siwi/website/ejb/**/*.properties"/>
               <include name="com/siwi/website/ejb/**/*.xml"/>
+              <include name="com/siwi/website/infrastructure/**/*.class"/>
+              <include name="com/siwi/website/util/**/*.class"/>
+              <include name="com/siwi/website/util/**/*.properties"/>
           </fileset>
           
           <fileset dir="${prj.hibernate}">
@@ -179,7 +185,7 @@
           debug="on"
           deprecation="on"
           optimize="off"
-          includes="com/siwi/website/testcase/**/*.java"
+          includes="com/siwi/website/**/*Test*.java, com/siwi/website/**/JUnit*.java"
           >
           
           <classpath refid="classpath"/>
@@ -196,7 +202,8 @@
           >
       
           <fileset dir="${prj.classbindir}">
-              <include name="com/siwi/website/testcase/**/*.class"/>
+              <include name="com/siwi/website/**/*Test*.class"/>
+              <include name="com/siwi/website/**/JUnit*.class"/>
           </fileset>
       </jar>
   </target>
@@ -223,7 +230,6 @@
           <fileset dir="${prj.classbindir}">
               <include name="com/siwi/website/action/**/*.class"/>
               <include name="com/siwi/website/form/**/*.class"/>
-              <include name="com/siwi/website/**/*.properties"/>
           </fileset>
       </jar>
   </target>

@@ -1,5 +1,5 @@
 /*
- * $Id: CountryDAO.java,v 1.2 2003/10/29 08:27:23 paxson Exp $
+ * $Id: CountryDAO.java,v 1.3 2003/10/30 10:28:38 paxson Exp $
  * 
  */
 
@@ -14,7 +14,7 @@ import com.siwi.website.ejb.model.Country;
  *
  * @author  Paxson Yang
  * @created  2002/8/8
- * @version  $Revision: 1.2 $ $Date: 2003/10/29 08:27:23 $
+ * @version  $Revision: 1.3 $ $Date: 2003/10/30 10:28:38 $
  */
 public interface CountryDAO {
     final static String IMPL_CLASS =
@@ -24,7 +24,7 @@ public interface CountryDAO {
 
     Country get(long id) throws DAOException;
 
-    void add(Country vakue) throws DAOException;
+    long add(Country value) throws DAOException;
 
     void update(Country value) throws DAOException;
     

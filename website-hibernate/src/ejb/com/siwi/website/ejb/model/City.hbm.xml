@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id: City.hbm.xml,v 1.1 2003/10/29 08:27:23 paxson Exp $ -->
+<!-- $Id: City.hbm.xml,v 1.2 2003/10/30 10:28:38 paxson Exp $ -->
 <!DOCTYPE hibernate-mapping PUBLIC
 	"-//Hibernate/Hibernate Mapping DTD//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd"
     >
 
 <hibernate-mapping>
-    <class name="com.siwi.website.ejb.model.Country" table="COUNTRY">
+    <class name="com.siwi.website.ejb.model.City" table="CITY">
 
         <jcs-cache usage="read-write"/>
         
         <id name="id" type="long" column="ID">
-            <generator class="@DB_LONG_ID_TYPE@"/>
+            <generator class="native"/>
         </id>
         
         <property name="name" column="NAME" type="string" not-null="true"/>
@@ -23,5 +23,9 @@
                 class="com.siwi.website.ejb.model.Language"
                 />
         </set>
-    </class>        
+    </class>
+    
+    <query name="City.findAll"><![CDATA[
+        from city in class com.siwi.website.ejb.model.Country
+    ]]></query>
 </hibernate-mapping>

@@ -1,5 +1,5 @@
 /*
- * $Id: GlobalProperties.java,v 1.1 2003/10/29 08:27:23 paxson Exp $
+ * $Id: GlobalProperties.java,v 1.2 2003/10/30 10:28:38 paxson Exp $
  */
 
 package com.siwi.website.util;
@@ -17,14 +17,16 @@ import org.apache.commons.logging.LogFactory;
  * GlobalProperties
  *
  * @author   $Author: paxson $
- * @version  $Revision: 1.1 $ $Date: 2003/10/29 08:27:23 $
+ * @version  $Revision: 1.2 $ $Date: 2003/10/30 10:28:38 $
  *
  * @see java.beans.PropertyChangeListener
  * @see java.beans.PropertyChangeSupport
  */
 public class GlobalProperties {
     
-    private static final String CONFIG = "glweb_config.properties";
+    private static final String FQCN = GlobalProperties.class.getName();
+    
+    private static final String CONFIG = "website_config.properties";
 
     private static GlobalProperties _instance;
     
@@ -35,7 +37,7 @@ public class GlobalProperties {
     private Log _logger;
 
     private GlobalProperties() {
-        _logger = LogFactory.getLog("com.glweb.util.GlobalProperties");
+        _logger = LogFactory.getLog(FQCN);
         
         try {
             InputStream _in = ClassLoader.getSystemResourceAsStream(CONFIG);

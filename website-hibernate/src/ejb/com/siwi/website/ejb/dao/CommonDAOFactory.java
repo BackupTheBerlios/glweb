@@ -1,68 +1,23 @@
 /*
- * $Id: CommonDAOFactory.java,v 1.2 2003/10/29 08:27:23 paxson Exp $
+ * $Id: CommonDAOFactory.java,v 1.3 2003/10/30 10:28:38 paxson Exp $
  * 
  */
 
 package com.siwi.website.ejb.dao;
 
-import com.siwi.common.logger.Logger;
-import com.siwi.common.logger.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
- *  CommonDAOFactory
  *
- * @author  Paxson Yang
- * @created  2002/8/8
- * @version  $Revision: 1.2 $ $Date: 2003/10/29 08:27:23 $
+ * @author   $Author: paxson $
+ * @version  $Revision: 1.3 $ $Date: 2003/10/30 10:28:38 $
  */
 public class CommonDAOFactory {
-    private final static String CLASS_NAME =
-            "com.siwi.website.ejb.dao.CommonDAOFactory";
+    private final static String FQCN = CommonDAOFactory.class.getName();
 
-    private final static boolean DEBUG = true;
-
-    private static Logger _logger;
-
-    /**
-     *  Gets the logger attribute of the CommonDAOFactory class
-     *
-     * @return    The logger value
-     */
-    private static Logger getLogger() {
-        if (null == _logger) {
-            _logger = LoggerFactory.getInstance().getLogger(CLASS_NAME);
-            _logger.setDebug(DEBUG);
-        }
-
-        return _logger;
-    }
-
-    /**
-     *  Gets the cityDAO attribute of the CommonDAOFactory class
-     *
-     * @return                          The cityDAO value
-     * @exception  DAOFactoryException  Description of the Exception
-     */
-    public static CityDAO getCityDAO() throws DAOFactoryException {
-        return (CityDAO) newDAO(CityDAO.IMPL_CLASS);
-    }
-
-    /**
-     *  Gets the countryDAO attribute of the CommonDAOFactory class
-     *
-     * @return                          The countryDAO value
-     * @exception  DAOFactoryException  Description of the Exception
-     */
-    public static CountryDAO getCountryDAO() throws DAOFactoryException {
-        return (CountryDAO) newDAO(CountryDAO.IMPL_CLASS);
-    }
-
-    /**
-     *  Description of the Method
-     *
-     * @param  name  Description of the Parameter
-     * @return       Description of the Return Value
-     */
+    private static Log _logger;
+    
     private static Object newDAO(String name) {
         getLogger().debug("Class Name = " + name);
 
@@ -75,6 +30,30 @@ public class CommonDAOFactory {
         } catch (InstantiationException ie) {
             throw new DAOFactoryException(ie);
         }
+    }
+
+    private static Log getLogger() {
+        if (null == _logger) {
+            _logger = LogFactory.getLog(FQCN);
+        }
+
+        return _logger;
+    }
+
+    public static CountryDAO getCountryDAO() throws DAOFactoryException {
+        return (CountryDAO) newDAO(CountryDAO.IMPL_CLASS);
+    }
+    
+    public static CityDAO getCityDAO() throws DAOFactoryException {
+        return (CityDAO) newDAO(CityDAO.IMPL_CLASS);
+    }
+    
+    public static LanguageDAO getLanguageDAO() throws DAOFactoryException {
+        return (LanguageDAO) newDAO(LanguageDAO.IMPL_CLASS);
+    }
+    
+    public static LanguageCodeDAO getLanguageCodeDAO() throws DAOFactoryException {
+        return (LanguageCodeDAO) newDAO(LanguageCodeDAO.IMPL_CLASS);
     }
 
 }
