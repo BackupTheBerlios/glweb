@@ -1,12 +1,48 @@
 <!--
- $Id: struts-forms.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
- $Revision: 1.1 $
- $Date: 2003/05/10 11:41:13 $
- $Author: paxson $
+ $Id: struts-forms.xml,v 1.2 2003/06/11 18:39:39 primo Exp $
+ $Revision: 1.2 $
+ $Date: 2003/06/11 18:39:39 $
+ $Author: primo $
 -->
 
 <form-bean name="helloForm"
            type="org.apache.struts.action.DynaActionForm">
     <form-property name="action" type="java.lang.String"/>
     <form-property name="name" type="java.lang.String"/>
+</form-bean>
+
+<form-bean name="memberDataForm"
+           type="org.apache.struts.action.DynaActionForm">
+    <form-property name="action" type="java.lang.String"/>
+    <!--  -->
+    <form-property name="email" type="java.lang.String"/>
+    <form-property name="emailDisplay" type="java.lang.String"/>
+    <form-property name="icq" type="java.lang.String"/>
+    <!--  -->
+    <form-property name="personHomePage" type="java.lang.String"/>
+    <!--  -->
+    <form-property name="personImg" type="java.lang.String"/>
+    <form-property name="personImgURL" type="java.lang.String"/>
+    <form-property name="personImgHigh" type="java.lang.String"/>
+    <form-property name="personImgWidth" type="java.lang.String"/>
+    <!--  -->
+    <form-property name="personDesc" type="java.lang.String"/>
+    <form-property name="personFancy" type="java.lang.String"/>
+    <form-property name="motto" type="java.lang.String"/>
+    <!--  -->
+    <form-property name="startSign" type="java.lang.String"/>
+    <form-property name="msn" type="java.lang.String"/>
+    <!--  -->
+    <form-property name="userName" type="java.lang.String"/>
+    <form-property name="userPwd" type="java.lang.String"/>
+    <form-property name="confirmPwd" type="java.lang.String"/>
+    <form-property name="lastName" type="java.lang.String"/>
+    <form-property name="firstName" type="java.lang.String"/>
+    <form-property name="city" type="java.lang.String"/>
+    <form-property name="province" type="java.lang.String"/>
+    <form-property name="country" type="java.lang.String"/>
+    <form-property name="age" type="java.lang.String"/>
+    <form-property name="sex" type="java.lang.String"/>
+    <form-property name="position" type="java.lang.String"/>
+    <form-property name="sign" type="java.lang.String"/>
 </form-bean>

@@ -5,7 +5,7 @@
        "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
        
 <!--
- $Id: tiles-defs.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ $Id: tiles-defs.xml,v 1.2 2003/06/11 18:35:59 primo Exp $
 -->
 
 <!-- Definitions for Tiles documentation   -->
@@ -23,6 +23,14 @@
       <put name="left"          value="/tiles-components/left.jsp"/>
       <put name="middle"        value="/tiles-components/news.jsp"/>
       <put name="footer"        value="/tiles-components/footer.jsp"/>
+  </definition>
+  
+  <!-- Basic page layout used as a root for other pages defintion. -->
+  <definition name="glweb.basicLayout" path="/tiles-layouts/basicLayout.jsp">
+    <put name="title" value="Tiles Blank Site" />
+    <put name="header" value="/tiles-components/header.jsp" />
+    <put name="body" value="/tiles-components/body.jsp" />
+    <put name="footer" value="/tiles-components/footer.jsp" />
   </definition>
   
   <definition name="tile.index" extends="rootLayout">
@@ -47,6 +55,46 @@
   <definition name="tile.hello.cancel" extends="rootLayout">
 	  <put name="titleString"          value="Hello Cancel"/>
 	  <put name="middle"               value="/hello/helloCancel.jsp"/>
+  </definition>
+  
+  <!-- =======================================================  -->
+  <!-- member page definition  									-->
+  <!-- =======================================================  -->
+  <definition name="glweb.member_1" extends="glweb.basicLayout">
+    <put name="title" value="member contract" />
+    <put name="body" value="/member/member_1.jsp" />
+  </definition>
+  <definition name="glweb.member_2" extends="glweb.basicLayout">
+    <put name="tile" value="member data" />
+    <put name="body" value="/member/member_2.jsp" />
+  </definition>
+  <definition name="glweb.member_3" extends="glweb.basicLayout">
+    <put name="tile" value="member data" />
+    <put name="body" value="/member/member_3.jsp" />
+  </definition>
+  <definition name="glweb.member_4" extends="glweb.basicLayout">
+    <put name="tile" value="apply message" />
+    <put name="body" value="/member/member_4.jsp" />
+  </definition>
+  <definition name="glweb.member_5" extends="glweb.basicLayout">
+    <put name="tile" value="reply message" />
+    <put name="body" value="/member/member_5.jsp" />
+  </definition>
+  
+  <!-- =======================================================  -->
+  <!-- forum page definition  									-->
+  <!-- =======================================================  -->
+  <definition name="glweb.forum_1" extends="glweb.basicLayout">
+    <put name="tile" value="forum main" />
+    <put name="body" value="/forum/forum_1.jsp" />
+  </definition>
+  <definition name="glweb.forum_2" extends="glweb.basicLayout">
+    <put name="tile" value="forum page" />
+    <put name="body" value="/forum/forum_2.jsp" />
+  </definition>
+  <definition name="glweb.forum_3" extends="glweb.basicLayout">
+    <put name="tile" value="forum content" />
+    <put name="body" value="/forum/forum_3.jsp" />
   </definition>
 
 </tiles-definitions>
