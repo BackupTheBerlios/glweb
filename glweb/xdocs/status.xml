@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
- $Id: status.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ $Id: status.xml,v 1.2 2003/05/10 14:03:09 paxson Exp $
 -->
 
 <document>
 
   <properties>
     <title>News and Status</title>
-    <author email="paxson@mail.siwi.com.tw.com">Paxson Yang</author>
+    <author email="paxson@mail.berlios.de">Paxson Yang</author>
   </properties>
 
   <body>
@@ -23,12 +23,14 @@
         A list of changes can be found <a href="changes.html">here</a>.
       </p>
 
+      <!--
       <subsection name="06 February 2003 - Glweb 1.0 is released!">
         <p>
           Downloads are available <a href="http://www.siwi.com.tw/builds/siwi-glweb/release/1.0/">
           here</a>.
         </p>
       </subsection>
+      -->
 
     </section>
   </body>
