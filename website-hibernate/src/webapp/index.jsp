@@ -1,9 +1,11 @@
-<%--
- $Id: index.jsp,v 1.2 2003/06/12 05:53:22 paxson Exp $
- $Revision: 1.2 $
- $Date: 2003/06/12 05:53:22 $
- $Author: paxson $
---%>
+<%@ page language="java" %>
+<%@ page contentType="text/html" %>
+<%@ taglib uri="/WEB-INF/tlds/struts-template.tld" prefix="template" %>
 
-<% response.sendRedirect("index.do"); %>
-    
+<template:insert template="template.jsp">
+  <template:put name="title" content="EJB Examples" direct="true"/>
+  <template:put name="header" content="/header.html"/>
+  <template:put name="sidebar" content="/sidebar.jsp"/>
+  <template:put name="main" content="/indexMain.jsp"/>
+  <template:put name="footer" content="/footer.html"/>
+</template:insert>
