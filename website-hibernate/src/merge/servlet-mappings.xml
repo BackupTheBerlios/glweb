@@ -1,9 +1,4 @@
-<!--
- $Id: servlet-mappings.xml,v 1.1 2003/10/29 08:27:23 paxson Exp $
- $Revision: 1.1 $
- $Date: 2003/10/29 08:27:23 $
- $Author: paxson $
--->
+<!-- $Id: servlet-mappings.xml,v 1.2 2003/10/31 08:21:12 paxson Exp $ -->
 
 <!-- Action Servlet Mapping -->
 <servlet-mapping>

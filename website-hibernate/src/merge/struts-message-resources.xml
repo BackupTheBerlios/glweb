@@ -1,5 +1,3 @@
-<!--
- $Id: struts-message-resources.xml,v 1.1 2003/10/29 08:27:23 paxson Exp $
--->
+<!-- $Id: struts-message-resources.xml,v 1.2 2003/10/31 08:21:12 paxson Exp $ -->
 
-<message-resources parameter="com.glweb.web.struts.ApplicationResources"/>
+<message-resources parameter="com.siwi.website.ApplicationResources"/>
