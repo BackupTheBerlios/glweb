@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_0.dtd">
+
+<!--
+ $Id: validation.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ $Revision: 1.1 $
+ $Date: 2003/05/10 11:41:13 $
+ $Author: paxson $
+-->
+
+<form-validation>
+    <formset>
+        <form name="helloForm">
+            <field property="name"
+                   depends="minlength,maxlength">
+                <arg0 key="helloForm.name.displayname"/>
+                <arg1 key="${var:minlength}" name="minlength"
+                      resource="false"/>
+                <arg2 key="${var:maxlength}" name="maxlength"
+                      resource="false"/>
+                <var>
+                    <var-name>minlength</var-name>
+                    <var-value>3</var-value>
+                </var>
+                <var>
+                    <var-name>maxlength</var-name>
+                    <var-value>16</var-value>
+                </var>
+            </field>
+        </form>
+    </formset>
+</form-validation>

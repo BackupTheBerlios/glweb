@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ $Id: maven.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+-->
+
+<project default="glweb:war"
+         xmlns:j="jelly:core">
+
+    <!-- ************************************************************************ -->
+    <property file="user.properties"/>
+    <property file="local.properties"/>
+    <property file="global.properties"/>
+    
+    <!-- ************************************************************************ -->
+    <fileset id="hibernate.mapping.files" dir="${maven.build.dest}">
+        <include name="**/*.hbm.xml"/>
+    </fileset>
+    
+    <!-- ************************************************************************ -->
+    <goal name="set-build-properties" 
+          prereqs="set-jdbc-conditions, set-jndi-conditions, set-hibernate-conditions" 
+          description="Add property files specifying build and deployment parameters."
+    >
+        <echo message="Adding property files."/>
+        <echo message="Using AppServer : ${appserver}."/>
+        <echo message="Using Database  : ${database}."/>
+        <echo message="jndi.datasource : ${jdbc.datasource}"/>
+        <echo message="database.connection.type : ${database.connection.type}"/>
+        
+        <property file="${maven.conf.appserver.dir}/${appserver}/build.properties"/>
+        <property file="${maven.conf.database.dir}/${database}/build.properties"/>
+        
+        <echo message="java.naming.factory.initial=${java.naming.factory.initial}"/>
+    </goal>
+
+    <!-- ************************************************************************ -->
+    <goal name="set-jdbc-conditions" 
+          description="Sets conditions for JDBC properties."
+    >
+        <echo message="Database Connection Type: ${database.connection.type}"/>
+
+        <condition property="use.database.datasource" value="true">
+            <and>
+                <isset property="database.connection.type"/>
+                <isset property="jdbc.datasource"/>
+                <equals arg1="${database.connection.type}" arg2="datasource"/>
+            </and>
+        </condition>
+
+        <condition property="use.database.jdbc" value="true">
+            <and>
+                <isset property="database.connection.type"/>
+                <isset property="jdbc.connection.driver"/>
+                <isset property="jdbc.connection.url"/>
+                <isset property="jdbc.connection.username"/>
+                <isset property="jdbc.connection.password"/>
+                <equals arg1="${database.connection.type}" arg2="jdbc"/>
+            </and>
+        </condition>
+    </goal>
+
+    <!-- ************************************************************************ -->
+    <goal name="set-jndi-conditions" 
+          description="Sets conditions for JNDI properties."
+    >
+        <condition property="use.filesystem.jndi" value="true">
+            <and>
+                <isset property="appserver"/>
+                <equals arg1="${appserver}" arg2="filesystem" />
+            </and>
+        </condition>
+
+        <condition property="insert.real.jndi.properties" value="true">
+            <and>
+                <isset property="insert.jndi.properties"/>
+                <equals arg1="${insert.jndi.properties}" arg2="true" />
+            </and>
+        </condition>
+    </goal>
+    
+    <!-- ************************************************************************ -->
+    <goal name="set-hibernate-conditions" 
+          description="Sets conditions for Hibernate properties."
+    >
+        <echo message="Version of Hibernate: ${maven.xdoclet.hibernatedoclet.version}"/>
+
+        <condition property="use.hibernate.1" value="true">
+            <and>
+                <equals arg1="${maven.xdoclet.hibernatedoclet.version}" 
+                        arg2="1"
+                />
+            </and>
+        </condition>
+
+        <condition property="use.hibernate.2" value="true">
+            <and>
+                <equals arg1="${maven.xdoclet.hibernatedoclet.version}" 
+                        arg2="2"
+                />
+            </and>
+        </condition>
+
+    </goal>
+    
+    <!-- ************************************************************************ -->
+    <goal name="prepare" 
+          prereqs="set-build-properties,prepare-directories,prepare-descriptors" 
+          description="Prepares for project building."
+    >
+    </goal>
+    
+    <!-- ************************************************************************ -->
+    <goal name="prepare-directories" 
+          prereqs="set-build-properties" 
+          description="Make project directories."
+    >
+        <!--
+        <echo message="++ mkdir &#34;/${maven.xdoclet.hibernatedoclet.destDir}&#34;"/>
+        <mkdir dir="${maven.xdoclet.hibernatedoclet.destDir}"/>
+        <echo message="++ mkdir &#34;/${maven.build.dir}/hbm&#34;"/>
+        <mkdir dir="${maven.build.dir}/hbm"/>
+        -->
+    </goal>
+    
+    <!-- ************************************************************************ -->
+    <goal name="prepare-descriptors" 
+          prereqs="set-build-properties" 
+          description="Copy descriptor directory to build.home."
+    >
+        <copy todir="${maven.build.dir}/descriptors/hibernate" overwrite="true">
+            <fileset dir="${maven.conf.dir}/hibernate"/>
+        </copy>
+    </goal>
+    
+    <!-- ************************************************************************ -->
+    <goal name="prepare-glweb-property-files" 
+          prereqs="set-build-properties" 
+          description="Copy glweb properties files to maven.build.dir."
+    >
+        <copy todir="${maven.build.dir}/properties" overwrite="true">
+            <fileset dir="${maven.src.java.dir}">
+                <include name="**/*.properties"/>
+            </fileset>
+            <filterset>
+                <filter token="SESSION_FACTORY_TYPE" value="${session.factory.type}"/>
+            </filterset>
+        </copy>
+    </goal>
+    
+    <!-- ************************************************************************ -->
+    <goal name="prepare-hibernate-files" 
+          prereqs="hibernate-prepare-mapping-files,hibernate-replace-config-tokens,hibernate-replace-jdbc-tokens,hibernate-replace-jndi-tokens" 
+          description="Prepare hibernate files for application server, database, and jndi settings."
+    >
+    </goal>
+
+    <!-- ************************************************************************ -->
+    <goal name="hibernate-prepare-mapping-files" 
+          description="Copy and prepare hibernate mapping files for application server, database, and jndi settings."
+    >
+
+        <copy todir="${maven.build.dir}/hbm" overwrite="true">
+            <fileset dir="${maven.src.java.dir}">
+                <include name="**/*.hbm.xml"/>
+            </fileset>
+        </copy>
+
+        <replace dir="${maven.build.dir}" 
+                 token="@DB_LONG_ID_TYPE@" 
+                 value="${db.long.id.type}">
+            <include name="**/*.hbm.xml"/>
+        </replace>
+        
+        <j:if test="${use.hibernate.2}">
+            <replace dir="${maven.build.dir}/hbm">
+                <include name="**/*.hbm.xml"/>
+                <replacefilter token="readonly" value="inverse"/>
+                <replacefilter token="role" value="name"/>
+                <replacefilter token="hibernate-configuration.dtd" 
+                               value="hibernate-configuration-2.0.dtd"
+                />
+                <replacefilter token="hibernate-mapping.dtd" 
+                               value="hibernate-mapping-2.0.dtd"
+                />
+            </replace>
+        </j:if>
+
+    </goal>
+
+    <!-- ************************************************************************ -->
+    <goal name="hibernate-replace-config-tokens" 
+          description="Replace properties of hibernate configuration file for application server, database, and jndi settings."
+    >
+
+        <replace dir="${maven.build.dir}" 
+                 token="@SHOW_SQL@" 
+                 value="${show.sql}">
+            <include name="**/hibernate.cfg.xml"/>
+            <include name="**/hibernate.properties"/>
+        </replace>
+
+        <replace dir="${maven.build.dir}" 
+                 token="@USE_OUTER_JOINS@" 
+                 value="${use.outer.joins}">
+            <include name="**/hibernate.cfg.xml"/>
+            <include name="**/hibernate.properties"/>
+        </replace>
+
+        <replace dir="${maven.build.dir}" 
+                 token="@TRANSACTION_FACTORY_CLASS@" 
+                 value="${transaction.factory.class}">
+            <include name="**/hibernate.cfg.xml"/>
+            <include name="**/hibernate.properties"/>
+        </replace>
+
+        <replace dir="${maven.build.dir}" 
+                 token="@MANAGER_LOOKUP_CLASS@" 
+                 value="${manager.lookup.class}">
+            <include name="**/hibernate.cfg.xml"/>
+            <include name="**/hibernate.properties"/>
+        </replace>
+
+        <replace dir="${maven.build.dir}" 
+                 token="@DIALECT@" 
+                 value="${dialect}">
+            <include name="**/hibernate.cfg.xml"/>
+            <include name="**/hibernate.properties"/>
+        </replace>
+    </goal>
+
+    <!-- ************************************************************************ -->
+    <goal name="hibernate-replace-jdbc-tokens" 
+          prereqs="hibernate-replace-jdbc-tokens-with-datasource,hibernate-replace-jdbc-tokens-with-jdbc" 
+          description="Replace jdbc tokens in hibernate files with appropriate values."
+    >
+    </goal>
+
+
+    <!-- ************************************************************************ -->
+    <goal name="hibernate-replace-jdbc-tokens-with-datasource" 
+          description="Set hibernate files to use a Datasource."
+    >
+        
+        <j:if test="${use.database.datasource}">
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_DATASOURCE@" 
+                     value="&lt;property name=&#34;connection.datasource&#34;&gt;${jdbc.datasource}&lt;&#47;property&gt;">
+                <include name="**/hibernate.cfg.xml"/>
+            </replace>
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_DATASOURCE@" 
+                     value="hibernate.connection.datasource ${jdbc.datasource}">
+                <include name="**/hibernate.properties"/>
+            </replace>
+
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_DRIVER@" 
+                     value="&lt;!--property name=&#34;connection.driver_class&#34;&gt;${jdbc.connection.driver}&lt;&#47;property--&gt;">
+                <include name="**/hibernate.cfg.xml"/>
+            </replace>
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_DRIVER@" 
+                     value="#hibernate.connection.driver_class ${jdbc.connection.driver}">
+                <include name="**/hibernate.properties"/>
+            </replace>
+
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_URL@" 
+                     value="&lt;!--property name=&#34;connection.url&#34;&gt;${jdbc.connection.url}&lt;&#47;property--&gt;">
+                <include name="**/hibernate.cfg.xml"/>
+            </replace>
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_URL@" 
+                     value="#hibernate.connection.url ${jdbc.connection.url}">
+                <include name="**/hibernate.properties"/>
+            </replace>
+
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_USERNAME@" 
+                     value="&lt;!--property name=&#34;connection.username&#34;&gt;${jdbc.connection.username}&lt;&#47;property--&gt;">
+                <include name="**/hibernate.cfg.xml"/>
+            </replace>
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_USERNAME@" 
+                     value="#hibernate.connection.username ${jdbc.connection.username}">
+                <include name="**/hibernate.properties"/>
+            </replace>
+
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_PASSWORD@" 
+                     value="&lt;!--property name=&#34;connection.password&#34;&gt;${jdbc.connection.password}&lt;&#47;property--&gt;">
+                <include name="**/hibernate.cfg.xml"/>
+            </replace>
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_PASSWORD@" 
+                     value="#hibernate.connection.password ${jdbc.connection.password}">
+                <include name="**/hibernate.properties"/>
+            </replace>
+        </j:if>
+
+    </goal>
+
+    <!-- ************************************************************************ -->
+    <goal name="hibernate-replace-jdbc-tokens-with-jdbc" 
+          description="Set hibernate files to use a JDBC Connection."
+    >
+        
+        <j:if test="${use.database.jdbc}">
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_DATASOURCE@" 
+                     value="&lt;!--property name=&#34;connection.datasource&#34;&gt;${jdbc.datasource}&lt;&#47;property--&gt;">
+                <include name="**/hibernate.cfg.xml"/>
+            </replace>
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_DATASOURCE@" 
+                     value="#hibernate.connection.datasource ${jdbc.datasource}">
+                <include name="**/hibernate.properties"/>
+            </replace>
+
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_DRIVER@" 
+                     value="&lt;property name=&#34;connection.driver_class&#34;&gt;${jdbc.connection.driver}&lt;&#47;property&gt;">
+                <include name="**/hibernate.cfg.xml"/>
+            </replace>
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_DRIVER@" 
+                     value="hibernate.connection.driver_class ${jdbc.connection.driver}">
+                <include name="**/hibernate.properties"/>
+            </replace>
+
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_URL@" 
+                     value="&lt;property name=&#34;connection.url&#34;&gt;${jdbc.connection.url}&lt;&#47;property&gt;">
+                <include name="**/hibernate.cfg.xml"/>
+            </replace>
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_URL@" 
+                     value="hibernate.connection.url ${jdbc.connection.url}">
+                <include name="**/hibernate.properties"/>
+            </replace>
+
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_USERNAME@" 
+                     value="&lt;property name=&#34;connection.username&#34;&gt;${jdbc.connection.username}&lt;&#47;property&gt;">
+                <include name="**/hibernate.cfg.xml"/>
+            </replace>
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_USERNAME@" 
+                     value="hibernate.connection.username ${jdbc.connection.username}">
+                <include name="**/hibernate.properties"/>
+            </replace>
+
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_PASSWORD@" 
+                     value="&lt;property name=&#34;connection.password&#34;&gt;${jdbc.connection.password}&lt;&#47;property&gt;">
+                <include name="**/hibernate.cfg.xml"/>
+            </replace>
+            <replace dir="${maven.build.dir}" 
+                     token="@JDBC_CONNECTION_PASSWORD@" 
+                     value="hibernate.connection.password ${jdbc.connection.password}">
+                <include name="**/hibernate.properties"/>
+            </replace>
+        </j:if>
+    </goal>
+
+    <!-- ************************************************************************ -->
+    <goal name="hibernate-replace-jndi-tokens" 
+          prereqs="hibernate-replace-jndi-tokens-with-real,hibernate-replace-jndi-tokens-with-blank" 
+          description="Replace jndi tokens in hibernate files with appropriate values."
+    >
+    </goal>
+
+    <!-- ************************************************************************ -->
+    <goal name="hibernate-replace-jndi-tokens-with-real" 
+          description="Replace jndi tokens in hibernate files with real values."
+    >
+
+        <j:if test="${insert.real.jndi.properties}">
+            <replace dir="${maven.build.dir}" 
+                     token="@JNDI_CLASS@" 
+                     value="&lt;property name=&#34;jndi.class&#34;&gt;${java.naming.factory.initial}&lt;&#47;property&gt;">
+                <include name="**/hibernate.cfg.xml"/>
+            </replace>
+            <replace dir="${maven.build.dir}" 
+                     token="@JNDI_CLASS@" 
+                     value="hibernate.jndi.class ${java.naming.factory.initial}">
+                <include name="**/hibernate.properties"/>
+            </replace>
+
+            <replace dir="${maven.build.dir}" 
+                     token="@JNDI_URL@" 
+                     value="&lt;property name=&#34;jndi.url&#34;&gt;${java.naming.provider.url}&lt;&#47;property&gt;">
+                <include name="**/hibernate.cfg.xml"/>
+            </replace>
+            <replace dir="${maven.build.dir}" 
+                     token="@JNDI_URL@" 
+                     value="hibernate.jndi.url ${java.naming.provider.url}">
+                <include name="**/hibernate.properties"/>
+            </replace>
+        </j:if>
+
+    </goal>
+
+    <!-- ************************************************************************ -->
+    <goal name="hibernate-replace-jndi-tokens-with-blank" 
+          description="Replace jndi tokens in hibernate files with blank values."
+    >
+        
+        <replace dir="${maven.build.dir}" token="@JNDI_CLASS@" value="">
+            <include name="**/hibernate.cfg.xml"/>
+        </replace>
+        <replace dir="${maven.build.dir}" token="@JNDI_CLASS@" value="">
+            <include name="**/hibernate.properties"/>
+        </replace>
+
+        <replace dir="${maven.build.dir}" token="@JNDI_URL@" value="">
+            <include name="**/hibernate.cfg.xml"/>
+        </replace>
+        <replace dir="${maven.build.dir}" token="@JNDI_URL@" value="">
+            <include name="**/hibernate.properties"/>
+        </replace>
+    </goal>
+    
+    <!-- ************************************************************************ -->
+    <goal name="copy-glweb-property-files" 
+          prereqs="prepare, prepare-glweb-property-files" 
+          description="Copy prepared .properties files to maven.build.dest."
+    >
+        <copy todir="${maven.build.dest}" overwrite="true">
+            <fileset dir="${maven.build.dir}/properties">
+                <include name="**/*.properties"/>
+            </fileset>
+        </copy>
+    </goal>
+
+    <!-- ************************************************************************ -->
+    <goal name="copy-hibernate-files" 
+          prereqs="prepare, prepare-hibernate-files" 
+          description="Copy prepared .hbm.xml files to maven.build.dest."
+    >
+        <copy todir="${maven.build.dest}" overwrite="true">
+            <fileset dir="${maven.build.dir}/hbm">
+                <include name="**/*.hbm.xml"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${maven.build.dest}" overwrite="true">
+            <fileset dir="${maven.build.dir}/descriptors/hibernate">
+                <include name="cache.ccf"/>
+                <include name="hibernate.cfg.xml"/>
+                <include name="hibernate.properties"/>
+                <include name="log4j.xml"/>
+            </fileset>
+        </copy>
+
+    </goal>
+
+    <!-- ************************************************************************ -->
+    <goal name="init">
+        <buildnumber/>
+        
+        <tstamp>
+            <format property="TODAY" pattern="yyyy/MM/dd 'at' hh:mm Z" locale="en"/>
+        </tstamp>
+        
+        <echo>+---------------------------------------------------+</echo>
+        <echo>                                                     </echo>
+        <echo>  G L - W E B   P R O J E C T                        </echo>
+        <echo>                                                     </echo>
+        <echo>+---------------------------------------------------+</echo>
+        <echo>                                                     </echo>
+        <echo>  Build : ${build.number}                            </echo>
+        <echo>  Date  : ${TODAY}                                   </echo>
+        <echo>                                                     </echo>
+        <echo>+---------------------------------------------------+</echo>
+    </goal>
+    
+    <!-- ************************************************************************ -->
+    <preGoal name="java:prepare-filesystem">
+        <mkdir dir="${maven.build.dir}/webapp"/>
+    </preGoal>
+    
+    <!-- ************************************************************************ -->
+    <postGoal name="java:prepare-filesystem">
+        <ant antfile="maven-xdoclet.xml" target="prepare-src" inheritRefs="true"/>
+        
+        <attainGoal name="copy-hibernate-files"/>
+        
+        <attainGoal name="copy-glweb-property-files"/>
+    </postGoal>
+
+    <!-- ************************************************************************ -->
+    <goal name="prepare-web">
+        <copy todir="${maven.build.dir}/webapp">
+            <fileset dir="${maven.war.src}"/>
+        </copy>
+        
+        <copy todir="${maven.build.dir}/webapp/WEB-INF">
+            <fileset dir="${maven.conf.dir}">
+                <include name="*.xml"/>
+            </fileset>
+        
+            <fileset dir="${maven.xdoclet.webdoclet.destDir}">
+                <exclude name="${maven.war.webxml}"/>
+            </fileset>
+        </copy>
+        
+        <copy todir="${maven.build.dir}/webapp/WEB-INF/tlds">
+            <fileset dir="${maven.src.tlds.dir}"/>
+        </copy>
+        
+        <copy todir="${maven.build.dir}/webapp/WEB-INF/lib" flatten="true">
+            <fileset id="war.bundle.jars" dir="${maven.repo.local}">
+                <include name="commons-beanutils/jars/commons-beanutils-1.5.jar"/>
+                <include name="commons-collections/jars/commons-collections-2.1.jar"/>
+                <include name="commons-lang/jars/commons-lang-1.0.1.jar"/>
+                <include name="commons-logging/jars/commons-logging-1.1-dev.jar"/>
+                <include name="commons-validator/jars/commons-validator-1.0.1.jar"/>
+                <include name="log4j/jars/log4j-1.2.8.jar"/>
+                <include name="struts/jars/struts-1.1-rc1.jar"/>
+                <include name="hibernate/jars/hibernate-2.0-rc1.jar"/>
+                <include name="jcs/jars/jcs-1.0-dev.jar"/>
+                <include name="cglib/jars/cglib-SNAPSHOT.jar"/>
+                <include name="odmg/jars/odmg-3.0.jar"/>
+                <include name="dom4j/jars/dom4j-1.4.jar"/>
+            </fileset>
+            <fileset dir="${maven.build.dir}">
+                <include name="${maven.final.name}.jar"/>
+            </fileset>
+        </copy>
+
+    </goal>
+    
+    <!-- ************************************************************************ -->
+    <goal name="glweb:war" prereqs="init, clean, jar, cactus:compile, prepare-web">
+    
+        <echo>maven.cactus.classes.dir = ${maven.cactus.classes.dir}</echo>
+        
+        <war destfile="${maven.build.dir}/${maven.war.file}" 
+             webxml="${maven.xdoclet.webdoclet.destDir}/${maven.war.webxml}">
+            
+            <fileset dir="${maven.build.dir}/webapp"/>
+
+            <classes dir="${maven.cactus.classes.dir}"/>
+        
+        </war> 
+
+    </goal>
+    
+    <!-- ************************************************************************ -->
+    <goal name="glweb:install" prereqs="glweb:war">
+        <copy todir="${maven.install.dir}" 
+              file="${maven.build.dir}/${maven.war.file}"
+        />
+    </goal>
+    
+    <!-- ************************************************************************ -->
+    <goal name="glweb:test" prereqs="glweb:install">
+        <ant antfile="maven-test.xml" target="test.jboss.3X" inheritRefs="true"/>
+    </goal>
+    
+    <!-- ************************************************************************ -->
+    <goal name="set-process-in-createdb">
+        <property name="process.in.createdb" value="true"/>
+    </goal> 
+    
+    <!-- ************************************************************************ -->
+    <goal name="glweb:createdb" 
+          prereqs="clean, java:compile"
+          description="Generate Database via Hibernate"
+    >
+        
+        <pathconvert refid="hibernate.mapping.files" 
+                     property="hibernate.mappings" 
+                     pathsep=" "
+        />
+        
+        <java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+            <arg line="${hibernate.mappings}"/>
+            <classpath>
+                <pathelement path="${maven.build.dest}"/>
+                <path refid="maven.dependency.classpath"/>
+            </classpath>
+        </java>
+    </goal>
+
+    <!-- ************************************************************************ -->
+    <goal name="glweb:site-clean">
+        <ftp action="del"
+             server="${maven.deploy.site.address}"
+             userid="${maven.deploy.site.username}"
+             password="${maven.deploy.site.password}">
+    
+           <fileset>
+               <include name="**/*"/>
+           </fileset>
+        </ftp>
+    </goal> 
+    
+    <!-- ************************************************************************ -->
+    <goal name="glweb:site-deploy" 
+          prereqs="glweb:site-clean, site:generate, glweb:site-ftp"
+    >
+    </goal>
+    
+    <!-- ************************************************************************ -->
+    <goal name="glweb:site-deploy-without-clean" 
+          prereqs="site:generate, glweb:site-ftp"
+    >
+    </goal>
+    
+    <!-- ************************************************************************ -->
+    <goal name="glweb:site-ftp" prereqs="glweb:site-clean">
+        <ftp server="${maven.deploy.site.address}"
+                  userid="${maven.deploy.site.username}"
+                  password="${maven.deploy.site.password}"
+                  verbose="yes"
+        >
+            
+            <fileset dir="${maven.docs.dest}"/>
+        
+        </ftp>
+    </goal>
+
+</project>

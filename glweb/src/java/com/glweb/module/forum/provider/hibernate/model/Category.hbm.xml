@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+
+<hibernate-mapping>
+    
+    <class name="com.glweb.module.forum.model.Category" table="FORUM_CATEGORY">
+        
+        <jcs-cache usage="read-write"/>
+
+        <id name="id" type="long" column="ID">
+            <generator class="@DB_LONG_ID_TYPE@"/>
+        </id>
+
+        <property name="name" column="NAME" type="string" not-null="true"/>
+        <property name="description" column="DESCRIPTION" type="string" not-null="true"/>
+        <property name="creationDate" column="CREATION_DATE" type="timestamp" not-null="true"/>
+        <property name="modifiedDate" column="MODIFIED_DATE" type="timestamp" not-null="true"/>
+        
+        <many-to-one name="parentCategory" column="PARENT_CATEGORY_ID"
+                     class="com.glweb.module.forum.model.Category"
+        />
+        
+        <set name="childrenCategories" cascade="all">
+            <key column="PARENT_CATEGORY_ID"/>
+            <one-to-many class="com.glweb.module.forum.model.Category"/>
+        </set>
+
+        <set name="moderators" table="FORUM_MODERATORS" cascade="none" lazy="true">
+            <key column="CATEGORY_ID"/>
+            <many-to-many column="MODERATOR_ID" class="com.glweb.module.member.model.User"/>
+        </set>
+
+        <set name="messages" cascade="all" lazy="true">
+            <key column="CATEGORY_ID"/>
+            <one-to-many class="com.glweb.module.forum.model.Message"/>
+        </set>
+    </class>
+        
+    <query name="forum.model.Category.findRootCategories"><![CDATA[
+        select category from category in class com.glweb.module.forum.model.Category
+        where category.parentCategory is null
+    ]]></query>
+        
+</hibernate-mapping>

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.glweb.module.forum.model.Message" table="FORUM_MESSAGE">
+
+        <jcs-cache usage="read-write"/>
+        
+        <id name="id" type="long" column="ID">
+            <generator class="@DB_LONG_ID_TYPE@"/>
+        </id>
+
+        <many-to-one name="poster" column="POSTER" cascade="none" not-null="true"
+                     class="com.glweb.module.member.model.User"
+        />
+        
+        <property name="creationDate" column="CREATION_DATE" type="timestamp" not-null="true"/>
+        <property name="modifiedDate" column="MODIFIED_DATE" type="timestamp" not-null="true"/>
+        <property name="subject" column="SUBJECT" type="string" not-null="true"/>
+        <property name="message" column="MESSAGE" type="string" length="8000" not-null="true"/>
+
+        <many-to-one name="category" column="CATEGORY_ID" cascade="none" not-null="true" 
+                     class="com.glweb.module.forum.model.Category"
+        />
+
+        <set name="replyMessages" table="FORUM_PARENT_REPLY_MESSAGES" 
+             inverse="false" cascade="none"
+        >
+            <key column="PARENT_MESSAGE_ID"/>
+            <many-to-many column="REPLY_MESSAGE_ID" 
+                          class="com.glweb.module.forum.model.Message"
+            />
+        </set>
+
+        <set name="parentMessages" table="FORUM_PARENT_REPLY_MESSAGES" 
+             inverse="false" cascade="none"
+        >
+            <key column="REPLY_MESSAGE_ID"/>
+            <many-to-many column="PARENT_MESSAGE_ID" 
+                          class="com.glweb.module.forum.model.Message"
+            />
+        </set>
+    </class>        
+    
+    <query name="forum.model.Message.findMessagesByCategoryId"><![CDATA[
+        select distinct message from message in class com.glweb.module.forum.model.Message
+        where message.category = :categoryId
+    ]]></query>
+
+</hibernate-mapping>

@@ -1,0 +1,12 @@
+<!--
+ $Id: struts-forms.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ $Revision: 1.1 $
+ $Date: 2003/05/10 11:41:13 $
+ $Author: paxson $
+-->
+
+<form-bean name="helloForm"
+           type="org.apache.struts.action.DynaActionForm">
+    <form-property name="action" type="java.lang.String"/>
+    <form-property name="name" type="java.lang.String"/>
+</form-bean>

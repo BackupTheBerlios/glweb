@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+       
+<!--
+ $Id: tiles-defs.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+-->
+
+<!-- Definitions for Tiles documentation   -->
+<tiles-definitions>
+
+  <!-- ========================================================== -->
+  <!-- Master definition                                          -->
+  <!-- ========================================================== -->
+  <!-- Main page layout used as a root for other page definitions -->
+
+  <definition name="rootLayout" path="/tiles-layouts/rootLayout.jsp">
+	  <put name="titleString"   value="Tiles Blank Site" />
+      <put name="header"        value="/tiles-components/header.jsp"/>
+      <put name="search"        value="/tiles-components/search.jsp"/>
+      <put name="left"          value="/tiles-components/left.jsp"/>
+      <put name="middle"        value="/tiles-components/news.jsp"/>
+      <put name="footer"        value="/tiles-components/footer.jsp"/>
+  </definition>
+  
+  <definition name="tile.index" extends="rootLayout">
+	  <put name="titleString"   value="Hello Form"/>
+	  <put name="middle"        value="/hello/hello.jsp"/>
+  </definition>
+
+  <!-- ========================================================== -->
+  <!-- Hello page definition                                      -->
+  <!-- ========================================================== -->
+  
+  <definition name="tile.hello.input" extends="rootLayout">
+	  <put name="titleString"         value="Hello Form"/>
+	  <put name="middle"              value="/hello/hello.jsp"/>
+  </definition>
+
+  <definition name="tile.hello.success" extends="rootLayout">
+	  <put name="titleString"           value="Hello Success"/>
+	  <put name="middle"                value="/hello/helloSuccess.jsp"/>
+  </definition>
+  
+  <definition name="tile.hello.cancel" extends="rootLayout">
+	  <put name="titleString"          value="Hello Cancel"/>
+	  <put name="middle"               value="/hello/helloCancel.jsp"/>
+  </definition>
+
+</tiles-definitions>
+

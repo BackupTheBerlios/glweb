@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ $Id: maven-xdoclet.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+-->
+
+<project name="glweb-xdoclet" default="jar" basedir=".">
+
+    <!-- ************************************************************************ -->
+    <path id="project.class.path">
+        <fileset dir="${xdoclet.lib.dir}">
+            <include name="*.jar"/>
+        </fileset>
+        
+        <fileset dir="${commons-beanutils.lib.dir}">
+            <include name="commons-beanutils-1.5.jar"/>
+        </fileset>
+        
+        <fileset dir="${commons-collections.lib.dir}">
+            <include name="commons-collections-2.1.jar"/>
+        </fileset>
+        
+        <fileset dir="${commons-logging.lib.dir}">
+            <include name="commons-logging-1.1-dev.jar"/>
+        </fileset>
+        
+        <fileset dir="${servletapi.lib.dir}">
+            <include name="servletapi-2.3.jar"/>
+        </fileset>
+        
+        <fileset dir="${struts.lib.dir}">
+            <include name="struts-1.1-rc1.jar"/>
+        </fileset>
+    </path>
+
+    <!-- ************************************************************************ -->
+    <target name="init">
+        <taskdef name="xdoclet"
+                 classname="xdoclet.DocletTask"
+                 classpathref="project.class.path"
+        />
+        
+        <taskdef name="webdoclet"
+                 classname="xdoclet.modules.web.WebDocletTask"
+                 classpathref="project.class.path"
+        />
+    </target>
+
+    <!-- ************************************************************************ -->
+    <target name="prepare" depends="init">
+    </target>
+
+    <!-- ************************************************************************ -->
+    <target name="webdoclet" depends="prepare">
+
+        <echo>+---------------------------------------------------+</echo>
+        <echo>|                                                   |</echo>
+        <echo>| R U N N I N G   W E B D O C L E T                 |</echo>
+        <echo>|                                                   |</echo>
+        <echo>+---------------------------------------------------+</echo>
+
+        <webdoclet destdir="${maven.xdoclet.webdoclet.destDir}"
+                   mergedir="${maven.xdoclet.merge.dir}"
+                   excludedtags="@version,@author,@todo"
+                   addedtags="@xdoclet-generated at ${TODAY},@copyright The XDoclet Team,@author XDoclet,@version ${version}"
+                   force="${maven.xdoclet.force}"
+                   verbose="${maven.xdoclet.verbose}">
+
+            <fileset dir="${maven.src.java.dir}">
+                <include name="**/*Servlet.java"/>
+                <include name="**/*Filter.java"/>
+                <include name="**/*Tag.java"/>
+                <include name="**/*Action.java"/>
+                <include name="**/*Form.java"/>
+            </fileset>
+
+            <deploymentdescriptor servletspec="2.3"
+                                  destdir="${maven.xdoclet.webdoclet.destDir}">
+
+                <!--
+                <taglib uri="http://java.sun.com/jstl/ea/core"
+                        location="/WEB-INF/c.tld"
+                />
+                -->
+
+            </deploymentdescriptor>
+
+            <strutsconfigxml destdir="${maven.xdoclet.webdoclet.destDir}" version="1.1"/>
+
+            <!--
+            <jsptaglib jspversion="1.2"
+                       destdir="${maven.xdoclet.webdoclet.destDir}"
+                       shortname="j2ee"
+                       validateXml="false"
+            />
+
+            <jbosswebxml destdir="${maven.xdoclet.webdoclet.destDir}"/>
+
+            <jrunwebxml destdir="${maven.xdoclet.webdoclet.destDir}" 
+                        mergedir="${maven.xdoclet.merge.dir}"/>
+
+            <weblogicwebxml destdir="${maven.xdoclet.webdoclet.destDir}"
+                            contextRoot="/project"
+                            validateXml="true"
+            />
+
+            <webWorkConfigProperties/>
+
+            <webWorkActionDocs javadocdir="api" mergedir="${maven.xdoclet.merge.dir}"/>
+            -->
+
+        </webdoclet>
+    </target>
+
+    <!-- ************************************************************************ -->
+    <target name="prepare-src" depends="webdoclet"/>
+
+</project>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.glweb.module.member.model.User" table="USER">
+
+        <jcs-cache usage="read-write"/>
+		
+        <id name="id" type="long" column="ID">
+            <generator class="@DB_LONG_ID_TYPE@"/>
+        </id>
+
+        <property name="name" column="NAME" not-null="true" unique="true"
+                  type="java.lang.String" 
+        />
+
+    </class>
+    
+    <query name="member.model.User.findAll"><![CDATA[
+        from user in class com.glweb.module.member.model.User
+    ]]></query>
+    
+    <query name="member.model.User.findByName"><![CDATA[
+        from user in class com.glweb.module.member.model.User
+        where user.name = :name
+    ]]></query>
+
+</hibernate-mapping>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ $Id: maven-test.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+-->
+
+<project name="glweb-test" default="test.jboss.3X" basedir=".">
+
+    <!-- ************************************************************************ -->
+    <path id="project.class.path">
+        <fileset dir="${aspectj.lib.dir}">
+            <include name="aspectjrt-1.0.6.jar"/>
+        </fileset>
+    
+        <fileset dir="${cactus.lib.dir}">
+            <include name="cactus-ant-1.4.1.jar"/>
+            <include name="cactus-framework-13-1.5dev-20030322.jar"/>
+        </fileset>
+    
+        <fileset dir="${commons-beanutils.lib.dir}">
+            <include name="commons-beanutils-1.5.jar"/>
+        </fileset>
+        
+        <fileset dir="${commons-collections.lib.dir}">
+            <include name="commons-collections-2.1.jar"/>
+        </fileset>
+        
+        <fileset dir="${commons-lang.lib.dir}">
+            <include name="commons-lang-1.0.1.jar"/>
+        </fileset>
+        
+        <fileset dir="${commons-logging.lib.dir}">
+            <include name="commons-logging-1.1-dev.jar"/>
+        </fileset>
+        
+        <fileset dir="${commons-httpclient.lib.dir}">
+            <include name="commons-httpclient-2.0-alpha2.jar"/>
+        </fileset>
+        
+        <fileset dir="${hibernate.lib.dir}">
+            <include name="hibernate-2.0-b2.jar"/>
+        </fileset>
+        
+        <fileset dir="${jcs.lib.dir}">
+            <include name="jcs-1.0-dev.jar"/>
+        </fileset>
+        
+        <fileset dir="${servletapi.lib.dir}">
+            <include name="servletapi-2.3.jar"/>
+        </fileset>
+        
+        <fileset dir="${struts.lib.dir}">
+            <include name="struts-1.1-rc1.jar"/>
+        </fileset>
+        
+        <fileset dir="${maven.build.dir}">
+            <include name="${maven.final.name}.jar"/>
+        </fileset>
+    </path>
+
+    <!-- ************************************************************************ -->
+    <target name="init">
+        <taskdef name="runservertests" 
+                 classname="org.apache.cactus.ant.RunServerTestsTask"
+                 classpathref="maven.dependency.classpath"
+        />
+    </target> 
+
+    <!-- ************************************************************************ -->
+    <target name="test.jboss.3X" depends="init" description="Run tests on JBoss 3.X">
+
+        <!-- Start the servlet engine, wait for it to be started, run the
+             unit tests, stop the servlet engine, wait for it to be stopped.
+             The servlet engine is stopped if the tests fail for any reason -->
+
+        <runservertests testURL="http://localhost:8080/glweb/ServletRedirector?Cactus_Service=RUN_TEST"
+                        startTarget="start.jboss.3X"
+                        stopTarget="stop.jboss.3X"
+                        testTarget="test"
+        />
+
+    </target>
+    
+    <!-- ************************************************************************ -->
+    <target name="start.jboss.3X">
+
+        <!--
+        <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
+            <jvmarg value="-Dcatalina.home=${jboss.home.3X}"/>
+            <jvmarg value="-Dcatalina.base=${target.tomcat40.dir}"/>
+            <arg value="start"/>
+            <classpath>
+                <fileset dir="${jboss.home.3X}">
+                    <include name="bin/bootstrap.jar"/>
+                </fileset>
+            </classpath>
+        </java>
+        -->
+
+    </target> 
+    
+    <!-- ************************************************************************ -->
+    <target name="test">
+
+        <junit printsummary="yes" haltonfailure="yes" haltonerror="yes" fork="yes">
+
+            <classpath>
+                <!-- Cactus.propertie and log_client.properties need to be in
+                     the classpath -->
+                <!--
+                <pathelement location="${target.conf.dir}"/>
+                -->
+                <pathelement location="${maven.cactus.classes.dir}"/>
+                <pathelement path="maven.dependency.classpath"/>
+            </classpath>
+
+            <formatter type="xml"/>
+            <formatter type="plain" usefile="false"/>
+            <test name="com.glweb.system.user.AllTests"/>
+
+        </junit>
+
+    </target> 
+    
+    <!-- ************************************************************************ -->
+    <target name="stop.jboss.3X">
+
+        <!--
+        <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
+            <jvmarg value="-Dcatalina.home=${tomcat.home.40}"/>
+            <jvmarg value="-Dcatalina.base=${target.tomcat40.dir}"/>
+            <arg value="stop"/>
+            <classpath>
+                <fileset dir="${tomcat.home.40}">
+                    <include name="bin/bootstrap.jar"/>
+                </fileset>
+            </classpath>
+        </java>
+        -->
+
+    </target> 
+
+</project>
+

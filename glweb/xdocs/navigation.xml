@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ $Id: navigation.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+-->
+
+<project name="Glweb">
+
+  <title>Glweb</title>
+
+  <body>
+    <menu name="Overview">
+      <item name="Introduction"            href="/index.html"/>
+      <item name="News and Status"         href="/status.html"/>
+      <item name="Changes"                 href="/changes.html"/>
+      <item name="Reference"               href="/reference/index.html" collapse="true">
+        <item name="Developer Guide"       href="/reference/developer-guide.html"/>
+        <item name="Project Layout"        href="/reference/dirlayout.html"/>
+      </item>
+      <item name="Tasks"                   href="/tasks.html"/>
+    </menu>
+  </body>
+</project>

@@ -1,0 +1,14 @@
+<!--
+ $Id: filter-mappings.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ $Revision: 1.1 $
+ $Date: 2003/05/10 11:41:13 $
+ $Author: paxson $
+-->
+
+<!-- SetCharacterEncoding Filter Mapping -->
+<!--
+<filter-mapping>
+    <filter-name>Set Character Encoding</filter-name>
+    <servlet-name>action</servlet-name>
+</filter-mapping>
+-->

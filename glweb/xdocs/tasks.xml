@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ $Id: tasks.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+-->
+
+<document>
+
+  <properties>
+    <title>Tasks</title>
+    <author email="paxson@mail.siwi.com.tw.com">Paxson Yang</author>
+  </properties>
+
+  <body>
+    <section name="Tasks">
+      <p>
+      </p>
+
+      <subsection name="Beta 9">
+        <p>
+          Try to fix as many issues as possible and get the documentation up to scratch. We
+          are going to try and get this release out sooner rather than later.
+        </p>
+
+        <p>
+          <ul>
+            <li>
+              Plugins must have tests. There are a couple of plugins that are busted
+              because it's not possible to test them by hand. We need to
+              create a mechanism for test them for real reliablility. Velocity
+              was removed from the Maven core and as a result many Plugins are
+              now busted. Users will need HEAD for some plugins to work which
+              is not good.
+            </li>
+          </ul>
+        </p>
+       </subsection>
+
+
+      <subsection name="Beta 10">
+        <p>
+          <ul>
+            <li>
+              Implement arbitrary artifact type handling. Michal Maczka (Mmaczka@cqs.ch)
+              had a very good solution but we didn't get around to getting it
+              in. Sorry about that Michal, please be patient.
+            </li>
+            <li>
+              Switch to classworlds to allow real isolation in plugins and real
+              embedding of Maven in client applications. This will all revolve around
+              allowing a ClassWorld to be initialized with MavenSession. We would truly
+              like to decouple MavenSession from the CLI front-end. Possibly using a
+              system property to pass in a set of JARs to populate the initial ClassWorld.
+              From there we can create child ClassWorlds for the plugins to execute in.
+            </li>
+            <li>
+              Add the use of checksums in the verification process. Throw an
+              ArtifactCorruptionException when the artifact cannot be
+              verified against the checksum. This mechanism has been implmented, but
+              we were having problems getting the checksums up to ibiblio reliably. We need
+              to thoroughly test the Jelly script that we are using for deployment and we
+              could probably also do with the shell scripts that can be run periodically
+              on repositories to make sure the checksums are valid.
+            </li>
+            <li>
+              Release vs HEAD website (so the inconsistencies we have in our
+              current situation can be alleviated. This is a real problem that needs
+              to be solved. We simply need a way to flag an incremental HEAD site
+              update as opposed to a release update.
+            </li>
+            <li>
+              Addition of POM entries to allow anonymous checkout
+            </li>
+            <li>
+              Test the http auth mode for repositories. Code is there just haven't
+              tried it.
+            </li>
+          </ul>
+        </p>
+      </subsection>
+
+      <subsection name="Unassigned">
+        <p>
+          <ul>
+            <li>
+              Roadmap document. (jvz)
+            </li>
+            <li>
+              Write proposal for globally distributed JAR repository and distribution
+              repository. There are definite things to be learned from the Perl folks.(jvz)
+            </li>
+            <li>
+              Need to restructure the mailing lists and object model so
+              that we can easily select the dev mailing list for continuous
+              integration problems. discovered when trying to apply the
+              nag feature of gump.
+            </li>
+            <li>
+              Status document (weekly report type thing).
+            </li>
+            <li>
+              Add maven:plugin-list target to list all known plugins from
+              remote repos. Each repo may optionally provide a plugins.list
+              file similar to the jars.list. A plugin is packaged as a jar file.
+            </li>
+            <li>
+              How to generally deal with example code and where it belongs
+              in the source tree and how it should be package in the
+              distribution.
+            </li>
+            <li>
+              Release generated page based on the distribution directory and some
+              standard text. just looking at things that can be culled from
+              the turbine site.
+            </li>
+            <li>
+              Same with the 'how do i contribute' blurb at the bottom of the t2
+              pages. those can be generated.
+            </li>
+            <li>
+              A little report displaying the use of dev JARs as opposed to
+              using released versions of products. Encourage projects to
+              try and use released versions of JARs.
+            </li>
+            <li>
+              Need a way to transform a POM across multiple versions
+              of Maven. For any number of reasons a project may decide to
+              hold back on upgrading Maven immediately and we need to make
+              sure that users can move safely upgrade across N versions.
+            </li>
+          </ul>
+        </p>
+      </subsection>
+    </section>
+
+    <section name="Complete">
+      <p>
+        <ul>
+          <li>
+            JXR task needs to be modified so that XML is produced so that it
+            can be transformed to into something that looks better.
+          </li>
+          <li>
+            Formalize how jarResources elements are moved from the project
+            directory layout into the classpath for testing and into the JAR
+            that is packaged with the distribution.
+          </li>
+          <li>
+            Generate xdoc from LICENSE.txt to show the project license and
+            then link to it from the project info menu. Suggestion by Markus
+            May that sounds good.
+          </li>
+          <li>
+            Add support for the various coding specifications so that those properties
+            can be applied to things like checkstyle and to create a document
+            outlining the coding specification.
+          </li>
+          <li>
+            Maven:deploy-dist needs to work. (jvz)
+          </li>
+          <li>
+            Snapshot JARs need to be used for all versions of JARs that
+            aren't released. So we can get rid of the update-jars
+            functionalility.
+          </li>
+          <li>
+            Minimal reactor. This includes the dep graph, central repository
+            of deps and all that jazz.
+          </li>
+          <li>
+            POM inheritence mechanism. Will wait for the switch to betwixt.
+          </li>
+          <li>
+            Generation of a standard build.xml file.
+          </li>
+          <li>
+            Script execution. Remove the requirement of the Ant execution
+            environment. Along with this we'll get the exception handling
+            we've been looking for.
+          </li>
+          <li>
+            See if jxr can be configured to only generate one file.gif and
+            folder.gif, rather than one per source folder (dIon)
+          </li>
+          <li>
+            xref produces cross references for &amp;lt;sourceDirectories&amp;gt; and
+            &amp;lt;testSourceDirectories&amp;gt;. javadoc produces html for
+            &amp;lt;sourceDirectories&amp;gt; only.
+          </li>
+          <li>
+            When we are dealing with non-distributable JARs we may have to
+            give the user some additional info like telling them they have
+            to rename a JAR. So add another field which would contain a
+            message blurb to display to the user in these cases.
+          </li>
+          <li>
+            A process for moving things from the task list to a list of items
+            completed so they can be listed in documentation for a release
+            automatically.
+          </li>
+          <li>
+            Schema for project.xml (jvz)
+          </li>
+          <li>
+            Maven POM updater: a reliable way to transform the project.xml file when
+            changes are made. The coming changes to specification of tests will
+            change the structure of the project.xml file and it should be easy
+            for users to absorb these changes. They need to be notified, allowed
+            to choose the changes when they wish and have the changes
+            transparently applied.
+          </li>
+          <li>
+            Make a document that displays the list of currently registered
+            projects.
+          </li>
+          <li>
+            Add a maven:xml-validate target which will validate all xml source
+            against it's DTD (if present). Will most likely need a new element
+            in project.xml (&amp;lt;xmlSourceDirectories&amp;gt;) similar to source
+            directories. Any directory listed in an &amp;lt;xmlSourceDirectory&amp;gt;
+            will be validated.
+          </li>
+        </ul>
+      </p>
+    </section>
+
+  </body>
+</document>

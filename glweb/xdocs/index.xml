@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ $Id: index.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+-->
+
+<document>
+
+  <properties>
+    <title>Introduction</title>
+    <author email="paxson@mail.siwi.com.tw.com">Paxson Yang</author>
+  </properties>
+
+  <body>
+
+    <section name="Introduction">
+      <p>
+        Torque is a persistence layer. Torque includes a <a href="generator">
+        generator</a> to generate all the database
+        resources required by your application and includes a runtime
+        environment to run the generated classes.
+      </p>
+
+      <subsection name="Vision">
+        <p>
+          Torque uses a single XML database schema to generate the SQL for
+          your target database and Torque's Peer-based object relation model
+          representing your XML database schema. Additionally, an HTML document
+          describing the database can be generated if you wish to make a
+          browseable version of the database schema.
+        </p>
+      </subsection>
+    </section>
+
+  </body>
+</document>

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-2.0.dtd">
+
+<!--
+ $Id: hibernate.cfg.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+-->
+
+<hibernate-configuration>
+    @JNDI_CLASS@
+    @JNDI_URL@
+
+    <!-- a SessionFactory instance for JLCP -->
+    <session-factory name="/glweb/hibernate/SessionFactory">
+        <!-- Database Properties -->
+        <property name="show_sql">@SHOW_SQL@</property>
+        <property name="use_outer_join">@USE_OUTER_JOINS@</property>
+
+        <!-- Transaction Factory Class -->
+        <property name="transaction.factory_class">@TRANSACTION_FACTORY_CLASS@</property>
+
+        <!-- JTA Transaction Manager Lookup Class -->
+        <property name="transaction.manager_lookup_class">@MANAGER_LOOKUP_CLASS@</property>
+
+        <!-- Database Connection for JLCP Hibernate Session Factory -->
+        @JDBC_DATASOURCE@
+        @JDBC_CONNECTION_DRIVER@
+        @JDBC_CONNECTION_URL@
+        @JDBC_CONNECTION_USERNAME@
+        @JDBC_CONNECTION_PASSWORD@
+
+        <!-- Database Dialect -->
+        <property name="dialect">@DIALECT@</property>
+
+        <!-- mapping files -->
+        <mapping resource="com/glweb/module/forum/provider/hibernate/model/Category.hbm.xml"/>
+        <mapping resource="com/glweb/module/forum/provider/hibernate/model/Message.hbm.xml"/>
+        <mapping resource="com/glweb/module/member/provider/hibernate/model/User.hbm.xml"/>
+
+    </session-factory>
+
+</hibernate-configuration>

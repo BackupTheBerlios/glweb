@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!--
+ $Id: log4j.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+-->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+                     threshold="debug"
+                     debug="true">
+        
+  <appender name="appender" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <!--
+      <param name="ConversionPattern" value="%d [%t] %-5p %c - %m%n"/>
+      -->
+      <param name="ConversionPattern" value="%d [%t] %-5p %c{2} - %m%n"/>
+    </layout>
+  </appender>
+
+  <root>
+    <priority value ="debug"/>
+    <appender-ref ref="appender"/>
+  </root>
+
+</log4j:configuration>
+    
