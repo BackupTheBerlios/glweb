@@ -9,11 +9,9 @@ package com.glweb.module.member;
 import java.util.Collection;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.apache.cactus.ServletTestCase;
-
-import com.glweb.module.member.MembershipManager;
 import com.glweb.module.member.model.User;
 import com.glweb.module.member.model.UserProfile;
 
@@ -23,7 +21,7 @@ import com.glweb.module.member.model.UserProfile;
  * To change this generated comment go to 
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
-public class MembershipManagerTest extends ServletTestCase{
+public class MembershipManagerTest extends TestCase{
 
 	private long m_userA_Id ;
 	private long m_userB_Id ;

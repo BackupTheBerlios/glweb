@@ -1,6 +1,6 @@
 /*
  *
- * $Id: ForumManagerTest.java,v 1.2 2003/05/12 09:36:54 paxson Exp $
+ * $Id: ForumManagerTest.java,v 1.1 2003/09/18 06:54:56 paxson Exp $
  *
  * Copyright (c) 2003 SIWI.com
  *
@@ -32,10 +32,9 @@ import java.util.List;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.apache.cactus.ServletTestCase;
-
 import net.sf.hibernate.Hibernate;
 
+import com.glweb.AbstractTestCase;
 import com.glweb.module.forum.model.Category;
 import com.glweb.module.forum.model.Message;
 
@@ -43,9 +42,9 @@ import com.glweb.module.forum.model.Message;
  * ForumManagerTest
  *
  * @author   $Author: paxson $
- * @version  $Revision: 1.2 $ $Date: 2003/05/12 09:36:54 $
+ * @version  $Revision: 1.1 $ $Date: 2003/09/18 06:54:56 $
  */
-public class ForumManagerTest extends ServletTestCase {
+public class ForumManagerTest extends AbstractTestCase {
 
     public ForumManagerTest(String name) {
         super(name);

@@ -1,6 +1,6 @@
 /*
  *
- * $Id: JUnitForumHelper.java,v 1.4 2003/06/03 01:51:17 paxson Exp $
+ * $Id: JUnitForumHelper.java,v 1.1 2003/09/18 06:54:56 paxson Exp $
  *
  * Copyright (c) 2003 SIWI.com
  *
@@ -42,7 +42,7 @@ import com.glweb.module.member.model.User;
  * JUnitForumHelper
  *
  * @author   $Author: paxson $
- * @version  $Revision: 1.4 $ $Date: 2003/06/03 01:51:17 $
+ * @version  $Revision: 1.1 $ $Date: 2003/09/18 06:54:56 $
  */
 public class JUnitForumHelper {
 

@@ -1,6 +1,6 @@
 /*
  *
- * $Id: AllTests.java,v 1.2 2003/05/17 10:16:53 kocachen Exp $
+ * $Id: AllTests.java,v 1.1 2003/09/18 06:54:56 paxson Exp $
  *
  * Copyright (c) 2003 SIWI.com
  *
@@ -25,7 +25,7 @@
  *
  */
 
-package com.glweb.module.member;
+package com.glweb.module.forum;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -34,16 +34,16 @@ import junit.framework.TestSuite;
 /**
  * AllTests
  *
- * @author   $Author: kocachen $
- * @version  $Revision: 1.2 $ $Date: 2003/05/17 10:16:53 $
+ * @author   $Author: paxson $
+ * @version  $Revision: 1.1 $ $Date: 2003/09/18 06:54:56 $
  */
 public class AllTests {
 
     public static Test suite() {
-        TestSuite _suite = new TestSuite("Test for com.glweb.module.user");
+        TestSuite _suite = new TestSuite("Test for com.glweb.module.forum");
         
         //$JUnit-BEGIN$
-        _suite.addTest(MembershipManagerTest.suite());
+        _suite.addTest(ForumManagerTest.suite());
         //$JUnit-END$
         
         return _suite;
