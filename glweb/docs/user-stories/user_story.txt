@@ -17,6 +17,8 @@ Hint:
 
   [論壇主頁]  #page111.html#
   1. 右上方網頁功能連結. GL.COM | 會員登入 | 熱門文章 | 搜尋
+    1.0 (這一行是測試中文)
+
     1.1 (GL.COM)
         link 至 http://www.gl.com.tw
  
