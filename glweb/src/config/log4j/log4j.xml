@@ -2,14 +2,15 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 
 <!--
- $Id: log4j.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ $Id: log4j.xml,v 1.2 2003/05/23 10:10:38 paxson Exp $
 -->
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
                      threshold="debug"
-                     debug="true">
+                     debug="true"
+>
         
-  <appender name="appender" class="org.apache.log4j.ConsoleAppender">
+  <appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
     <layout class="org.apache.log4j.PatternLayout">
       <!--
       <param name="ConversionPattern" value="%d [%t] %-5p %c - %m%n"/>
@@ -19,8 +20,8 @@
   </appender>
 
   <root>
-    <priority value ="debug"/>
-    <appender-ref ref="appender"/>
+    <level value ="debug"/>
+    <appender-ref ref="consoleAppender"/>
   </root>
 
 </log4j:configuration>
