@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- $Id: project.xml,v 1.8 2003/09/18 06:54:27 paxson Exp $
+<!--
+ $Id: project.xml,v 1.9 2003/09/22 16:57:49 primo Exp $
 -->
 
 <project>
@@ -157,6 +157,11 @@
       <url>http://jakarta.apache.org/commons/</url>
     </dependency>
     <dependency>
+      <id>commons-fileupload</id>
+      <version>1.0</version>
+      <url>http://jakarta.apache.org/commons/</url>
+    </dependency>
+    <dependency>
       <id>dom4j</id>
       <version>1.4</version>
       <url></url>
@@ -188,7 +193,7 @@
     </dependency>
     <dependency>
       <id>struts</id>
-      <version>1.1-rc1</version>
+      <version>1.1</version>
       <url>http://jakarta.apache.org/struts</url>
     </dependency>
     <dependency>
