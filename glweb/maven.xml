@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
- $Id: maven.xml,v 1.4 2003/05/21 06:11:27 paxson Exp $
+ $Id: maven.xml,v 1.5 2003/05/23 10:11:08 paxson Exp $
 -->
 
 <project default="glweb:war" xmlns:j="jelly:core"
@@ -508,6 +508,12 @@
         
             <fileset dir="${maven.xdoclet.webdoclet.destDir}">
                 <exclude name="${maven.war.webxml}"/>
+            </fileset>
+        </copy>
+        
+        <copy todir="${maven.build.dir}/webapp/WEB-INF/classes">
+            <fileset dir="${maven.conf.log4j.dir}">
+                <include name="log4j.xml"/>
             </fileset>
         </copy>
         
