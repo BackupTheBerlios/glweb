@@ -1,0 +1,123 @@
+$ID$
+
+--------------------------------------------------------------
+Hint:
+      {}: Name of the User Story
+      []: Name of the Section(page)
+      (): Maybe Function or Link
+      ##: Content List or String or Description
+      **: User for Special Name or Something Important
+      Each section([]) Divided by <br><br><br>
+      Each item(1) Divided by <br><br>
+      Each sub-item(1.1) Divided by <br>
+
+--------------------------------------------------------------
+
+{Hot Channel}
+
+  [GL首頁]  #index.html# 
+  1. Web Page Interface -- Reference [http://www.gl.com.tw]
+    1.1 (GL logo)
+        
+    1.2 (AD Banner)
+        此處的Banner可由管理介面更改.
+ 
+    1.3 (站內搜尋)
+        搜尋關鍵字, 列出10筆/頁資料. 連結至 #search.html#
+
+    1.4 (Windows Media Player)
+        連結至 [http://www.windowsmedia.com/9series/home.asp]
+
+    1.5 (GL HOT CHANNEL)
+        Hot Channel 列表. 包含Channel圖片(可連結)及簡介.
+        連結至各Hot Channel主頁#xxx_channel.thml#
+
+    1.6 (GL HOT PAGE)
+        由系統自動判斷, 列出4則點閱率最高的會員刊登的Hot Page.
+        並連結至該Hot page. #xxx_xxx.html#
+
+    1.7 (GL News Center)
+        為論壇連接部分. 由**論壇版主將論壇最新消息, 設置連結.
+        此連結至論壇中對應之News.
+
+    1.8 (電子報訂閱)
+        **目前不作
+
+    1.9 Web Page Footer
+
+
+  [關鍵字搜尋頁]  #search.html#
+  1. 由#index.html#連結過來後, 直接顯示出搜尋的結果.
+     (原GL網站上是分兩個步驟, 現合而為一)
+
+
+  2. 資料分頁. 每次搜尋完畢之結果以十筆資料為分頁標準. 每筆
+     資料顯示出(1)hyper link, (2)關鍵字含前後20個字, (3)關鍵
+     字並以紅色字體標示.
+
+
+
+  [Hot_Channel 主頁] #xxx_channel.html
+  1. Hot Channel Web Page Interface -- Referenece
+     [http://www.gl.com.tw/Adam_Channel/Adam_Channel.htm]
+
+    1.1 (Hot Channel Banner)
+        各自Hot Cannel的Banner圖片
+
+    1.2 (Adam's --> 討論版)
+      1.2.1  (Adam's)(版主名稱)可連結至該會員資料頁. 
+
+      1.2.2  (討論版)連結至該Channel專屬之討論版.
+
+    1.3 Hot Channel 簡介文字 
+     
+    1.4 (Adam's 發行紀錄)--發行紀錄列表
+        列出該Channel所有發表過的作品.
+
+    1.5 (Adam's 販賣回憶)--相關Channel列表
+        列出該版主在其他Hot Channel發表過的作品.
+
+    1.6 Web Page Footer
+
+
+  2. (發行紀錄列表)
+    2.1 以發表時間排序, 越新的(時間越大的)放在前面.
+        但不加序號(ID). 僅列出Title
+        (原GL是相反的, 且有序號)
+
+    2.2 列出的資料以5筆/列, 不需考慮到因為Title文字過長影響
+        版面的問題.
+
+    2.3 點選之後, 進入作品內容頁. #xxxxx.html#
+
+
+  3. (相關Channel列表)
+    3.1 列出本Hot Channel版主發表在其他Channel的作品
+
+    3.2 相關作品列表
+      3.2.1 以Channel名稱方式向左向下條列
+
+      3.2.2 列出的資料也是以5筆/列, 只列Title, 不加序號(ID),
+            也不用加Channel名稱
+
+    3.3 點選之後, 進入該作品內容頁. #xxxxx.html#
+
+
+
+  [作品內容頁]  #xxxxx.html#
+
+  1. (作品內容網頁) -- 圖片+文字
+  
+  2. Template(套表)
+     (於作品發表管理介面再討論定義)
+
+
+  [Hot Page內容頁]  #xxx_xxx.html#
+
+  1. (會員Hot Page網頁) -- 圖片+文字
+  
+  2. Template(套表)
+     (於Hot Page發表介面再討論定義)
+
+
+{/Hot Channel}
