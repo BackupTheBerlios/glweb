@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id: City.hbm.xml,v 1.3 2003/10/31 06:49:39 paxson Exp $ -->
+<!-- $Id: City.hbm.xml,v 1.4 2003/10/31 10:24:44 paxson Exp $ -->
 <!DOCTYPE hibernate-mapping PUBLIC
 	"-//Hibernate/Hibernate Mapping DTD//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd"
@@ -26,6 +26,6 @@
     </class>
     
     <query name="City.findAll"><![CDATA[
-        from city in class com.siwi.website.ejb.model.Country
+        from city in class com.siwi.website.ejb.model.City
     ]]></query>
 </hibernate-mapping>
