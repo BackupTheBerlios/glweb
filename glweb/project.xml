@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
- $Id: project.xml,v 1.5 2003/05/21 06:11:27 paxson Exp $
+ $Id: project.xml,v 1.6 2003/05/23 09:11:26 paxson Exp $
 -->
 
 <project>
@@ -240,10 +240,23 @@
   </dependencies>
 
   <build>
-    <nagEmailAddress>glweb-dev@mail.berlios.de</nagEmailAddress>
+    <nagEmailAddress>glweb-dev@lists.berlios.de</nagEmailAddress>
     <sourceDirectory>src/java</sourceDirectory>
     <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
-    <aspectSourceDirectory>src/java</aspectSourceDirectory>
+    <aspectSourceDirectory>src/aspect</aspectSourceDirectory>
+    
+    <!--
+     | Source Modifications. Excludes aspectj files if there is no aspectj 
+     | compiler exists in classpath.
+    -->
+    <sourceModifications>
+      <sourceModification>
+        <className>org.aspectj.tools.ajc.Main</className>
+        <excludes>
+          <exclude>**/*.aj</exclude>
+        </excludes>
+      </sourceModification>
+    </sourceModifications>
 
     <unitTest>
       <includes>
