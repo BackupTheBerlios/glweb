@@ -1,6 +1,6 @@
 /*
  *
- * $Id: JUnitForumHelper.java,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ * $Id: JUnitForumHelper.java,v 1.2 2003/05/12 09:37:16 paxson Exp $
  *
  * Copyright (c) 2003 SIWI.com
  *
@@ -27,6 +27,14 @@
 
 package com.glweb.module.forum;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.glweb.module.forum.model.Category;
+import com.glweb.module.forum.model.Message;
 import com.glweb.module.member.UserManager;
 import com.glweb.module.member.model.User;
 
@@ -34,12 +42,26 @@ import com.glweb.module.member.model.User;
  * JUnitForumHelper
  *
  * @author   $Author: paxson $
- * @version  $Revision: 1.1 $ $Date: 2003/05/10 11:41:13 $
+ * @version  $Revision: 1.2 $ $Date: 2003/05/12 09:37:16 $
  */
 public class JUnitForumHelper {
     
+    private static Log _logger;
+    
+    protected static Log getLogger() {
+        if (null == _logger) {
+            _logger = LogFactory.getLog(JUnitForumHelper.class);
+        }
+        
+        return _logger;
+    }
+    
     protected static UserManager getUserManager() {
         return UserManager.getInstance();
+    }
+    
+    protected static ForumManager getForumManager() {
+        return ForumManager.getInstance();
     }
     
     public static void addUsers() {
@@ -70,6 +92,61 @@ public class JUnitForumHelper {
     
     public static User getPosterCat() {
         return getUserManager().getUserByName("Cat Chen");
+    }
+    
+    public static Category buildCategory(String name) {
+        Category _category = new Category();
+        _category.setName(name);
+        _category.setDescription("Description of " + name + " Category");
+        
+        return _category;
+    }
+    
+    public static Set buildModerators() {
+        Set _moderators = new HashSet();
+        
+        _moderators.add(JUnitForumHelper.getPosterPaxson());
+        _moderators.add(JUnitForumHelper.getPosterCat());
+        
+        return _moderators;
+    }
+    
+    public static void addCategoriesAndMessages() {
+        getForumManager().addCategory(buildCategory("Java"));
+        getForumManager().addCategory(buildCategory("JXTA"));
+    }
+    
+    public static void deleteCategoriesAndMessages() {
+        Category[] _categories = 
+                (Category[]) getForumManager().getRootCategories().toArray(new Category[0]);
+
+        for (int _i=0; _i<_categories.length; _i++) {
+            getForumManager().deleteCategory(_categories[_i]);
+        }
+    }
+    
+    public static Category getCategoryByName(String name) {
+        Category[] _categories = 
+                (Category[]) getForumManager().getRootCategories().toArray(new Category[0]);
+
+        for (int _i=0; _i<_categories.length; _i++) {
+            if (name.equals(_categories[_i].getName())) {
+                return _categories[_i];
+            }
+        }
+        
+        return null;
+    }
+    
+    public static Message buildMassage(Category category, int index) {
+        Message _message = new Message();
+        
+        _message.setCategory(category);
+        _message.setSubject("Subject of " + category.getName() + " " + index);
+        _message.setMessage("Message of " + category.getName() + " " + index);
+        _message.setPoster(getPosterPaxson());
+        
+        return _message;
     }
 
 }
