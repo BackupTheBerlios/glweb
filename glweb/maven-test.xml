@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
- $Id: maven-test.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ $Id: maven-test.xml,v 1.2 2003/05/14 05:22:42 sgon29 Exp $
 -->
 
 <project name="glweb-test" default="test.jboss.3X" basedir=".">
