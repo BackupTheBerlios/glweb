@@ -1,14 +1,14 @@
 <%--
- $Id: member_1.jsp,v 1.2 2003/06/12 05:52:46 paxson Exp $
- $Revision: 1.2 $
- $Date: 2003/06/12 05:52:46 $
- $Author: paxson $
+ $Id: member_1.jsp,v 1.3 2003/09/14 12:06:14 primo Exp $
+ $Revision: 1.3 $
+ $Date: 2003/09/14 12:06:14 $
+ $Author: primo $
 --%>
 
 <%@ taglib uri="/WEB-INF/tlds/struts-html.tld" prefix="html" %>
 <table width="100%" border="0" cellspacing="8" cellpadding="0">
   <tr>
-    <td class="table3"><a href="#" class="link1">GL台灣影音旅(論壇報)</a> &gt; <a href="#" class="link1">【旅遊相關討論版】</a>
+    <td class="table3"><a href="../forum/forum1.do" class="link1">GL台灣影音旅(論壇報)</a> &gt; <a href="#" class="link1">【旅遊相關討論版】</a>
       &gt; <a href="#" class="link1">會員條款</a></td>
   </tr>
   <tr>
@@ -35,7 +35,7 @@
           </td>
         </tr>
         <tr>
-          <td align="center" class="table3"><a href="member_2.do"><img src="../image/degree.gif" width="64" height="21" border="0"></a></td>
+          <td align="center" class="table3"><a href="member2.do"><img src="../image/degree.gif" width="64" height="21" border="0"></a></td>
         </tr>
       </table>
     </td>

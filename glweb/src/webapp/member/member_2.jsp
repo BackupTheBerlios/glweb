@@ -1,17 +1,18 @@
 <%--
- $Id: member_2.jsp,v 1.2 2003/06/12 05:52:46 paxson Exp $
- $Revision: 1.2 $
- $Date: 2003/06/12 05:52:46 $
- $Author: paxson $
+ $Id: member_2.jsp,v 1.3 2003/09/14 12:06:14 primo Exp $
+ $Revision: 1.3 $
+ $Date: 2003/09/14 12:06:14 $
+ $Author: primo $
 --%>
 
 <%@ taglib uri="/WEB-INF/tlds/struts-html.tld" prefix="html" %>
+<html:errors property="org.apache.struts.action.GLOBAL_ERROR"/>
 
-<html:form action="/member/MemberDataAction" method="post">
-<html:hidden value="addUser" property="action" />
+<html:form action="/member/member2.do" method="post">
+<html:hidden property="action" value="addUser"  />
 <table width="100%" border="0" cellpadding="0" cellspacing="8" class="table3">
   <tr>
-    <td height="28" colspan="2" class="table3"><html:link href="#" >GL台灣影音旅(論壇報)</html:link>
+    <td height="28" colspan="2" class="table3"><html:link href="../forum/forum1.do" >GL台灣影音旅(論壇報)</html:link>
       &gt; <html:link href="#" >【旅遊相關討論版】</html:link> &gt; <html:link href="#" >加入會員</html:link></td>
   </tr>
   <tr>
@@ -37,9 +38,9 @@
               <tr>
                 <td align="right" class="table3">不顯示信箱位址： </td>
                 <td class="table3">是
-                  <html:radio value="yes" property="emailDisplay"/>
+                  <html:radio value="true" property="emailDisplay"/>
                   否
-                  <html:radio value="no" property="emailDisplay"/>
+                  <html:radio value="false" property="emailDisplay"/>
                 </td>
               </tr>
               <tr>
@@ -534,8 +535,8 @@
                 <td class="table3">
                   <html:select property="sex" size="1">
                     <html:option value="" >&nbsp;</html:option>
-                    <html:option value="male">帥哥&nbsp;</html:option>
-                    <html:option value="female">美女&nbsp;</html:option>
+                    <html:option value="true">帥哥&nbsp;</html:option>
+                    <html:option value="false">美女&nbsp;</html:option>
                   </html:select>
                 </td>
               </tr>

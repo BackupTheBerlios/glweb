@@ -1,22 +1,7 @@
 <!--
- $Id: struts-actions.xml,v 1.2 2003/06/11 18:39:39 primo Exp $
+ $Id: struts-actions.xml,v 1.3 2003/09/14 12:05:28 primo Exp $
 -->
 
-<action
-      path="/member/MemberDataAction"
-      type="com.glweb.module.member.action.MemberDataAction"
-      name="memberDataForm"
-      scope="request"
-      input="glweb.member_2"
-      unknown="false"
-      validate="false"
-    >
-      <forward
-        name="forum"
-        path="glweb.forum_1"
-        redirect="false"
-      />
-    </action>
 <action path="/index" type="com.glweb.web.struts.actions.TilesAction">
     <forward name="success" path="tile.index"/>
 </action>
@@ -33,34 +18,14 @@
     <forward name="success" path="tile.hello.cancel"/>
 </action>
 
-<action path="/member/member_1" type="com.glweb.web.struts.actions.TilesAction">
+<action path="/member/member1" type="com.glweb.web.struts.actions.TilesAction">
     <forward name="success" path="glweb.member_1"/>
 </action>
 
-<action path="/member/member_2" type="com.glweb.web.struts.actions.TilesAction">
-    <forward name="success" path="glweb.member_2"/>
-</action>
-
-<action path="/member/member_3" type="com.glweb.web.struts.actions.TilesAction">
-    <forward name="success" path="glweb.member_3"/>
-</action>
-
-<action path="/member/member_4" type="com.glweb.web.struts.actions.TilesAction">
+<action path="/member/member4" type="com.glweb.web.struts.actions.TilesAction">
     <forward name="success" path="glweb.member_4"/>
 </action>
 
-<action path="/member/member_5" type="com.glweb.web.struts.actions.TilesAction">
+<action path="/member/member5" type="com.glweb.web.struts.actions.TilesAction">
     <forward name="success" path="glweb.member_5"/>
-</action>
-
-<action path="/forum/forum_1" type="com.glweb.web.struts.actions.TilesAction">
-    <forward name="success" path="glweb.forum_1"/>
-</action>
-
-<action path="/forum/forum_2" type="com.glweb.web.struts.actions.TilesAction">
-    <forward name="success" path="glweb.forum_2"/>
-</action>
-
-<action path="/forum/forum_3" type="com.glweb.web.struts.actions.TilesAction">
-    <forward name="success" path="glweb.forum_3"/>
 </action>

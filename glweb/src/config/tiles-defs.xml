@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="big5"?>
 
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration//EN"
        "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
-       
+
 <!--
- $Id: tiles-defs.xml,v 1.2 2003/06/11 18:35:59 primo Exp $
+ $Id: tiles-defs.xml,v 1.3 2003/09/14 12:01:45 primo Exp $
 -->
 
 <!-- Definitions for Tiles documentation   -->
@@ -24,7 +24,7 @@
       <put name="middle"        value="/tiles-components/news.jsp"/>
       <put name="footer"        value="/tiles-components/footer.jsp"/>
   </definition>
-  
+
   <!-- Basic page layout used as a root for other pages defintion. -->
   <definition name="glweb.basicLayout" path="/tiles-layouts/basicLayout.jsp">
     <put name="title" value="Tiles Blank Site" />
@@ -32,7 +32,7 @@
     <put name="body" value="/tiles-components/body.jsp" />
     <put name="footer" value="/tiles-components/footer.jsp" />
   </definition>
-  
+
   <definition name="tile.index" extends="rootLayout">
 	  <put name="titleString"   value="Hello Form"/>
 	  <put name="middle"        value="/hello/hello.jsp"/>
@@ -41,7 +41,7 @@
   <!-- ========================================================== -->
   <!-- Hello page definition                                      -->
   <!-- ========================================================== -->
-  
+
   <definition name="tile.hello.input" extends="rootLayout">
 	  <put name="titleString"         value="Hello Form"/>
 	  <put name="middle"              value="/hello/hello.jsp"/>
@@ -51,51 +51,50 @@
 	  <put name="titleString"           value="Hello Success"/>
 	  <put name="middle"                value="/hello/helloSuccess.jsp"/>
   </definition>
-  
+
   <definition name="tile.hello.cancel" extends="rootLayout">
 	  <put name="titleString"          value="Hello Cancel"/>
 	  <put name="middle"               value="/hello/helloCancel.jsp"/>
   </definition>
-  
+
   <!-- =======================================================  -->
   <!-- member page definition  									-->
   <!-- =======================================================  -->
   <definition name="glweb.member_1" extends="glweb.basicLayout">
-    <put name="title" value="member contract" />
+    <put name="title" value="會員條款" />
     <put name="body" value="/member/member_1.jsp" />
   </definition>
   <definition name="glweb.member_2" extends="glweb.basicLayout">
-    <put name="tile" value="member data" />
+    <put name="tile" value="加入會員" />
     <put name="body" value="/member/member_2.jsp" />
   </definition>
   <definition name="glweb.member_3" extends="glweb.basicLayout">
-    <put name="tile" value="member data" />
+    <put name="tile" value="用戶資料" />
     <put name="body" value="/member/member_3.jsp" />
   </definition>
   <definition name="glweb.member_4" extends="glweb.basicLayout">
-    <put name="tile" value="apply message" />
+    <put name="tile" value="發表新主題" />
     <put name="body" value="/member/member_4.jsp" />
   </definition>
   <definition name="glweb.member_5" extends="glweb.basicLayout">
-    <put name="tile" value="reply message" />
+    <put name="tile" value="發表回覆" />
     <put name="body" value="/member/member_5.jsp" />
   </definition>
-  
+
   <!-- =======================================================  -->
   <!-- forum page definition  									-->
   <!-- =======================================================  -->
   <definition name="glweb.forum_1" extends="glweb.basicLayout">
-    <put name="tile" value="forum main" />
+    <put name="tile" value="論壇主頁" />
     <put name="body" value="/forum/forum_1.jsp" />
   </definition>
   <definition name="glweb.forum_2" extends="glweb.basicLayout">
-    <put name="tile" value="forum page" />
+    <put name="tile" value="論壇主題" />
     <put name="body" value="/forum/forum_2.jsp" />
   </definition>
   <definition name="glweb.forum_3" extends="glweb.basicLayout">
-    <put name="tile" value="forum content" />
+    <put name="tile" value="論壇內容" />
     <put name="body" value="/forum/forum_3.jsp" />
   </definition>
-
 </tiles-definitions>
 
