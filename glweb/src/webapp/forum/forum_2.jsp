@@ -1,16 +1,18 @@
 <%--
- $Id: forum_2.jsp,v 1.3 2003/09/14 12:05:54 primo Exp $
- $Revision: 1.3 $
- $Date: 2003/09/14 12:05:54 $
+ $Id: forum_2.jsp,v 1.4 2003/09/22 16:59:43 primo Exp $
+ $Revision: 1.4 $
+ $Date: 2003/09/22 16:59:43 $
  $Author: primo $
 --%>
-<%@ page import="java.util.*, com.glweb.module.forum.model.*" %>
+<%@ page import="java.util.*, com.glweb.module.forum.model.*, com.glweb.module.member.model.*" %>
 
 <%@ taglib uri="/WEB-INF/tlds/struts-html.tld" prefix="html" %>
 
 <jsp:useBean id="forum2Form" class="com.glweb.module.forum.form.Forum2Form" scope="request" />
 <%
     String encode = "8859_1";
+    String categoryId = Long.toString(forum2Form.getCategory().getId());
+    String newTopicLink = "../member/member4.do?categoryId=" + categoryId;
 %>
 <table width="100%" border="0" cellpadding="0" cellspacing="5" class="table3">
   <tr>
@@ -34,7 +36,7 @@
     </td>
   </tr>
   <tr>
-    <td><html:link href="#"><html:img width="95" height="21" border="0" src="../image/new-topic.gif"/></html:link></td>
+    <td><html:link href="<%=newTopicLink%>"><html:img width="95" height="21" border="0" src="../image/new-topic.gif"/></html:link></td>
   </tr>
   <tr>
     <td class="table4">
@@ -62,15 +64,24 @@
 <%
     Collection messages = null;
     Message msg = null;
+    Collection parentMsg = null;
     Iterator iter = null;
+    User poster = null;
     String messageLink = "#";
+    String posterLink = "#";
 
     messages = forum2Form.getMessages();
     if(messages != null){
         iter = messages.iterator();
         while(iter.hasNext()){
             msg = (Message)iter.next();
-            messageLink = "forum3.do?action=query&messageId=" + msg.getId();
+            parentMsg = msg.getParentMessages();
+            if(parentMsg != null && parentMsg.size() > 0){  //不列出回覆訊息
+                continue;
+            }
+            messageLink = "../forum/forum3.do?action=query&messageId=" + msg.getId();
+            poster = msg.getPoster();
+            posterLink = "../member/member3.do?userId=" + poster.getId();
 %>
               <tr>
                 <td class="table4">
@@ -78,7 +89,7 @@
                     <tr valign="middle">
                       <td width="7%" align="center" class="table2"><html:link href="#"><html:img width="16" height="15" border="0" src="../image/icon01.gif"/></html:link></td>
                       <td width="48%" class="table3"><html:link styleClass="link1" href="<%=messageLink%>"><%=new String(msg.getSubject().getBytes(), encode)%></html:link></td>
-                      <td width="10%" align="center" class="table2"> <html:link styleClass="link1" href="#">pony</html:link></td>
+                      <td width="10%" align="center" class="table2"> <html:link styleClass="link1" href="<%=posterLink%>"><%=poster.getName()%></html:link></td>
                       <td width="7%" align="center" class="table3">1</td>
                       <td width="7%" align="center" class="table3">99</td>
                       <td width="21%" class="table2">2003/03/30 23:22 | <html:link styleClass="link2" href="#">test</html:link></td>

@@ -14,7 +14,7 @@ import org.apache.struts.action.ActionMapping;
 /**
  *
  * @author   $Author: primo $
- * @version  $Revision: 1.1 $ $Date: 2003/09/14 12:03:02 $
+ * @version  $Revision: 1.2 $ $Date: 2003/09/22 16:58:41 $
  *
  * @struts:action path="/forum/forum3"
  *                name="forum3Form"
@@ -42,7 +42,7 @@ public class Forum3Action extends BaseAction {
      String action = request.getParameter("action");
      String messageId = request.getParameter("messageId");
 
-     Message message = ForumActionHelper.getMessage(messageId);
+     Message message = ForumActionHelper.getMessageById(messageId);
      forum3Form.setMessage(message);
      request.setAttribute("forum3Form", forum3Form);
      return (forward);

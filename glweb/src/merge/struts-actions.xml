@@ -1,5 +1,5 @@
 <!--
- $Id: struts-actions.xml,v 1.3 2003/09/14 12:05:28 primo Exp $
+ $Id: struts-actions.xml,v 1.4 2003/09/22 16:59:09 primo Exp $
 -->
 
 <action path="/index" type="com.glweb.web.struts.actions.TilesAction">
@@ -20,12 +20,4 @@
 
 <action path="/member/member1" type="com.glweb.web.struts.actions.TilesAction">
     <forward name="success" path="glweb.member_1"/>
-</action>
-
-<action path="/member/member4" type="com.glweb.web.struts.actions.TilesAction">
-    <forward name="success" path="glweb.member_4"/>
-</action>
-
-<action path="/member/member5" type="com.glweb.web.struts.actions.TilesAction">
-    <forward name="success" path="glweb.member_5"/>
 </action>

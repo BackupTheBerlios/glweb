@@ -1,10 +1,10 @@
-
 <%--
- $Id: forum_3.jsp,v 1.3 2003/09/14 12:05:54 primo Exp $
- $Revision: 1.3 $
- $Date: 2003/09/14 12:05:54 $
+ $Id: forum_3.jsp,v 1.4 2003/09/22 16:59:43 primo Exp $
+ $Revision: 1.4 $
+ $Date: 2003/09/22 16:59:43 $
  $Author: primo $
 --%>
+
 <%@ page import="java.util.*, com.glweb.module.forum.model.*" %>
 
 <%@ taglib uri="/WEB-INF/tlds/struts-html.tld" prefix="html" %>
@@ -28,6 +28,9 @@
   </tr>
 <%
     Message message = forum3Form.getMessage();
+    String categoryId = Long.toString(message.getCategory().getId());
+    String messageId = Long.toString(message.getId());
+    String replyLink = "../member/member5.do?categoryId=" + categoryId + "&messageId=" + messageId;
 %>
   <tr>
     <td  class="table4">
@@ -44,7 +47,14 @@
             鑑定: 已設為保密 <br>
             總發文數: 399 篇 <br>
             註冊日期: 2002/11/28</td>
-          <td width="75%" valign="top" class="table3"> <html:link styleClass="link1" href="#">查看</html:link>　<html:link styleClass="link1" href="#">消息</html:link>　<html:link styleClass="link1" href="#">郵件</html:link>　<html:link styleClass="link1" href="#">主頁</html:link>　<html:link styleClass="link1" href="#">引用</html:link>　<html:link styleClass="link1" href="#">回覆</html:link></td>
+          <td width="75%" valign="top" class="table3">
+              <html:link styleClass="link1" href="#">查看</html:link>　
+              <html:link styleClass="link1" href="#">消息</html:link>　
+              <html:link styleClass="link1" href="#">郵件</html:link>　
+              <html:link styleClass="link1" href="#">主頁</html:link>　
+              <html:link styleClass="link1" href="#">引用</html:link>　
+              <html:link styleClass="link1" href="<%=replyLink%>">回覆</html:link>
+          </td>
         </tr>
         <tr valign="middle">
           <td valign="top" class="table3">
@@ -87,7 +97,14 @@
                     鑑定: 已設為保密 <br>
                     總發文數: 904 篇 <br>
                     註冊日期: 2002/11/28</td>
-                  <td width="75%" valign="top" class="table3"><html:link styleClass="link1" href="#">查看</html:link>　<html:link styleClass="link1" href="#">消息</html:link>　<html:link styleClass="link1" href="#">郵件</html:link>　<html:link styleClass="link1" href="#">主頁</html:link>　<html:link styleClass="link1" href="#">引用</html:link>　<html:link styleClass="link1" href="#">回覆</html:link></td>
+                  <td width="75%" valign="top" class="table3">
+                      <html:link styleClass="link1" href="#">查看</html:link>
+                      <html:link styleClass="link1" href="#">消息</html:link>　
+                      <html:link styleClass="link1" href="#">郵件</html:link>　
+                      <html:link styleClass="link1" href="#">主頁</html:link>　
+                      <html:link styleClass="link1" href="#">引用</html:link>　
+                      <html:link styleClass="link1" href="#">回覆</html:link>
+                  </td>
                 </tr>
                 <tr valign="middle"  class="table3">
                   <td height="128" valign="top">

@@ -1,85 +1,91 @@
 <%--
- $Id: member_5.jsp,v 1.2 2003/06/12 05:52:46 paxson Exp $
- $Revision: 1.2 $
- $Date: 2003/06/12 05:52:46 $
- $Author: paxson $
+ $Id: member_5.jsp,v 1.3 2003/09/22 17:00:10 primo Exp $
+ $Revision: 1.3 $
+ $Date: 2003/09/22 17:00:10 $
+ $Author: primo $
 --%>
 
+<%@ taglib uri="/WEB-INF/tlds/struts-html.tld" prefix="html" %>
+
+<html:form action="/member/member5.do" method="post" enctype="multipart/form-data">
 <table width="100%" border="0" cellspacing="8" cellpadding="0">
-  <tr> 
-    <td class="table3"> <a href="#" class="link1">GL台灣影音旅(論壇報)</a> &gt; <a href="#" class="link1">【旅遊相關討論版】</a> 
-      &gt; <a href="#" class="link1">發表回覆</a></td>
+  <html:hidden property="categoryId" />
+  <html:hidden property="messageId" />
+  <html:hidden property="action" value="insert" />
+  <tr>
+    <td class="table3"> <html:link styleClass="link1" href="#">GL台灣影音旅(論壇報)</html:link> &gt; <html:link styleClass="link1" href="#">【旅遊相關討論版】</html:link>
+      &gt; <html:link styleClass="link1" href="#">發表回覆</html:link></td>
   </tr>
-  <tr> 
+  <tr>
     <td class="table4">
       <table width="100%" border="0" cellpadding="5" cellspacing="1" class="grey8">
-        <tr> 
+        <tr>
           <td height="26" colspan="2" align="center" class="table3">發表回覆 </td>
         </tr>
-        <tr> 
-          <td height="26" colspan="2" class="table2"><font class="grey8"><B>注意：</B>回覆文章之前必須先註冊成會員。註冊請<a href="#" class="link1">按這裡註冊</a>。註冊是完全免費的！</font></td>
+        <tr>
+          <td height="26" colspan="2" class="table2"><font class="grey8"><B>注意：</B>回覆文章之前必須先註冊成會員。註冊請<html:link styleClass="link1" href="#">按這裡註冊</html:link>。註冊是完全免費的！</font></td>
         </tr>
-        <tr> 
-          <td width="25%" align="right" valign="top" class="table3">用戶名稱：</td>
-          <td width="75%" class="table3">
-            <input  name="field2" size="25" value="" style="BORDER-RIGHT: #666666 1px solid; BORDER-TOP: #666666 1px solid; BORDER-LEFT: #666666 1px solid; BORDER-BOTTOM: #666666 1px solid" >
-            <a href="#" class="link1">您還沒有註冊？</a></td>
+        <tr>
+          <td align="right" valign="top" class="table3">用戶名稱：</td>
+          <td class="table3">
+            <html:text property="name" style="BORDER-RIGHT: #666666 1px solid; BORDER-TOP: #666666 1px solid; BORDER-LEFT: #666666 1px solid; BORDER-BOTTOM: #666666 1px solid" size="25"/>
+            <html:link styleClass="link1" href="member1.do">您還沒有註冊？</html:link></td>
         </tr>
-        <tr> 
+        <tr>
           <td align="right" valign="top" class="table3">密碼：</td>
           <td class="table3">
-            <input  name="field3" size="25" value="" style="BORDER-RIGHT: #666666 1px solid; BORDER-TOP: #666666 1px solid; BORDER-LEFT: #666666 1px solid; BORDER-BOTTOM: #666666 1px solid" >
-            <a href="#" class="link1">忘記密碼？</a></td>
+            <html:password  property="password" style="BORDER-RIGHT: #666666 1px solid; BORDER-TOP: #666666 1px solid; BORDER-LEFT: #666666 1px solid; BORDER-BOTTOM: #666666 1px solid" size="25"/>
+            <html:link styleClass="link1" href="#">忘記密碼？</html:link></td>
         </tr>
-        <tr> 
-          <td align="right" valign="top" class="table3"><font class="grey8b">目前心情：</font> 
+        <tr>
+          <td align="right" valign="top" class="table3"><font class="grey8b">目前心情：</font>
             <br>
             將放在文章的前面</td>
           <td class="table3">
             <INPUT name=usericon type=radio
             value=00>
             <IMG border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/00.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=01>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/01.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=02>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/02.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=03>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/03.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=04>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/04.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=05>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/05.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=06>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/06.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=07>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/07.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=08>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/08.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=09>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/09.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=10>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/10.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=11>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/11.gif"
@@ -87,47 +93,47 @@
             <INPUT name=usericon type=radio value=12>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/12.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=13>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/13.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=14>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/14.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=15>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/15.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=16>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/16.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=17>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/17.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=18>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/18.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=19>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/19.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=20>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/20.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=21>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/21.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=22>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/22.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=23>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/23.gif"
@@ -135,14 +141,14 @@
             <INPUT name=usericon type=radio value=24>
             <IMG
             border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/24.gif"
-            width=13>&nbsp; 
+            width=13>&nbsp;
             <INPUT name=usericon type=radio value=25>
             <IMG
-            border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/25.gif" width=13>&nbsp; 
+            border=0 height=13 src="http://www.gl.com.tw/bbs/non-asp/face/25.gif" width=13>&nbsp;
           </td>
         </tr>
-        <tr> 
-          <td rowspan="2" align="right" valign="top" class="table3"><font class="grey8b">格式 
+        <tr>
+          <td rowspan="2" align="right" valign="top" class="table3"><font class="grey8b">格式
             ：</font> </td>
           <td class="table3"><IMG alt=粗體字 class=gray height=22 onclick=bold()
             onmouseout=disable(this) onmouseover=enable(this)
@@ -151,7 +157,7 @@
             onmouseover=enable(this) src="http://www.gl.com.tw/bbs/non-asp/btg/italicize.gif"
             width=23> <IMG alt=下底線 class=gray height=22 onclick=underline()
             onmouseout=disable(this) onmouseover=enable(this)
-            src="http://www.gl.com.tw/bbs/non-asp/btg/underline.gif" width=23> 
+            src="http://www.gl.com.tw/bbs/non-asp/btg/underline.gif" width=23>
             <IMG alt=居中
             class=gray height=22 onclick=center() onmouseout=disable(this)
             onmouseover=enable(this) src="http://www.gl.com.tw/bbs/non-asp/btg/center.gif"
@@ -190,8 +196,8 @@
             onmouseover=enable(this) src="http://www.gl.com.tw/bbs/non-asp/btg/smilie.gif"
             width=23> </td>
         </tr>
-        <tr> 
-          <td class="table3">字體： 
+        <tr>
+          <td class="table3">字體：
             <SELECT name=select
             onchange=showfont(this.options[this.selectedIndex].value)>
               <OPTION
@@ -223,7 +229,7 @@
               <OPTION
               value="Lucida Console">Lucida Console</OPTION>
             </SELECT>
-            字型大小： 
+            字型大小：
             <SELECT name=size
             onchange=showsize(this.options[this.selectedIndex].value)>
               <OPTION
@@ -239,7 +245,7 @@
               <OPTION
               value=6>&nbsp;6&nbsp;</OPTION>
             </SELECT>
-            顏色： 
+            顏色：
             <SELECT
             name=color
             onchange=showcolor(this.options[this.selectedIndex].value)>
@@ -250,7 +256,7 @@
               <OPTION style="BACKGROUND-COLOR: white; COLOR: white"
               value=white>[ 白色 ]</OPTION>
               <OPTION
-              style="BACKGROUND-COLOR: silver; COLOR: silver" value=silver>[ 銀白 
+              style="BACKGROUND-COLOR: silver; COLOR: silver" value=silver>[ 銀白
               ]</OPTION>
               <OPTION style="BACKGROUND-COLOR: gray; COLOR: gray"
               value=gray>[ 灰色 ]</OPTION>
@@ -267,7 +273,7 @@
               <OPTION style="BACKGROUND-COLOR: orange; COLOR: orange"
               value=orange>[ 橘色 ]</OPTION>
               <OPTION
-              style="BACKGROUND-COLOR: purple; COLOR: purple" value=purple>[ 紫色 
+              style="BACKGROUND-COLOR: purple; COLOR: purple" value=purple>[ 紫色
               ]</OPTION>
               <OPTION style="BACKGROUND-COLOR: blue; COLOR: blue"
               value=blue>[ 藍色 ]</OPTION>
@@ -280,54 +286,54 @@
               <OPTION style="BACKGROUND-COLOR: navy; COLOR: navy"
               value=navy>[ 深藍 ]</OPTION>
               <OPTION
-              style="BACKGROUND-COLOR: maroon; COLOR: maroon" value=maroon>[ 褐紫 
+              style="BACKGROUND-COLOR: maroon; COLOR: maroon" value=maroon>[ 褐紫
               ]</OPTION>
               <OPTION
               style="BACKGROUND-COLOR: limegreen; COLOR: limegreen"
               value=limeGreen>[ 黃綠 ]</OPTION>
               <OPTION
-              style="BACKGROUND-COLOR: violet; COLOR: violet" value=violet>[ 淡紫 
+              style="BACKGROUND-COLOR: violet; COLOR: violet" value=violet>[ 淡紫
               ]</OPTION>
             </SELECT>
           </td>
         </tr>
-        <tr> 
-          <td height="116" align="right" valign="top" class="table3"> 
+        <tr>
+          <td height="116" align="right" valign="top" class="table3">
             <table width="100%" border="0" cellpadding="0" cellspacing="0" class="grey8">
-              <tr> 
+              <tr>
                 <td align="right"><font class="grey8b">內容 ：</font></td>
               </tr>
-              <tr> 
+              <tr>
                 <td>* HTML 語法開啟</td>
               </tr>
-              <tr> 
+              <tr>
                 <td>* [CODE] 標籤開啟</td>
               </tr>
-              <tr> 
+              <tr>
                 <td>* [FLASH] 標籤開啟</td>
               </tr>
-              <tr> 
+              <tr>
                 <td>* 本版專用代碼開啟</td>
               </tr>
             </table>
           </td>
-          <td valign="top" class="table3">薦使用HTML代碼標籤:『<a href="#" class="link1">EN21論壇 
-            HTML 編輯器</a>』 插入JS儘量手動輸入[code]...[/code]標籤<br>
-            <textarea name="textarea" cols="60"></textarea>
+          <td valign="top" class="table3">薦使用HTML代碼標籤:『<html:link styleClass="link1" href="#">EN21論壇
+            HTML 編輯器</html:link>』 插入JS儘量手動輸入[code]...[/code]標籤<br>
+            <html:textarea cols="60" property="message"></html:textarea>
             <br>
-            模式: 
+            模式:
             <INPUT name=font onclick=thelp(1) type=radio value=1>
-            幫助 
+            幫助
             <INPUT
             CHECKED name=font onclick=thelp(2) type=radio value=2>
-            完全 
+            完全
             <INPUT
             name=font onclick=thelp(0) type=radio value=0>
-            基本　　 &gt;&gt; <a href="#" class="link1">複製到剪貼簿</a> | <a href="#" class="link1">查看文章長度</a> 
+            基本　　 &gt;&gt; <html:link styleClass="link1" href="#">複製到剪貼簿</html:link> | <html:link styleClass="link1" href="#">查看文章長度</html:link>
             &lt;&lt; </td>
         </tr>
-        <tr align="center"> 
-          <td colspan="2" valign="top" class="table3"> 點選表情圖案即可在文章中加入相對應的表情（每個表情最多同時顯示 
+        <tr align="center">
+          <td colspan="2" valign="top" class="table3"> 點選表情圖案即可在文章中加入相對應的表情（每個表情最多同時顯示
             3 次） [更多表情符號]<br>
             <SPAN onclick="javascript:insertsmilie('[:em01:]');"
             style="CURSOR: hand"><IMG alt=1 border=0
@@ -420,64 +426,57 @@
             style="CURSOR: hand"><IMG alt=a1 border=0
             src="http://www.gl.com.tw/bbs/non-asp/emot/qq01.gif"></SPAN> </td>
         </tr>
-        <tr> 
+        <tr>
           <td align="right" valign="top" class="table3">上傳附件或圖片： </td>
-          <td class="table3">附加檔案: 
-            <INPUT
-            name=strFileUpLoad size=25>
-            &nbsp;<A
-            href="http://www.gl.com.tw/bbs/pop_upload.asp?Method=Topic&amp;forum_id=18&amp;cat_id=6&amp;topic_id=&amp;REPLY_ID=&amp;member_id=75"
-            onclick="return openAdminWindow(this.href);"><IMG align=absMiddle
-            alt=文件上傳 border=0 height=21
-            src="../image/clip.gif"
-            width=21></A><br>
-            允許上傳檔案類型(.zip;.txt;.rar;.jpg;.gif;.xls;.doc;.bmp) 檔案大小上限 <font color="#FF0000">5000 
+          <td class="table3">附加檔案:
+            <html:file property="upload" /><br>
+            允許上傳檔案類型(.zip;.txt;.rar;.jpg;.gif;.xls;.doc;.bmp) 檔案大小上限 <font color="#FF0000">5000
             </font>KB </td>
         </tr>
-        <tr> 
+        <tr>
           <td align="right" valign="top" class="table3">選項： <br>
           </td>
           <td class="table3">
-            <INPUT CHECKED id=sig3 name=sig
-            type=checkbox value=yes>
-            是否顯示您的簽名？</td>
+            <html:checkbox property="sign" /> 是否顯示您的簽名？
+          </td>
         </tr>
-        <tr> 
-          <td colspan="2" align="center" class="table3"><a href="#"><img src="../image/reply.gif" width="75" height="21" border="0"></a>　<a href="#"><img src="../image/preview.gif" width="58" height="21" border="0"></a>　<a href="#"><img src="../image/clear.gif" width="58" height="21" border="0"></a></td>
+        <tr>
+          <td colspan="2" align="center" class="table3"><html:link href="javascript:document.member5Form.submit();"><html:img width="75" height="21" border="0" src="../image/reply.gif"/></html:link>　<html:link href="#"><html:img width="58" height="21" border="0" src="../image/preview.gif"/></html:link>　<html:link href="#"><html:img width="58" height="21" border="0" src="../image/clear.gif"/></html:link></td>
         </tr>
       </table>
     </td>
   </tr>
-  <tr> 
+  <tr>
     <td class="table4">
       <table width="100%" border="0" cellpadding="5" cellspacing="1" class="grey8">
-        <tr> 
-          <td height="26" colspan="2" class="table2"><font class="grey9b">GL台灣影音旅(論壇報)服務條款和聲明 
+        <tr>
+          <td height="26" colspan="2" class="table2"><font class="grey9b">GL台灣影音旅(論壇報)服務條款和聲明
             </font></td>
         </tr>
-        <tr> 
-          <td width="25%" rowspan="2" class="table3"> 
+        <tr>
+          <td width="25%" rowspan="2" class="table3">
             <p>玉佛聖</p>
           </td>
           <td width="75%" class="table3">發表於： 2003/03/15 16:18:14</td>
         </tr>
-        <tr> 
+        <tr>
           <td class="table3">&nbsp;</td>
         </tr>
-        <tr> 
+        <tr>
           <td colspan="2" class="table1">&nbsp;</td>
         </tr>
-        <tr> 
+        <tr>
           <td rowspan="2" class="table3">pony</td>
           <td class="table3">發表於： 2003/03/15 18:18:46</td>
         </tr>
-        <tr> 
+        <tr>
           <td class="table3">無聊中.....作個桌面拼圖</td>
         </tr>
-        <tr> 
+        <tr>
           <td colspan="2" align="center" class="table1">&nbsp;</td>
         </tr>
       </table>
     </td>
   </tr>
 </table>
+</html:form>

@@ -1,7 +1,7 @@
 <!--
- $Id: struts-forms.xml,v 1.3 2003/09/14 12:05:28 primo Exp $
- $Revision: 1.3 $
- $Date: 2003/09/14 12:05:28 $
+ $Id: struts-forms.xml,v 1.4 2003/09/22 16:59:09 primo Exp $
+ $Revision: 1.4 $
+ $Date: 2003/09/22 16:59:09 $
  $Author: primo $
 -->
 
@@ -45,4 +45,15 @@
     <form-property name="sex" type="java.lang.Boolean"/>
     <form-property name="position" type="java.lang.String"/>
     <form-property name="sign" type="java.lang.String"/>
+</form-bean>
+<form-bean name="member5Form"
+           type="org.apache.struts.validator.DynaValidatorForm">
+    <form-property name="action" type="java.lang.String" />
+    <form-property name="categoryId" type="java.lang.String" />
+    <form-property name="messageId" type="java.lang.String" />
+    <form-property name="name" type="java.lang.String" />
+    <form-property name="password" type="java.lang.String" />
+    <form-property name="message" type="java.lang.String" />
+    <form-property name="upload" type="org.apache.struts.upload.FormFile" />
+    <form-property name="sign" type="java.lang.Boolean"/>
 </form-bean>

@@ -20,7 +20,7 @@ import org.apache.struts.action.ActionMapping;
 /**
  *
  * @author   $Author: primo $
- * @version  $Revision: 1.1 $ $Date: 2003/09/14 12:03:02 $
+ * @version  $Revision: 1.2 $ $Date: 2003/09/22 16:58:41 $
  *
  * @struts:action path="/forum/forum1"
  *                name="forum1Form"
@@ -39,16 +39,6 @@ public class Forum1Action extends BaseAction {
      return null;
  }
 
- protected User validateUser(String name, String password){
-     User user = MembershipManager.getInstance().getUserByName(name);
-     if(user != null){
-         if(!user.getPassword().equals(password)){
-             user = null;
-         }
-     }
-     return user;
- }
-
  public ActionForward execute(ActionMapping mapping,
                               ActionForm form,
                               HttpServletRequest request,
@@ -61,7 +51,7 @@ public class Forum1Action extends BaseAction {
      if (action != null && action.equals("login")) {
          String name = request.getParameter("name");
          String password = request.getParameter("password");
-         User user = validateUser(name, password);
+         User user = ForumActionHelper.validateUser(name, password);
          if( user == null){
              ActionErrors errors = new ActionErrors();
              errors.add(ActionErrors.GLOBAL_ERROR, new ActionError("errors.login"));

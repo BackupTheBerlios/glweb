@@ -1,7 +1,7 @@
 <%--
- $Id: forum_1.jsp,v 1.3 2003/09/14 12:05:54 primo Exp $
- $Revision: 1.3 $
- $Date: 2003/09/14 12:05:54 $
+ $Id: forum_1.jsp,v 1.4 2003/09/22 16:59:43 primo Exp $
+ $Revision: 1.4 $
+ $Date: 2003/09/22 16:59:43 $
  $Author: primo $
 --%>
 <%@ page import="java.util.*, com.glweb.module.forum.model.*,com.glweb.module.member.model.*, com.glweb.Constants" %>
@@ -88,7 +88,7 @@
     Iterator rootIter = null;
     Iterator childIter = null;
     Iterator moderatorIter = null;
-    String moderator = "";
+    User moderator = null;
     String messageLink = "#";
     String moderatorLink = "#";
 
@@ -133,18 +133,18 @@
                                   <td class="table3"><html:link styleClass="link1" href="<%=messageLink%>">【<%=new String(category2.getName().getBytes(), encode)%>】</html:link><br>
                                     <%=new String(category2.getDescription().getBytes(), encode)%></td>
                                   <td width="11%" align="center" class="table2">
-                                    <%--
+                                    <%
                                         //顯示版主
                                         moderators = category2.getModerators();
                                         moderatorIter = moderators.iterator();
                                         while(moderatorIter.hasNext()){
-                                            //moderator = (String)moderatorIter.next();
-                                            moderatorLink = "#";
-                                    --%>
-                                            <html:link styleClass="link1" href="<%=moderatorLink%>"></html:link><br>
-                                    <%--
+                                            moderator = (User)moderatorIter.next();
+                                            moderatorLink = "../member/member3.do?userId=" + moderator.getId();
+                                    %>
+                                            <html:link styleClass="link1" href="<%=moderatorLink%>"><%=moderator.getName()%></html:link><br>
+                                    <%
                                         }
-                                    --%>
+                                    %>
                                   <td width="7%" align="center"  class="table3">34</td>
                                   <td width="7%" align="center" class="table3">63</td>
                                   <td width="20%" class="table2">主題：[推薦]荷蘭....<br>
