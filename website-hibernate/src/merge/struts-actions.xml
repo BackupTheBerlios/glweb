@@ -1,0 +1,23 @@
+<!--
+ $Id: struts-actions.xml,v 1.1 2003/10/29 08:27:23 paxson Exp $
+-->
+
+<action path="/index" type="com.glweb.web.struts.actions.TilesAction">
+    <forward name="success" path="tile.index"/>
+</action>
+
+<action path="/hello/index" type="com.glweb.web.struts.actions.TilesAction">
+    <forward name="success" path="tile.hello.input"/>
+</action>
+
+<action path="/hello/success" type="com.glweb.web.struts.actions.TilesAction">
+    <forward name="success" path="tile.hello.success"/>
+</action>
+
+<action path="/hello/cancel" type="com.glweb.web.struts.actions.TilesAction">
+    <forward name="success" path="tile.hello.cancel"/>
+</action>
+
+<action path="/member/member1" type="com.glweb.web.struts.actions.TilesAction">
+    <forward name="success" path="glweb.member_1"/>
+</action>

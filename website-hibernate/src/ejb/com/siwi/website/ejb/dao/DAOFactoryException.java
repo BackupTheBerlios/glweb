@@ -1,43 +1,35 @@
 /*
- * $ Id: $
+ * $Id: DAOFactoryException.java,v 1.2 2003/10/29 08:27:23 paxson Exp $
  * 
  */
 
 package com.siwi.website.ejb.dao;
 
-import com.siwi.common.CommonRuntimeException;
+import org.apache.commons.lang.exception.NestableRuntimeException;
 
 /**
  *  DAOFactoryException
  *
  * @author  Paxson Yang
  * @created  2002/8/8
- * @version  $Revision: 1.1 $ $Date: 2003/10/28 02:56:05 $
+ * @version  $Revision: 1.2 $ $Date: 2003/10/29 08:27:23 $
  */
-public class DAOFactoryException extends CommonRuntimeException {
-    /**
-     *  Constructor for the DAOFactoryException object
-     */
+public class DAOFactoryException extends NestableRuntimeException {
+    
     public DAOFactoryException() {
         super();
     }
 
-    /**
-     *  Constructor for the DAOFactoryException object
-     *
-     * @param  val  Description of the Parameter
-     */
-    public DAOFactoryException(String val) {
-        super(val);
+    public DAOFactoryException(String message) {
+        super(message);
     }
 
-    /**
-     *  Constructor for the DAOFactoryException object
-     *
-     * @param  t  Description of the Parameter
-     */
-    public DAOFactoryException(Throwable t) {
-        super(t);
+    public DAOFactoryException(Throwable cause) {
+        super(cause.getMessage(), cause);
+    }
+    
+    public DAOFactoryException(String message, Throwable cause) {
+        super(message, cause);
     }
 
 }

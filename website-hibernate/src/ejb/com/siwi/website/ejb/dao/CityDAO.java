@@ -1,5 +1,5 @@
 /*
- * $ Id: $
+ * $Id: CityDAO.java,v 1.2 2003/10/29 08:27:23 paxson Exp $
  * 
  */
 
@@ -7,67 +7,29 @@ package com.siwi.website.ejb.dao;
 
 import java.util.Collection;
 
-import com.siwi.website.ejb.entity.CityPK;
-import com.siwi.website.ejb.value.CityValue;
+import com.siwi.website.ejb.model.City;
 
 /**
  *  CityDAO
  *
  * @author  Paxson Yang
  * @created  2002/8/9
- * @version  $Revision: 1.1 $ $Date: 2003/10/28 02:56:05 $
+ * @version  $Revision: 1.2 $ $Date: 2003/10/29 08:27:23 $
  */
 public interface CityDAO {
-    final static String IMPL_CLASS =
-            "com.siwi.website.ejb.dao.impl.JBossCityDAO";
+    final static String IMPL_CLASS = 
+            "com.siwi.website.ejb.dao.impl.HibernateCityDAO";
 
-    /**
-     *  Description of the Method
-     *
-     * @exception  DAOException  Description of the Exception
-     */
     void init() throws DAOException;
 
-    /**
-     *  Description of the Method
-     *
-     * @param  pk                Description of the Parameter
-     * @param  value             Description of the Parameter
-     * @exception  DAOException  Description of the Exception
-     */
-    void load(CityPK pk, CityValue value) throws DAOException;
+    City get(long id) throws DAOException;
 
-    /**
-     *  Description of the Method
-     *
-     * @param  value             Description of the Parameter
-     * @exception  DAOException  Description of the Exception
-     */
-    void store(CityValue value) throws DAOException;
+    void add(City vakue) throws DAOException;
 
-    /**
-     *  Description of the Method
-     *
-     * @param  pk                Description of the Parameter
-     * @exception  DAOException  Description of the Exception
-     */
-    void remove(CityPK pk) throws DAOException;
+    void update(City value) throws DAOException;
+    
+    void delete(long id) throws DAOException;
 
-    /**
-     *  Description of the Method
-     *
-     * @param  pk                Description of the Parameter
-     * @return                   Description of the Return Value
-     * @exception  DAOException  Description of the Exception
-     */
-    CityValue findByPrimaryKey(CityPK pk) throws DAOException;
-
-    /**
-     *  Description of the Method
-     *
-     * @return                   Description of the Return Value
-     * @exception  DAOException  Description of the Exception
-     */
     Collection findAll() throws DAOException;
 
 }

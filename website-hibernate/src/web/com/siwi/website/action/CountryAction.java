@@ -1,15 +1,12 @@
 /*
- * $ Id: $
+ * $Id: CountryAction.java,v 1.2 2003/10/29 08:27:23 paxson Exp $
  * 
  */
  
 package com.siwi.website.action;
 
-import java.rmi.ServerException;
 import java.util.Collection;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionForward;
 
 import com.siwi.common.web.ActionType;
@@ -20,11 +17,6 @@ import com.siwi.common.web.HandleFactory;
 import com.siwi.common.web.HandlePerformException;
 import com.siwi.website.ejb.dao.CommonDAOFactory;
 import com.siwi.website.ejb.dao.CountryDAO;
-import com.siwi.website.ejb.entity.CountryPK;
-import com.siwi.website.ejb.session.CommonEJB;
-import com.siwi.website.ejb.session.CommonEJBHome;
-import com.siwi.website.ejb.util.CommonEJBUtil;
-import com.siwi.website.ejb.value.CountryValue;
 import com.siwi.website.form.CountryForm;
 
 /**
@@ -32,7 +24,7 @@ import com.siwi.website.form.CountryForm;
  *
  * @author  Paxson Yang
  * @created  2002/8/7
- * @version  $Revision: 1.1 $ $Date: 2003/10/28 02:56:05 $
+ * @version  $Revision: 1.2 $ $Date: 2003/10/29 08:27:23 $
  * 
  * @web:ejb-ref  name="CommonEJB" 
  *               type="Session"
@@ -111,6 +103,7 @@ public class CountryAction extends CommonAction {
             getLogger().debug("CountryName = '" +
                     ((CountryForm) getActionForm()).getName() + "'");
 
+            /*
             try {
                 CommonEJBHome _ejbHome = CommonEJBUtil.getHome();
                 CommonEJB _ejb = _ejbHome.create();
@@ -133,6 +126,7 @@ public class CountryAction extends CommonAction {
                 getLogger().debug("Exception : " + e.toString());
                 throw new HandlePerformException(e);
             }
+            */
 
             if (!getActionErrors().empty()) {
                 saveErrors(getRequest(), getActionErrors());
@@ -214,6 +208,7 @@ public class CountryAction extends CommonAction {
          * @return  Description of the Return Value
          */
         private ActionForward CountryDetailHandle(String id) {
+            /*
             CountryPK _pk = new CountryPK();
             _pk.setId(id);
 
@@ -236,6 +231,7 @@ public class CountryAction extends CommonAction {
                 getLogger().debug("Exception : " + e.toString());
                 throw new HandlePerformException(e);
             }
+            */
 
             return getActionMapping().findForward(FORWARD_VIEW_DETAIL);
         }

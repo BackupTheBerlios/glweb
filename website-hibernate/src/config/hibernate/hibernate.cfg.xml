@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-2.0.dtd">
+
+<!--
+ $Id: hibernate.cfg.xml,v 1.1 2003/10/29 08:27:23 paxson Exp $
+-->
+
+<hibernate-configuration>
+    
+    
+
+    <!-- a SessionFactory instance for JLCP -->
+    <session-factory name="/glweb/hibernate/SessionFactory">
+        <!-- Database Properties -->
+        <property name="show_sql">false</property>
+        <property name="use_outer_join">true</property>
+
+        <!-- Transaction Factory Class -->
+        <property name="transaction.factory_class">net.sf.hibernate.transaction.JDBCTransactionFactory</property>
+
+        <!-- JTA Transaction Manager Lookup Class -->
+        <property name="transaction.manager_lookup_class"></property>
+
+        <!-- Database Connection for JLCP Hibernate Session Factory -->
+        <!--property name="connection.datasource">java:/MySqlDS</property-->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/glweb?useUnicode=true&amp;characterEncoding=Big5</property>
+        <property name="connection.username">glweb</property>
+        <property name="connection.password">glweb</property>
+
+        <!-- Database Dialect -->
+        <property name="dialect">net.sf.hibernate.dialect.MySQLDialect</property>
+
+        <!-- mapping files -->
+        <mapping resource="com/siwi/website/ejb/model/Country.hbm.xml"/>
+        <mapping resource="com/siwi/website/ejb/model/City.hbm.xml"/>
+        <mapping resource="com/siwi/website/ejb/model/Language.hbm.xml"/>
+        <mapping resource="com/siwi/website/ejb/model/LanguageCode.hbm.xml"/>
+
+    </session-factory>
+
+</hibernate-configuration>

@@ -1,5 +1,5 @@
 /*
- * $ Id: $
+ * $Id: CommonException.java,v 1.2 2003/10/29 08:27:23 paxson Exp $
  * 
  */
 
@@ -13,7 +13,7 @@ import java.io.PrintWriter;
  *
  * @author   Paxson Yang
  * @created  2002/8/6
- * @version  $Revision: 1.1 $ $Date: 2003/10/28 02:56:05 $
+ * @version  $Revision: 1.2 $ $Date: 2003/10/29 08:27:23 $
  */
 public class CommonException extends Exception 
     implements CommonThrowable {

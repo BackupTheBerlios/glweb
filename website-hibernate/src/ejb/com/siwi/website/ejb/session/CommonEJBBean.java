@@ -1,5 +1,5 @@
 /*
- * $ Id: $
+ * $Id: CommonEJBBean.java,v 1.2 2003/10/29 08:27:23 paxson Exp $
  * 
  */
 
@@ -9,19 +9,16 @@ import java.util.Collection;
 
 import com.siwi.common.logger.Logger;
 import com.siwi.common.logger.LoggerFactory;
-import com.siwi.website.ejb.entity.CityPK;
-import com.siwi.website.ejb.entity.CountryPK;
-import com.siwi.website.ejb.entity.LanguagePK;
-import com.siwi.website.ejb.value.CityValue;
-import com.siwi.website.ejb.value.CountryValue;
-import com.siwi.website.ejb.value.LanguageValue;
+import com.siwi.website.ejb.model.City;
+import com.siwi.website.ejb.model.Country;
+import com.siwi.website.ejb.model.Language;
 
 /**
  *  CommonEJBBean
  *
  * @author  Paxson Yang
  * @created  2002/8/7
- * @version  $Revision: 1.1 $ $Date: 2003/10/28 02:56:05 $
+ * @version  $Revision: 1.2 $ $Date: 2003/10/29 08:27:23 $
  * 
  * @ejb:bean  
  *     name="CommonEJB" type="Stateless"
@@ -36,11 +33,6 @@ public abstract class CommonEJBBean implements javax.ejb.SessionBean {
 
     private Logger _logger;
 
-    /**
-     *  Gets the logger attribute of the CommonEJBBean object
-     *
-     * @return    The logger value
-     */
     private Logger getLogger() {
         if (null == _logger) {
             _logger = LoggerFactory.getInstance().getLogger(
@@ -52,13 +44,9 @@ public abstract class CommonEJBBean implements javax.ejb.SessionBean {
     }
 
     /**
-     * @param  value  Description of the Parameter
-     * @param  countryId  Description of the Parameter
-     * @return  Description of the Return Value
-     * 
      * @ejb:interface-method
      */
-    public CityValue createCity(CityValue value, String countryId) {
+    public City createCity(City value, String countryId) {
         /*
         getLogger().debug(
                 "Executing CommonEJBBean.createCity(CityValue, String)");
@@ -108,12 +96,9 @@ public abstract class CommonEJBBean implements javax.ejb.SessionBean {
     }
 
     /**
-     * @param  value  Description of the Parameter
-     * @return  Description of the Return Value
-     * 
      * @ejb:interface-method
      */
-    public CountryValue createCountry(CountryValue value) {
+    public Country createCountry(Country value) {
         /*
         getLogger().debug(
                 "Executing CommonEJBBean.createCountry(CountryValue)");
@@ -140,12 +125,9 @@ public abstract class CommonEJBBean implements javax.ejb.SessionBean {
     }
 
     /**
-     * @param  value  Description of the Parameter
-     * @return  Description of the Return Value
-     * 
      * @ejb:interface-method
      */
-    public LanguageValue createLanguage(LanguageValue value) {
+    public Language createLanguage(Language value) {
         /*
         getLogger().debug(
                 "Executing CommonEJBBean.createLanguage(LanguageValue)");
@@ -172,19 +154,14 @@ public abstract class CommonEJBBean implements javax.ejb.SessionBean {
     }
 
     /**
-     * @param  name  Description of the Parameter
-     * 
      * @ejb:interface-method
      */
     public void createLanguageCode(String name) { }
 
     /**
-     * @param  pk  Description of the Parameter
-     * @return  Description of the Return Value
-     * 
      * @ejb:interface-method
      */
-    public CityValue findCity(CityPK pk) {
+    public City findCity(long id) {
         /*
         getLogger().debug("Executing CommonEJBBean.findCity(CityPK)");
         getLogger().debug("    CityPK = " + pk);
@@ -213,12 +190,9 @@ public abstract class CommonEJBBean implements javax.ejb.SessionBean {
     }
 
     /**
-     * @param  pk  Description of the Parameter
-     * @return  Description of the Return Value
-     * 
      * @ejb:interface-method
      */
-    public CountryValue findCountry(CountryPK pk) {
+    public Country findCountry(long id) {
         /*
         getLogger().debug(
                 "Executing CommonEJBBean.findCountry(CountryPK)");
@@ -247,8 +221,6 @@ public abstract class CommonEJBBean implements javax.ejb.SessionBean {
     }
 
     /**
-     * @return  Description of the Return Value
-     * 
      * @ejb:interface-method
      */
     public Collection findLanguage() {
@@ -284,12 +256,9 @@ public abstract class CommonEJBBean implements javax.ejb.SessionBean {
     }
 
     /**
-     * @param  pk  Description of the Parameter
-     * @return  Description of the Return Value
-     * 
      * @ejb:interface-method
      */
-    public LanguageValue findLanguage(LanguagePK pk) {
+    public Language findLanguage(long id) {
         /*
         getLogger().debug(
                 "Executing CommonEJBBean.findLanguage(LanguagePK)");

@@ -1,4 +1,4 @@
-<!-- $Id: website-xdoclet.ent,v 1.1 2003/10/28 02:56:05 paxson Exp $ -->
+<!-- $Id: website-xdoclet.ent,v 1.2 2003/10/29 08:27:23 paxson Exp $ -->
 
 <!-- ************************************************************************ -->
 <target name="_xdoclet:init">
@@ -157,7 +157,7 @@
 <!-- ************************************************************************ -->
 <target name="_xdoclet:webdoclet" depends="_xdoclet:init">
     <webdoclet
-        destdir="${build.java}"
+        destdir="${prj.build.java}"
         mergedir="${src.merge}"
         excludedtags="@version, @author, @todo"
         addedtags="@xdoclet-generated at ${TODAY},@copyright The XDoclet Team,@author XDoclet,@version ${version}"
@@ -165,7 +165,7 @@
         verbose="false"
         >
 
-        <fileset dir="${build.src}">
+        <fileset dir="${prj.build.java}">
 	        <include name="**/*Servlet.java"/>
 	        <include name="**/*Filter.java"/>
 	        <include name="**/*Tag.java"/>

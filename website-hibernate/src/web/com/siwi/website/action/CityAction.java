@@ -1,14 +1,12 @@
 /*
- * $ Id: $
+ * $Id: CityAction.java,v 1.2 2003/10/29 08:27:23 paxson Exp $
  * 
  */
 
 package com.siwi.website.action;
 
-import java.rmi.ServerException;
 import java.util.Collection;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionForward;
 
@@ -21,12 +19,7 @@ import com.siwi.common.web.HandlePerformException;
 import com.siwi.website.ejb.dao.CityDAO;
 import com.siwi.website.ejb.dao.CommonDAOFactory;
 import com.siwi.website.ejb.dao.CountryDAO;
-import com.siwi.website.ejb.entity.CityPK;
-import com.siwi.website.ejb.session.CommonEJB;
-import com.siwi.website.ejb.session.CommonEJBHome;
-import com.siwi.website.ejb.util.CommonEJBUtil;
-import com.siwi.website.ejb.value.CityValue;
-import com.siwi.website.ejb.value.LanguageValue;
+import com.siwi.website.ejb.model.City;
 import com.siwi.website.form.CityForm;
 
 /**
@@ -34,7 +27,7 @@ import com.siwi.website.form.CityForm;
  *
  * @author  Paxson Yang
  * @created  2002/8/7
- * @version  $Revision: 1.1 $ $Date: 2003/10/28 02:56:05 $
+ * @version  $Revision: 1.2 $ $Date: 2003/10/29 08:27:23 $
  * 
  * @web:ejb-ref  name="CommonEJB" 
  *               type="Session"
@@ -122,6 +115,7 @@ public class CityAction extends CommonAction {
                         ((CityForm) getActionForm()).getLanguages().length + "'");
             }
             
+            /*
             try {
                 CommonEJBHome _ejbHome = CommonEJBUtil.getHome();
                 CommonEJB _ejb = _ejbHome.create();
@@ -154,6 +148,8 @@ public class CityAction extends CommonAction {
             } catch (Exception e) {
                 throw new HandlePerformException(e);
             }
+            */
+            
             if (!getActionErrors().empty()) {
                 saveErrors(getRequest(), getActionErrors());
                 saveToken(getRequest());
@@ -219,6 +215,7 @@ public class CityAction extends CommonAction {
             getLogger().debug("CountryList size = " + _countries.size());
             Collection _languages = null;
             
+            /*
             try {
                 CommonEJBHome _commonEJBHome = CommonEJBUtil.getHome();
                 CommonEJB _commonEJB = _commonEJBHome.create();
@@ -229,6 +226,7 @@ public class CityAction extends CommonAction {
             } catch (Exception e) {
                 throw new HandlePerformException(e);
             }
+            */
 
             setAttribute(PARAM_COUNTRY_LIST, _countries);
             setAttribute(PARAM_LANGUAGE_LIST, _languages);
@@ -262,7 +260,8 @@ public class CityAction extends CommonAction {
          * @return  Description of the Return Value
          */
         private ActionForward CityDetailHandle(String id) {
-            CityValue _cityValue = null;
+            City _cityValue = null;
+            /*
             try {
                 CommonEJBHome _commonEJBHome = CommonEJBUtil.getHome();
                 CommonEJB _commonEJB = _commonEJBHome.create();
@@ -277,11 +276,12 @@ public class CityAction extends CommonAction {
             } catch (Exception e) {
                 throw new HandlePerformException(e);
             }
+            */
             
             setAttribute(PARAM_CITY, _cityValue);
             setAttribute(
                     PARAM_LANGUAGE_LIST_SIZE,
-                    new Integer(_cityValue.getLanguages().length));
+                    new Integer(_cityValue.getLanguages().size()));
             
             return getActionMapping().findForward(FORWARD_VIEW_DETAIL);
         }

@@ -1,5 +1,5 @@
 /*
- * $ Id: $
+ * $Id: CountryDAO.java,v 1.2 2003/10/29 08:27:23 paxson Exp $
  * 
  */
 
@@ -7,67 +7,29 @@ package com.siwi.website.ejb.dao;
 
 import java.util.Collection;
 
-import com.siwi.website.ejb.data.CountryData;
-import com.siwi.website.ejb.entity.CountryPK;
+import com.siwi.website.ejb.model.Country;
 
 /**
  *  CountryDAO
  *
  * @author  Paxson Yang
  * @created  2002/8/8
- * @version  $Revision: 1.1 $ $Date: 2003/10/28 02:56:05 $
+ * @version  $Revision: 1.2 $ $Date: 2003/10/29 08:27:23 $
  */
 public interface CountryDAO {
     final static String IMPL_CLASS =
-            "com.siwi.website.ejb.dao.impl.JBossCountryDAO";
+            "com.siwi.website.ejb.dao.impl.HibernateCountryDAO";
 
-    /**
-     *  Description of the Method
-     *
-     * @exception  DAOException  Description of the Exception
-     */
     void init() throws DAOException;
 
-    /**
-     *  Description of the Method
-     *
-     * @param  pk                Description of the Parameter
-     * @param  data              Description of the Parameter
-     * @exception  DAOException  Description of the Exception
-     */
-    void load(CountryPK pk, CountryData data) throws DAOException;
+    Country get(long id) throws DAOException;
 
-    /**
-     *  Description of the Method
-     *
-     * @param  bean              Description of the Parameter
-     * @exception  DAOException  Description of the Exception
-     */
-    void store(CountryData bean) throws DAOException;
+    void add(Country vakue) throws DAOException;
 
-    /**
-     *  Description of the Method
-     *
-     * @param  pk                Description of the Parameter
-     * @exception  DAOException  Description of the Exception
-     */
-    void remove(CountryPK pk) throws DAOException;
+    void update(Country value) throws DAOException;
+    
+    void delete(long id) throws DAOException;
 
-    /**
-     *  Description of the Method
-     *
-     * @param  pk                Description of the Parameter
-     * @return                   Description of the Return Value
-     * @exception  DAOException  Description of the Exception
-     */
-    CountryData findByPrimaryKey(CountryPK pk) throws DAOException;
-
-    /**
-     *  Description of the Method
-     *
-     * @return                   Description of the Return Value
-     * @exception  DAOException  Description of the Exception
-     */
     Collection findAll() throws DAOException;
 
 }

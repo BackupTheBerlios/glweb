@@ -1,14 +1,9 @@
 /*
- * $ Id: $
+ * $Id: EchoAction.java,v 1.2 2003/10/29 08:27:23 paxson Exp $
  * 
  */
 
 package com.siwi.website.action;
-
-import java.rmi.RemoteException;
-
-import javax.ejb.CreateException;
-import javax.naming.NamingException;
 
 import org.apache.struts.action.ActionForward;
 
@@ -18,9 +13,6 @@ import com.siwi.common.web.Handle;
 import com.siwi.common.web.HandleCreateException;
 import com.siwi.common.web.HandleFactory;
 import com.siwi.common.web.HandlePerformException;
-import com.siwi.website.ejb.session.EchoEJB;
-import com.siwi.website.ejb.session.EchoEJBHome;
-import com.siwi.website.ejb.util.EchoEJBUtil;
 import com.siwi.website.form.EchoForm;
 
 /**
@@ -28,7 +20,7 @@ import com.siwi.website.form.EchoForm;
  *
  * @author  Paxson Yang
  * @created  2002/8/5
- * @version  $Revision: 1.1 $ $Date: 2003/10/28 02:56:05 $
+ * @version  $Revision: 1.2 $ $Date: 2003/10/29 08:27:23 $
  * 
  * @web:ejb-ref  name="EchoEJB" 
  *               type="Session"
@@ -143,6 +135,7 @@ public class EchoAction extends CommonAction {
             getLogger().debug("Message = '" +
                     ((EchoForm) getActionForm()).getMessage() + "'");
 
+            /*
             try {
                 EchoEJBHome _ejbHome = EchoEJBUtil.getHome();
                 EchoEJB _ejb = _ejbHome.create();
@@ -160,6 +153,7 @@ public class EchoAction extends CommonAction {
 
             setAttribute(getActionMapping().getAttribute(),
                     getActionForm());
+            */
 
             return getActionMapping().findForward(FORWARD_RESULT);
         }

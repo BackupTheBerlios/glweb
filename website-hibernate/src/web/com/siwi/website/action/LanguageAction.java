@@ -1,15 +1,10 @@
 /*
- * $ Id: $
+ * $Id: LanguageAction.java,v 1.2 2003/10/29 08:27:23 paxson Exp $
  * 
  */
 
 package com.siwi.website.action;
 
-import java.rmi.ServerException;
-import java.util.Collection;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionForward;
 
 import com.siwi.common.web.ActionType;
@@ -18,11 +13,7 @@ import com.siwi.common.web.Handle;
 import com.siwi.common.web.HandleCreateException;
 import com.siwi.common.web.HandleFactory;
 import com.siwi.common.web.HandlePerformException;
-import com.siwi.website.ejb.entity.LanguagePK;
-import com.siwi.website.ejb.session.CommonEJB;
-import com.siwi.website.ejb.session.CommonEJBHome;
-import com.siwi.website.ejb.util.CommonEJBUtil;
-import com.siwi.website.ejb.value.LanguageValue;
+import com.siwi.website.ejb.model.Language;
 import com.siwi.website.form.LanguageForm;
 
 /**
@@ -30,7 +21,7 @@ import com.siwi.website.form.LanguageForm;
  *
  * @author  Paxson Yang
  * @created  2002/8/7
- * @version  $Revision: 1.1 $ $Date: 2003/10/28 02:56:05 $
+ * @version  $Revision: 1.2 $ $Date: 2003/10/29 08:27:23 $
  * 
  * @web:ejb-ref  name="CommonEJB" 
  *               type="Session"
@@ -111,6 +102,7 @@ public class LanguageAction extends CommonAction {
             getLogger().debug("LanguageName = '" +
                     ((LanguageForm) getActionForm()).getName() + "'");
 
+            /*
             try {
                 CommonEJBHome _ejbHome = CommonEJBUtil.getHome();
                 CommonEJB _ejb = _ejbHome.create();
@@ -133,6 +125,7 @@ public class LanguageAction extends CommonAction {
             } catch (Exception e) {
                 throw new HandlePerformException(e);
             }
+            */
 
             if (!getActionErrors().empty()) {
                 saveErrors(getRequest(), getActionErrors());
@@ -214,8 +207,9 @@ public class LanguageAction extends CommonAction {
          * @return  Description of the Return Value
          */
         private ActionForward LanguageDetailHandle(String id) {
-            LanguageValue _languageValue = null;
+            Language _languageValue = null;
 
+            /*
             try {
                 CommonEJBHome _commonEJBHome = CommonEJBUtil.getHome();
                 CommonEJB _commonEJB = _commonEJBHome.create();
@@ -230,6 +224,7 @@ public class LanguageAction extends CommonAction {
                 getLogger().debug("Exception : " + e.toString());
                 throw new HandlePerformException(e);
             }
+            */
 
             setAttribute(PARAM_LANGUAGE, _languageValue);
 
@@ -242,6 +237,7 @@ public class LanguageAction extends CommonAction {
          * @return  Description of the Return Value
          */
         private ActionForward LanguageListHandle() {
+            /*
             try {
                 CommonEJBHome _ejbHome = CommonEJBUtil.getHome();
                 CommonEJB _ejb = _ejbHome.create();
@@ -258,6 +254,7 @@ public class LanguageAction extends CommonAction {
                 getLogger().debug("Exception : " + e.toString());
                 throw new HandlePerformException(e);
             }
+            */
 
             return getActionMapping().findForward(FORWARD_VIEW_LIST);
         }
