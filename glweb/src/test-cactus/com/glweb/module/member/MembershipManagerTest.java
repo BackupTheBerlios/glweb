@@ -34,6 +34,10 @@ public class MembershipManagerTest extends ServletTestCase{
 	public MembershipManagerTest() {
 		super();
 	}
+	
+	public MembershipManagerTest(String name) {
+		super(name);
+	}	
 
 	public static Test suite() {
 		return new TestSuite(MembershipManagerTest.class);
@@ -56,7 +60,8 @@ public class MembershipManagerTest extends ServletTestCase{
 		this.getMembershipManager().updateUser(_userB);
 		m_userB_Id = _userB.getId();
 		
-	}	
+		
+	}
 
 	/**
 	 * @see junit.framework.TestCase#tearDown()
@@ -69,6 +74,8 @@ public class MembershipManagerTest extends ServletTestCase{
 			this.getMembershipManager().removeUser(m_userB_Id);
 		
 	}	
+	
+	
 	
 	protected MembershipManager getMembershipManager(){
 		return MembershipManager.getInstance();
