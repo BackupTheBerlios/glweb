@@ -1,5 +1,10 @@
 Manifest-version: 1.0
 Class-Path: ./lib/com.siwi.common.jar
+            ./lib/hibernate-2.1b4.jar
+            ./lib/dom4j-1.4-dev-8.jar
+            ./lib/odmg-3.0.jar
+            ./lib/cglib-rc2-1.0.jar
+            ./lib/jcs-1.0-dev.jar
 
 Name: com/ebizprise/
 Implementation-Title: eBizprise
