@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+   <!ENTITY xdoclet SYSTEM "../build/website-xdoclet.ent">
+   <!ENTITY junit SYSTEM "../build/website-junit.ent">
+]>
+
+<project name="website" default="build.app" basedir="..">
+  <property file="build/build.properties"/>
+
+  <!--+====================================================================+-->
+  <!--| Setup                                                              |-->
+  <!--|                                                                    |-->
+  <!--| Include the common build elements.                                 |-->
+  <!--|                                                                    |-->
+  <!--| This defines several different targets, properties and paths.      |-->
+  <!--| It also sets up the basic extention tasks amoung other things.     |-->
+  <!--+====================================================================+-->
+
+  &xdoclet;
+  &junit;
+
+  <!-- ************************************************************************ -->
+  <path id="classpath">
+    <fileset dir="${prj.lib.core}">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>
+
+  <!-- ************************************************************************ -->
+  <target name="init">
+    <echo>+==========================+</echo>
+    <echo>| Initialize variables     |</echo>
+    <echo>+==========================+</echo>
+    <tstamp>
+        <format property="TODAY" pattern="d-MM-yy"/>
+    </tstamp>
+    
+    <antcall target="clean"/>
+  </target>
+
+  <!-- ************************************************************************ -->
+  <target name="build.app" depends="init">
+    <echo>+==========================+</echo>
+    <echo>| Build Application        |</echo>
+    <echo>+==========================+</echo>
+    <antcall target="compile.core"/>
+    <antcall target="build.common.jar"/>
+    <antcall target="build.ejb.jar"/>
+    <antcall target="build.test.jar"/>
+    <antcall target="build.war"/>
+    <antcall target="build.ear"/>
+    <antcall target="deploy"/>
+  </target>
+  
+  <!-- ************************************************************************ -->
+  <target name="clean">
+    <echo>+==========================+</echo>
+    <echo>| Clean Temporary Files    |</echo>
+    <echo>+==========================+</echo>
+    <delete dir="${prj.home}"/>
+  </target>
+  
+  <!-- ************************************************************************ -->
+  <target name="precompile">
+    <echo>+==========================+</echo>
+    <echo>| Precompile Java          |</echo>
+    <echo>+==========================+</echo>
+    <filter token="version" value="${version}"/>
+    <copy file="${manifest.src}"
+          tofile="${manifest.dest}"
+          filtering="true"/>
+    <copy file="${manifest-ejb.src}"
+          tofile="${manifest-ejb.dest}"
+          filtering="true"/>
+    <copy file="${manifest-web.src}"
+          tofile="${manifest-web.dest}"
+          filtering="true"/>
+    <copy todir="${prj.build.java}" filtering="true">
+      <fileset dir="${prj.ejb}">
+        <include name="com/siwi/**/*.java"/>
+      </fileset>
+    </copy>
+    <copy todir="${prj.build.java}" filtering="true">
+      <fileset dir="${prj.common}">
+        <include name="com/siwi/**/*.java"/>
+      </fileset>
+    </copy>
+    <copy todir="${prj.build.java}" filtering="true">
+      <fileset dir="${prj.web}">
+        <include name="com/siwi/**/*.java"/>
+        <include name="com/siwi/**/*.properties"/>
+      </fileset>
+    </copy>
+    <!-- TestCase -->
+    <copy todir="${prj.build.java}" filtering="true">
+      <fileset dir="${prj.test}">
+        <include name="com/siwi/**/testcase/**/*.java"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <!-- ************************************************************************ -->
+  <target name="compile.core" depends="precompile, _xdoclet:ejbdoclet">
+    <echo>+==========================+</echo>
+    <echo>| Compile Core Java        |</echo>
+    <echo>+==========================+</echo>
+    <mkdir dir="${prj.classbindir}"/>
+    <javac srcdir="${prj.build.java}"
+           destdir="${prj.classbindir}"
+           debug="on"
+           deprecation="on"
+           optimize="on"
+           includes="com/siwi/common/**/*.java,com/siwi/website/ejb/**/*.java">
+      <classpath refid="classpath"/>
+    </javac>
+    <copy todir="${prj.classbindir}" filtering="true">
+      <fileset dir="${prj.build.java}">
+        <include name="com/siwi/**/*.properties"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <!-- ************************************************************************ -->
+  <target name="build.format">
+    <echo>+==========================+</echo>
+    <echo>| Formatting JAVA Files    |</echo>
+    <echo>+==========================+</echo>
+    <java classname="PrettyPrinter" 
+          fork="yes" 
+          failonerror="yes">
+      <arg line="-Djrefactory.home=${prj.lib.core} -quiet ${prj.src}"/>
+      <classpath refid="classpath"/>
+    </java>
+  </target>
+  
+  <!-- ************************************************************************ -->
+  <target name="build.common.jar">
+    <echo>+==========================+</echo>
+    <echo>| Build Common JAR         |</echo>
+    <echo>+==========================+</echo>
+    <jar jarfile="${prj.lib.core}/${common.jar}"
+         manifest="${manifest.dest}">
+      <fileset dir="${prj.classbindir}">
+        <include name="com/siwi/common/**/*.class"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <!-- ************************************************************************ -->
+  <target name="build.ejb.jar">
+    <echo>+==========================+</echo>
+    <echo>| Build EJB JAR            |</echo>
+    <echo>+==========================+</echo>
+    <copy todir="${prj.classbindir}/META-INF">
+      <fileset dir="${prj.build.metainf}">
+        <include name="**/*.xml"/>
+      </fileset>
+    </copy>
+    <mkdir dir="${prj.buildjardir}"/>
+    <jar jarfile="${prj.buildjardir}/${website-ejb.jar}"
+         manifest="${manifest-ejb.dest}">
+      <fileset dir="${prj.classbindir}">
+        <include name="com/siwi/website/ejb/**/*.class"/>
+        <include name="**/*.xml"/>
+      </fileset>
+    </jar>
+    <copy file="${prj.buildjardir}/${website-ejb.jar}" 
+          todir="${prj.lib.core}"/>
+  </target>
+  
+  <!-- ************************************************************************ -->
+  <target name="compile.test">
+    <echo>+==========================+</echo>
+    <echo>| Compile Test Java        |</echo>
+    <echo>+==========================+</echo>
+    <javac srcdir="${prj.build.java}"
+           destdir="${prj.classbindir}"
+           debug="on"
+           deprecation="on"
+           optimize="off"
+           includes="com/siwi/website/testcase/**/*.java">
+      <classpath refid="classpath"/>
+    </javac>
+  </target>
+  
+  <!-- ************************************************************************ -->
+  <target name="build.test.jar" depends="compile.test">
+    <echo>+==========================+</echo>
+    <echo>| Build Test JAR           |</echo>
+    <echo>+==========================+</echo>
+    <mkdir dir="${prj.buildjardir}"/>
+    <jar jarfile="${prj.buildjardir}/${website-test.jar}"
+         manifest="${manifest.dest}">
+      <fileset dir="${prj.classbindir}">
+        <include name="com/siwi/website/testcase/**/*.class"/>
+      </fileset>
+    </jar>
+    <copy file="${prj.buildjardir}/${website-test.jar}" 
+          todir="${prj.lib.core}"/>
+  </target>
+  
+  <!-- ************************************************************************ -->
+  <target name="compile.web">
+    <echo>+==========================+</echo>
+    <echo>| Compile Web Java         |</echo>
+    <echo>+==========================+</echo>
+    <javac srcdir="${prj.build.java}"
+           destdir="${prj.classbindir}"
+           debug="on"
+           deprecation="on"
+           optimize="on"
+           includes="com/siwi/website/**/*.java"
+           excludes="com/siwi/website/ejb/**/*.java,com/siwi/website/testcase/**/*.java">
+      <classpath refid="classpath"/>
+    </javac>
+  </target>
+  
+  <!-- ************************************************************************ -->
+  <target name="build.web.jar">
+    <echo>+==========================+</echo>
+    <echo>| Build Web Java           |</echo>
+    <echo>+==========================+</echo>
+    <jar jarfile="${prj.buildjardir}/${website-web.jar}"
+         manifest="${manifest.dest}">
+      <fileset dir="${prj.classbindir}">
+        <include name="com/siwi/website/action/**/*.class"/>
+        <include name="com/siwi/website/form/**/*.class"/>
+        <include name="com/siwi/website/**/*.properties"/>
+      </fileset>
+    </jar>
+    <copy file="${prj.buildjardir}/${website-web.jar}" 
+          todir="${prj.lib.core}"/>
+  </target>
+  
+  <!-- ************************************************************************ -->
+  <target name="prepare.web" depends="compile.web, build.web.jar">
+    <echo>+==========================+</echo>
+    <echo>| Prepare Web Files        |</echo>
+    <echo>+==========================+</echo>
+    <!-- Copy JSP & HTML Files -->
+    <copy todir="${prj.build.web}">
+      <fileset dir="${prj.jsp}">
+        <include name="**/*.jsp"/>
+        <include name="**/*.html"/>
+      </fileset>
+    </copy>
+    <!-- Copy Servlet Files -->
+    <copy todir="${prj.build.webinf}/classes">
+      <fileset dir="${prj.classbindir}">
+        <include name="com/siwi/website/**/*Action.class"/>
+        <include name="com/siwi/website/**/*Action*.class"/>
+        <include name="com/siwi/website/**/*Form.class"/>
+        <include name="com/siwi/website/**/*.properties"/>
+      </fileset>
+    </copy>
+    <!-- Copy TLD Files -->
+    <copy todir="${prj.build.webinf}/tlds">
+      <fileset dir="${prj.resources}/tlds">
+        <include name="**/*.tld"/>
+      </fileset>
+    </copy>
+    <!-- Copy Lib Files -->
+    <copy todir="${prj.build.webinf}/lib">
+      <fileset dir="${prj.lib.core}/">
+        <include name="${common.jar}"/>
+        <include name="${cactus.jar}"/>
+        <include name="${struts.jar}"/>
+        <include name="${commons-beanutils.jar}"/>
+        <include name="${commons-collections.jar}"/>
+        <include name="${commons-logging.jar}"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <!-- ************************************************************************ -->
+  <target name="build.war" depends="_xdoclet:webdoclet, prepare.web">
+    <echo>+==========================+</echo>
+    <echo>| Build WAR                |</echo>
+    <echo>+==========================+</echo>
+    <war warfile="${prj.buildjardir}/${website-web.war}" 
+         webxml="${prj.build.webinf}/web.xml" 
+         update="true"
+         manifest="${manifest-web.dest}">
+      <fileset dir="${prj.build.web}"/>
+    </war>
+  </target>
+  
+  <!-- ************************************************************************ -->
+  <target name="build.ear">
+    <echo>+==========================+</echo>
+    <echo>| Build EAR                |</echo>
+    <echo>+==========================+</echo>
+    <copy todir="${prj.buildjardir}/lib">
+      <fileset dir="${prj.lib.core}/">
+        <include name="${common.jar}"/>
+        <include name="${struts.jar}"/>
+        <include name="${commons-beanutils.jar}"/>
+        <include name="${commons-collections.jar}"/>
+        <include name="${commons-logging.jar}"/>
+        <include name="${website-web.jar}"/>
+      </fileset>
+    </copy>
+    <jar jarfile="${prj.home}/${website.ear}"
+         manifest="${manifest.dest}">
+      <fileset dir="${prj.buildjardir}"/>
+    </jar>
+  </target>
+  
+  <!-- ************************************************************************ -->
+  <target name="deploy">
+    <echo>+==========================+</echo>
+    <echo>| Deploy Application       |</echo>
+    <echo>+==========================+</echo>
+    <copy file="${prj.home}/${website.ear}" 
+          todir="${jboss.home}/server/default/deploy"/>
+  </target>
+  
+  <!-- ************************************************************************ -->
+  <target name="build.javadoc">
+    <echo>+==========================+</echo>
+    <echo>| Build Javadoc Files      |</echo>
+    <echo>+==========================+</echo>
+    <delete dir="${prj.doc}"/>
+    <mkdir dir="${prj.doc}"/>
+    <mkdir dir="${prj.api}"/>
+    <javadoc packagenames="com.siwi.*"
+             sourcepath="${prj.java}"
+             destdir="${prj.api}"
+             author="true"
+             version="true">
+      <classpath refid="classpath"/>
+      <sourcepath>
+        <pathelement location="${prj.java}"/>
+      </sourcepath>
+    </javadoc>
+  </target>
+
+</project>

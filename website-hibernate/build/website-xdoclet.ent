@@ -1,0 +1,227 @@
+<!-- $Id: website-xdoclet.ent,v 1.1 2003/10/28 02:56:05 paxson Exp $ -->
+
+<!-- ************************************************************************ -->
+<target name="_xdoclet:init">
+    <taskdef
+        name="xdoclet"
+        classname="xdoclet.DocletTask"
+        classpathref="classpath"
+        />
+        
+    <taskdef
+        name="ejbdoclet"
+        classname="xdoclet.modules.ejb.EjbDocletTask"
+        classpathref="classpath"
+        />
+        
+    <taskdef
+        name="webdoclet"
+        classname="xdoclet.modules.web.WebDocletTask"
+        classpathref="classpath"
+        />
+        
+    <taskdef
+        name="jmxdoclet"
+        classname="xdoclet.modules.jmx.JMXDocletTask"
+        classpathref="classpath"
+        />
+        
+    <taskdef
+        name="jdodoclet"
+        classname="xdoclet.modules.jdo.JdoDocletTask"
+        classpathref="classpath"
+        />
+        
+     <taskdef
+        name="hibernatedoclet"
+        classname="xdoclet.modules.hibernate.HibernateDocletTask"
+        classpathref="classpath"
+        />
+
+</target>
+
+<!-- ************************************************************************ -->
+<!--
+<target name="beautify" depends="init" unless="module.jar.uptodate">
+    <taskdef name="pretty2" classname="org.acm.seguin.ant.Pretty"
+             classpath="${lib.dir}/prettyprinter.jar"
+             />
+
+    <pretty2 settingsDir="${config.dir}" 
+             cvs="true" 
+             compileDir="${module.classes.dir}"
+             >
+        <fileset dir="${samples.java.dir}">
+            <include name="**/*.java" />
+        </fileset>
+    </pretty2>
+
+</target>
+-->
+
+<!-- ************************************************************************ -->
+<target name="_xdoclet:ejbdoclet"  depends="_xdoclet:init, _xdoclet:appxml">
+    <ejbdoclet
+        destdir="${prj.build.java}"
+        mergedir="${src.merge}"
+        excludedtags="@version, @author, @todo"
+        addedtags="@xdoclet-generated at ${TODAY},@copyright The XDoclet Team,@author XDoclet,@version ${version}"
+        ejbspec="2.0"
+        force="${xdoclet.force}"
+        verbose="false"
+        >
+        
+        <fileset dir="${prj.build.java}">
+           <include name="com/siwi/website/ejb/session/*Bean.java" />
+        </fileset>
+
+        <packageSubstitution packages="ejb" substituteWith="interfaces"/>
+
+        <remoteinterface/>
+        <localinterface/>
+        <homeinterface/>
+        <localhomeinterface/>
+
+        <dataobject/>
+        <valueobject/>
+
+        <entitypk/>
+
+        <entitycmp/>
+        <entitybmp/>
+
+        <session/>
+
+        <dao>
+            <packageSubstitution packages="ejb" substituteWith="dao"/>
+        </dao>
+
+        <utilobject cacheHomes="true" includeGUID="true"/>
+
+        <deploymentdescriptor
+            destdir="${prj.build.metainf}"
+            validatexml="true"
+            mergedir="${src.merge}"
+            description=""
+            >
+            <configParam name="clientjar" value="blah.jar"/>
+        </deploymentdescriptor>
+
+
+        <jboss
+            version="3.2"
+            unauthenticatedPrincipal="nobody"
+            xmlencoding="UTF-8"
+            destdir="${prj.build.metainf}"
+            validatexml="true"
+            preferredrelationmapping="relation-table"
+            />
+
+        <weblogic
+            version="6.1"
+            xmlencoding="UTF-8"
+            destdir="${prj.build.metainf}"
+            validatexml="true"
+            datasource="java:/samplesDataSource"
+            mergedir="${src.merge}"
+            persistence="weblogic"
+            />
+
+        <jrun
+            version="4.0"
+            xmlencoding="UTF-8"
+            destdir="${prj.build.metainf}"
+            validatexml="true"
+            />
+
+        <webSphere destdir="${prj.build.metainf}"/>
+
+        <jonas
+            version="2.5"
+            xmlencoding="UTF-8"
+            destdir="${prj.build.metainf}"
+            validatexml="false"
+            mergedir="${src.merge}"
+            />
+
+        <orion destdir="${prj.build.metainf}"/>
+
+        <apachesoap destdir="${prj.build.metainf}"/>
+
+        <strutsform/>
+
+        <castormapping destdir="${prj.build.metainf}" validatexml="false"/>
+    </ejbdoclet>
+</target>
+  
+<!-- ************************************************************************ -->
+<target name="_xdoclet:webdoclet" depends="_xdoclet:init">
+    <webdoclet
+        destdir="${build.java}"
+        mergedir="${src.merge}"
+        excludedtags="@version, @author, @todo"
+        addedtags="@xdoclet-generated at ${TODAY},@copyright The XDoclet Team,@author XDoclet,@version ${version}"
+        force="${xdoclet.force}"
+        verbose="false"
+        >
+
+        <fileset dir="${build.src}">
+	        <include name="**/*Servlet.java"/>
+	        <include name="**/*Filter.java"/>
+	        <include name="**/*Tag.java"/>
+	        <include name="**/*Action.java"/>
+	        <include name="**/*Form.java"/>
+        </fileset>
+
+        <deploymentdescriptor
+            servletspec="2.3"
+            destdir="${prj.build.webinf}"
+            >
+
+            <taglib
+                uri="http://java.sun.com/jstl/ea/core"
+                location="/WEB-INF/c.tld"
+                />
+
+        </deploymentdescriptor>
+
+        <strutsconfigxml
+            destdir="${prj.build.webinf}"
+            />
+
+        <jsptaglib
+            jspversion="1.2"
+            destdir="${prj.build.webinf}"
+            shortname="j2ee"
+            validateXml="false"
+            />
+
+        <jbosswebxml destdir="${prj.build.webinf}"/>
+
+        <jrunwebxml destdir="${prj.build.webinf}" mergedir="${src.merge}"/>
+
+        <weblogicwebxml
+            destdir="${prj.build.webinf}"
+            contextRoot="/samples"
+            validateXml="true"
+            />
+
+        <webWorkConfigProperties/>
+        <webWorkActionDocs javadocdir="api" mergedir="${src.merge}"/>
+    </webdoclet>
+</target>
+
+<!-- ************************************************************************ -->  
+<target name="_xdoclet:appxml">
+    <property name="app.display.name" value="Website"/>
+    <property name="app.description" value="Website application for XDoclet"/>
+    <property name="app.ejbjar.name" value="${website-ejb.jar}"/>
+    <property name="app.war.name" value="${website-web.war}"/>
+    <property name="app.contextroot" value="/website"/>
+
+    <taskdef name="replacecopy" classname="xdoclet.ant.ReplaceCopy">
+      <classpath refid="classpath"/>
+    </taskdef>
+      
+    <replacecopy file="${prj.appxml}" todir="${prj.buildjardir}/META-INF"/>
+</target>

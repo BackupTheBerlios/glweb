@@ -1,0 +1,6 @@
+Manifest-version: 1.0
+
+Name: com/ebizprise/
+Implementation-Title: eBizprise
+Implementation-Version: @version@
+Implementation-Vendor: "eBizprise Inc."

@@ -1,0 +1,7 @@
+Manifest-version: 1.0
+Class-Path: ./lib/com.siwi.common.jar
+
+Name: com/ebizprise/
+Implementation-Title: eBizprise
+Implementation-Version: @version@
+Implementation-Vendor: "eBizprise Inc."

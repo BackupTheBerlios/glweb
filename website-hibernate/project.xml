@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <version>2</version>
+  <name>ebizprise-transport</name>
+  <id>transport</id>
+  <currentVersion>0.1</currentVersion>
+  <organization>eBizprise Inc.</organization>
+  <inceptionYear>2002</inceptionYear>
+  <package>com.ebizprise.ebizarch</package>
+  <gumpRepositoryId>ebizprise-transport</gumpRepositoryId>
+  <shortDescription>eBizprise Transport</shortDescription>
+  <description>eBizprise Transport Layer</description>
+  <url>http://paxson/ebizprise-transport/</url>
+  <cvsWebUrl>
+      http://paxson/cgi-bin/viewcvs.cgi/ebizprise-transport/
+  </cvsWebUrl>
+  <issueTrackingUrl>
+      http://paxson:8080/scarab/servlet/scarab
+  </issueTrackingUrl>
+  <siteAddress>www.ebizprise.com.tw</siteAddress>
+  <siteDirectory>/www/www.ebizprise.com.tw/ebizprise-turnkey/</siteDirectory>
+  <mailingLists>
+    <!--
+    <mailingList>
+      <name>eBizprise Turnkey User List</name>
+      <subscribe>turbine-torque-user-subscribe@jakarta.apache.org</subscribe>
+      <unsubscribe>turbine-torque-user-unsubscribe@jakarta.apache.org</unsubscribe>
+      <archive>http://www.mail-archive.com/turbine-torque-user@jakarta.apache.org/</archive>
+    </mailingList>
+    -->
+  </mailingLists>
+  <developers>
+    <developer>
+      <name>Paxson Yang</name>
+      <id>paxson</id>
+      <email>paxson.yang@ebizprise.com.tw</email>
+      <organization>eBizprise Inc.</organization>
+    </developer>
+  </developers>
+  <dependencies>
+    <dependency>
+      <name>activation</name>
+      <type>required</type>
+      <version>NA</version>
+      <jar>activation.jar</jar>
+    </dependency>
+    <dependency>
+      <name>mail</name>
+      <type>required</type>
+      <version>NA</version>
+      <jar>mail.jar</jar>
+    </dependency>
+    <dependency>
+      <name>soap</name>
+      <type>required</type>
+      <version>NA</version>
+      <jar>soap.jar</jar>
+    </dependency>
+    <dependency>
+      <name>servlet</name>
+      <type>required</type>
+      <version>NA</version>
+      <jar>servlet.jar</jar>
+    </dependency>
+    <dependency>
+      <name>xmlParserAPIs</name>
+      <type>required</type>
+      <version>NA</version>
+      <jar>xmlParserAPIs.jar</jar>
+    </dependency>
+    <dependency>
+      <name>cos</name>
+      <type>required</type>
+      <version>NA</version>
+      <jar>cos.jar</jar>
+    </dependency>
+    <dependency>
+      <name>eBizarch2</name>
+      <type>required</type>
+      <version>NA</version>
+      <jar>eBizarch2.jar</jar>
+    </dependency>
+  </dependencies>
+  <build>
+    <nagEmailAddress>paxson.yang@ebizprise.com.tw</nagEmailAddress>
+    <sourceDirectories>
+      <sourceDirectory>src/java</sourceDirectory>
+    </sourceDirectories>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <aspectSourceDirectories/>
+    <unitTestPatterns>
+      <unitTestPattern>include = **/All*Test.java</unitTestPattern>
+      <unitTestPattern>exclude = **/Abstract*Test.java</unitTestPattern>
+    </unitTestPatterns>
+    <jarResources>
+      <jarResource>include = **/*</jarResource>
+    </jarResources>
+    <jars/>
+  </build>
+</project>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="website" default="build" basedir=".">
+
+  <!-- 
+   | Give user a chance to override without editing this file
+   | (and without typing -D each time they invoke a target) 
+   -->
+
+  <!-- Allow any user specific values to override the defaults -->
+  <property file="${user.home}/build.properties"/>
+  <!-- Allow user defaults for this project -->
+  <property file="build.properties"/>
+  <!-- Set default values for the build -->
+  <property file="project.properties"/>
+  
+  <property name="build.home" value="build"/>
+
+  <!-- website:start -->
+  
+  <!-- ================================================================== -->
+  <!-- D E L E G A T O R S                                                -->
+  <!-- ================================================================== -->
+  
+  <target name="build">
+      <ant antfile="${build.home}/website.xml" target="build.app"/>
+  </target>
+  
+  <target name="test-session">
+      <ant antfile="${build.home}/website.xml" target="run.session"/>
+  </target>
+    
+  <!-- website:end -->
+
+</project>
