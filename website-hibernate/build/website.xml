@@ -239,6 +239,7 @@
           <fileset dir="${prj.classbindir}">
               <include name="com/siwi/website/action/**/*.class"/>
               <include name="com/siwi/website/form/**/*.class"/>
+              <include name="com/siwi/website/**/*.properties"/>
           </fileset>
       </jar>
   </target>
@@ -252,14 +253,13 @@
               <include name="**/*.html"/>
           </fileset>
       </copy>
-    
-      <!-- Copy Servlet Files -->
-      <copy todir="${prj.build.webinf}/classes">
-          <fileset dir="${prj.classbindir}">
-              <include name="com/siwi/website/**/*Action.class"/>
-              <include name="com/siwi/website/**/*Action*.class"/>
-              <include name="com/siwi/website/**/*Form.class"/>
-              <include name="com/siwi/website/**/*.properties"/>
+      
+      <!-- Copy XML Files -->
+      <copy todir="${prj.build.webinf}">
+          <fileset dir="${prj.config}">
+              <include name="tiles-defs.xml"/>
+              <include name="validation.xml"/>
+              <include name="validator-rules.xml"/>
           </fileset>
       </copy>
     
@@ -283,6 +283,7 @@
               <include name="commons-beanutils-*.jar"/>
               <include name="commons-collections-*.jar"/>
               <include name="commons-logging-*.jar"/>
+              <include name="commons-validator-*.jar"/>
           </fileset>
       </copy>
   </target>
@@ -304,15 +305,21 @@
   <target name="build.ear">
       <copy todir="${prj.buildjardir}">
           <fileset dir="${prj.home}">
-              <include name="${common.jar}"/>
               <include name="${website-ejb.jar}"/>
               <include name="${website-web.war}"/>
           </fileset>
       </copy>
       
       <copy todir="${prj.buildjardir}/lib">
+          <fileset dir="${prj.home}">
+              <include name="${common.jar}"/>
+          </fileset>
           <fileset dir="${prj.lib.core}">
               <include name="hibernate-*.jar"/>
+              <include name="dom4j-*.jar"/>
+              <include name="odmg-*.jar"/>
+              <include name="cglib-*.jar"/>
+              <include name="jcs-*.jar"/>
           </fileset>
       </copy>
     
@@ -323,10 +330,7 @@
   
   <!-- ************************************************************************ -->
   <target name="deploy" depends="build.app">
-      <copy 
-          file="${prj.buildjardir}/${website.ear}" 
-          tofile="${deploy.dir}/website.ear"
-          />
+      <copy file="${prj.buildjardir}/${website.ear}" todir="${deploy.dir}"/>
   </target>
   
   <!-- ************************************************************************ -->
