@@ -1,6 +1,6 @@
 /*
  *
- * $Id: HibernateUtil.java,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ * $Id: HibernateUtil.java,v 1.2 2003/09/18 06:56:14 paxson Exp $
  *
  * Copyright (c) 2003 SIWI.com
  *
@@ -49,7 +49,7 @@ import com.glweb.util.NamingUtilities;
  * HibernateUtil
  *
  * @author   $Author: paxson $
- * @version  $Revision: 1.1 $ $Date: 2003/05/10 11:41:13 $
+ * @version  $Revision: 1.2 $ $Date: 2003/09/18 06:56:14 $
  */
 public class HibernateUtil {
     
@@ -104,7 +104,7 @@ public class HibernateUtil {
     public static SessionFactory retrieveDefaultSessionFactory() 
         throws GLWebPersistenceException {
         
-        String _sessionFactoryType = GlobalProperties.getProperty(
+        String _sessionFactoryType = GlobalProperties.getInstance().getProperty(
                 KEY_SESSION_FACTORY_TYPE);
         
         if ("local".equals(_sessionFactoryType)) {
