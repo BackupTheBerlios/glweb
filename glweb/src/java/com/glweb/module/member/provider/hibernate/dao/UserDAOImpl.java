@@ -1,6 +1,6 @@
 /*
  *
- * $Id: UserDAOImpl.java,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ * $Id: UserDAOImpl.java,v 1.2 2003/05/17 10:16:53 kocachen Exp $
  *
  * Copyright (c) 2003 SIWI.com
  *
@@ -28,6 +28,7 @@
 package com.glweb.module.member.provider.hibernate.dao;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import net.sf.hibernate.HibernateException;
@@ -37,21 +38,26 @@ import net.sf.hibernate.Session;
 import com.glweb.infrastructure.persistence.GLWebPersistenceException;
 import com.glweb.infrastructure.persistence.hibernate.HibernateUtil;
 import com.glweb.module.member.dao.UserDAO;
+import com.glweb.module.member.dao.UserProfileDAO;
+import com.glweb.module.member.factory.UserDAOFactory;
 import com.glweb.module.member.model.User;
 
 /**
- * UserDAOImpl
+ * HibernateUserDAO
  *
- * @author   $Author: paxson $
- * @version  $Revision: 1.1 $ $Date: 2003/05/10 11:41:13 $
+ * @author   $Author: kocachen $
+ * @version  $Revision: 1.2 $ $Date: 2003/05/17 10:16:53 $
  */
 public class UserDAOImpl implements UserDAO {
+	
+	private UserProfileDAO m_UserProfileDAO;
     
     public UserDAOImpl() throws GLWebPersistenceException  {
+    	this.setUserProfileDAO(UserDAOFactory.getUserProfileDAO());
     }
     
     /**
-     * @see com.glweb.module.user.UserDAO#getUser(long)
+     * @see com.glweb.system.user.UserDAO#getUser(long)
      */
     public User getUser(long id) throws GLWebPersistenceException {
         User _user = null;
@@ -60,6 +66,9 @@ public class UserDAOImpl implements UserDAO {
         try {
             _session = HibernateUtil.retrieveDefaultSession();
             _user = (User) _session.load(User.class, new Long(id));
+            
+            this.assignUserProfile(_user, _session);    
+                    
         } catch (HibernateException he) {
             return null;
         } finally {
@@ -76,8 +85,11 @@ public class UserDAOImpl implements UserDAO {
 
         try {
             _session = HibernateUtil.retrieveDefaultSession();
-            _query = _session.getNamedQuery("member.model.User.findAll");
+            _query = _session.getNamedQuery("com.glweb.module.member.model.User.findAll");
             _users = _query.list();
+            
+            this.assignUsersProfile(_users, _session);
+            
         } catch (HibernateException he) {
             throw new GLWebPersistenceException(he);
         } finally {
@@ -94,9 +106,12 @@ public class UserDAOImpl implements UserDAO {
 
         try {
             _session = HibernateUtil.retrieveDefaultSession();
-            _query = _session.getNamedQuery("member.model.User.findByName");
+            _query = _session.getNamedQuery("com.glweb.module.member.model.User.findByName");
             _query.setParameter("name", name);
             _users = _query.list();
+            
+            this.assignUsersProfile(_users, _session);
+            
         } catch (HibernateException he) {
             throw new GLWebPersistenceException(he);
         } finally {
@@ -111,14 +126,17 @@ public class UserDAOImpl implements UserDAO {
     }
 
     /**
-     * @see com.glweb.module.user.UserDAO#removeUser(long)
+     * @see com.glweb.system.user.UserDAO#removeUser(long)
      */
     public void removeUser(long id) throws GLWebPersistenceException {
         Session _session = null;
 
         try {
             _session = HibernateUtil.retrieveDefaultSession();
-            _session.delete(getUser(id));
+            
+			this.removeUserProfile(id, _session);
+            _session.delete(getUser(id)); 
+                       
         } catch (HibernateException he) {
             throw new GLWebPersistenceException(he);
         } finally {
@@ -127,7 +145,7 @@ public class UserDAOImpl implements UserDAO {
     }
     
     /**
-     * @see com.glweb.module.user.UserDAO#removeUserByName(java.lang.String)
+     * @see com.glweb.system.user.UserDAO#removeUserByName(java.lang.String)
      */
     public void removeUserByName(String name) throws GLWebPersistenceException {
         Session _session = null;
@@ -137,6 +155,7 @@ public class UserDAOImpl implements UserDAO {
             
             User _user = getUserByName(name);
             if (null != _user) {
+            	this.removeUserProfile(_user.getId(), _session);
                 _session.delete(_user);
             }
         } catch (HibernateException he) {
@@ -147,7 +166,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     /**
-     * @see com.glweb.module.user.UserDAO#saveUser(com.glweb.model.user.User)
+     * @see com.glweb.system.user.UserDAO#saveUser(com.glweb.model.member.User)
      */
     public long saveUser(User user) throws GLWebPersistenceException {
         long _id = 0;
@@ -156,6 +175,15 @@ public class UserDAOImpl implements UserDAO {
         try {
             _session = HibernateUtil.retrieveDefaultSession();
             _id = ((Long) _session.save(user)).longValue();
+            
+            /*
+             * save the UserProfile. (without use UserProfileDAO?)
+             */
+			if(user.getUserProfile()!=null){
+				user.getUserProfile().setId(_id);				
+				_session.save(user.getUserProfile());
+        	}
+        				
         } catch (HibernateException he) {
             throw new GLWebPersistenceException(he);
         } finally {
@@ -166,19 +194,84 @@ public class UserDAOImpl implements UserDAO {
     }
 
     /**
-     * @see com.glweb.module.user.UserDAO#updateUser(com.glweb.model.user.User)
+     * @see com.glweb.system.user.UserDAO#updateUser(com.glweb.model.user.User)
      */
     public void updateUser(User user) throws GLWebPersistenceException {
         Session _session = null;
 
         try {
             _session = HibernateUtil.retrieveDefaultSession();
-            _session.update(user);
+            if (user.isUpdateFlag())
+            	_session.update(user);
+            
+			/*
+			 * save the UserProfile. (without use UserProfileDAO?)
+			 */
+			if(user.getUserProfile()!=null 
+					&& (user.getUserProfile().isInsertFlag()
+						|| user.getUserProfile().isUpdateFlag())
+				){
+												
+				user.getUserProfile().setId(user.getId());				
+				if (this.getUserProfileDAO(_session).getUserProfile(user.getId())!= null){
+					_session.update(user.getUserProfile());
+				}else{
+					_session.save(user.getUserProfile());
+				}
+			}
+			
         } catch (HibernateException he) {
             throw new GLWebPersistenceException(he);
         } finally {
             HibernateUtil.commitCloseSession(_session);
         }
     }
+
+	/**
+	 * @return UserProfileDAO
+	 */
+	protected UserProfileDAO getUserProfileDAO(Session session) {
+		
+		UserProfileDAOImpl _dao = (UserProfileDAOImpl)m_UserProfileDAO ;
+		_dao.setSession(session);
+		return _dao;
+	}
+
+	/**
+	 * Sets the userProfileDAO.
+	 * @param userProfileDAO The userProfileDAO to set
+	 */
+	protected void setUserProfileDAO(UserProfileDAO userProfileDAO) {
+		m_UserProfileDAO = userProfileDAO;
+	}
+
+
+
+	private void assignUserProfile(User user,Session session) throws GLWebPersistenceException{
+		user.setUserProfile(
+			this.getUserProfileDAO(session).getUserProfile(user.getId())
+		);
+	}
+	
+	private void assignUsersProfile(List users,Session session){
+		
+		Iterator iterator = users.iterator();
+		while (iterator.hasNext()){
+			try {
+				this.assignUserProfile((User)iterator.next(),session);
+			} catch (GLWebPersistenceException e) {
+				e.printStackTrace();
+			}
+		}		
+	}
+	
+	private void removeUserProfile(long id, Session session) throws GLWebPersistenceException{
+		
+		this.getUserProfileDAO(session).removeUserProfile(id);
+			
+	}
+	
+	
+	
 
 }

@@ -1,6 +1,6 @@
 /*
  *
- * $Id: UserDAOFactory.java,v 1.2 2003/05/17 10:16:53 kocachen Exp $
+ * $Id: UserProfileDAO.java,v 1.1 2003/05/17 10:16:53 kocachen Exp $
  *
  * Copyright (c) 2003 SIWI.com
  *
@@ -25,42 +25,41 @@
  *
  */
 
-package com.glweb.module.member.factory;
+package com.glweb.module.member.dao;
 
+import com.glweb.module.member.model.UserProfile;
 import com.glweb.infrastructure.persistence.GLWebPersistenceException;
-import com.glweb.module.member.dao.UserDAO;
-import com.glweb.module.member.dao.UserProfileDAO;
-import com.glweb.module.member.provider.hibernate.dao.UserDAOImpl;
-import com.glweb.module.member.provider.hibernate.dao.UserProfileDAOImpl;
-;
 
 /**
- * UserDAOFactory
+ * UserDAO
  *
- * @author   $Author: kocachen $
- * @version  $Revision: 1.2 $ $Date: 2003/05/17 10:16:53 $
  */
-public class UserDAOFactory {
+public interface UserProfileDAO {
     
     /**
-     * @return
-     */
-    public static UserDAO getUserDAO() {
-        UserDAO _dao = null;
-
-        try {
-            _dao = new UserDAOImpl();
-        } catch (GLWebPersistenceException e) {
-            e.printStackTrace();
-        }
-
-        return _dao;
-    }
+	 * @param id
+	 * @return
+	 * @throws GLWebPersistenceException
+	 */
+	public UserProfile getUserProfile(long id) throws GLWebPersistenceException;
     
-    public static UserProfileDAO getUserProfileDAO(){
-    	UserProfileDAO _dao = null ;
-    	_dao = new UserProfileDAOImpl();
-    	return _dao;
-    }
-
+    /**
+	 * @param user
+	 * @return
+	 * @throws GLWebPersistenceException
+	 */
+	public long saveUserProfile(UserProfile user) throws GLWebPersistenceException;
+    
+    /**
+	 * @param user
+	 * @throws GLWebPersistenceException
+	 */
+	public void updateUserProfile(UserProfile user) throws GLWebPersistenceException;
+    
+    /**
+	 * @param id
+	 * @throws GLWebPersistenceException
+	 */
+	public void removeUserProfile(long id) throws GLWebPersistenceException;
+    
 }

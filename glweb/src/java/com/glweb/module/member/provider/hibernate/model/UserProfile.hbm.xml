@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.glweb.module.member.model.UserProfile" table="USER_PROFILE">
+
+        <jcs-cache usage="read-write"/>
+		
+        <id name="id" type="long" column="ID">
+            <generator class="assigned"/>
+        </id>
+
+        <property name="PimSign" 
+                  column="PIM_SIGN" 
+                  type="string" 
+        />
+
+        <property name="PimIntroduction"        
+        		  column="PIM_INTRODUCTION"        
+        		  type="java.lang.String" 
+        />
+        		  
+        <property name="PimHobby"
+                  column="PIM_HOBBY"
+                  type="java.lang.String"
+        />
+
+        <property name="Motto"        
+        		  column="MOTTO"
+        		  type="java.lang.String" 
+        />
+        		  
+    </class>
+
+</hibernate-mapping>

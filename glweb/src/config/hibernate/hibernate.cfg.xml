@@ -5,7 +5,7 @@
     "http://hibernate.sourceforge.net/hibernate-configuration-2.0.dtd">
 
 <!--
- $Id: hibernate.cfg.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ $Id: hibernate.cfg.xml,v 1.2 2003/05/17 10:16:53 kocachen Exp $
 -->
 
 <hibernate-configuration>
@@ -38,6 +38,7 @@
         <mapping resource="com/glweb/module/forum/provider/hibernate/model/Category.hbm.xml"/>
         <mapping resource="com/glweb/module/forum/provider/hibernate/model/Message.hbm.xml"/>
         <mapping resource="com/glweb/module/member/provider/hibernate/model/User.hbm.xml"/>
+        <mapping resource="com/glweb/module/member/provider/hibernate/model/UserProfile.hbm.xml"/>
 
     </session-factory>
 

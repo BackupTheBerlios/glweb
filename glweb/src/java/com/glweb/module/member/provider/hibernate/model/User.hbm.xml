@@ -11,22 +11,138 @@
         <jcs-cache usage="read-write"/>
 		
         <id name="id" type="long" column="ID">
-            <generator class="@DB_LONG_ID_TYPE@"/>
+            <generator class="native"/>
         </id>
 
-        <property name="name" column="NAME" not-null="true" unique="true"
-                  type="java.lang.String" 
+        <property name="CreationDate" 
+                  type="date" 
+                  column="CREATION_DATE" 
+                  not-null="true" 
+        />
+        
+        <property name="LastModifiedDate" 
+                  type="date" 
+                  column="LAST_MODIFIED_DATE" 
+                  not-null="true"
+        />                
+
+        <property name="Name" 
+                  type="string" 
+                  column="NAME" 
+                  not-null="true" 
+                  unique="true"
         />
 
+        <property name="Password"        
+        		  column="Password"        
+        		  type="java.lang.String" 
+        		  not-null="true" 
+        />
+        		  
+        <property name="Email"
+                  column="Email"
+                  type="java.lang.String"
+                  not-null="true" 
+        />
+
+        <property name="LastName"        
+        		  column="LastName"
+        		  type="java.lang.String" 
+        />
+        		  
+        <property name="FirstName"
+        		  column="FirstName"
+        		  type="java.lang.String" 
+        />     
+
+        <property name="City"            
+                  column="City"            
+                  type="java.lang.String" 
+        />
+                  
+        <property name="State"           
+                  column="State"           
+                  type="java.lang.String" 
+        />
+        
+        <property name="Country"         
+                  column="Country"         
+                  type="java.lang.String" 
+        />
+        
+        <property name="Age"             
+                  column="Age"             
+                  type="integer" 
+        />
+        
+        <property name="Sex"             
+                  column="Sex"             
+                  type="true_false" 
+        />
+        
+        <property name="Position"        
+                  column="Position"        
+                  type="java.lang.String" 
+        />
+        
+        <property name="EmailIsVisiable" 
+                  column="EmailIsVisiable" 
+                  type="true_false" 
+        />
+        
+        <property name="StarSign"        
+                  column="StarSign"        
+                  type="java.lang.String" 
+        />
+        
+        <property name="IcqNo"           
+                  column="IcqNo"           
+                  type="java.lang.String" 
+        />
+        
+        <property name="MsnNo"           
+                  column="MsnNo"           
+                  type="java.lang.String" 
+        />
+        
+        <property name="HomePage"        
+                  column="HomePage"        
+                  type="java.lang.String" 
+        />
+        
+        <property name="PimImage"        
+                  column="PimImage"        
+                  type="java.lang.String" 
+        />
+        
+        <property name="PimImgUrl"       
+                  column="PimImgUrl"       
+                  type="java.lang.String" 
+        />
+        
+        <property name="PimImgWidth"     
+                  column="PimImgWidth"     
+                  type="integer" 
+        />
+        
+        <property name="PimImgHeight"    
+                  column="PimImgHeight"    
+                  type="integer" 
+        />
+
+		<one-to-one name="UserProfile" 
+			        class="com.glweb.module.member.model.UserProfile" 
+		/>
+		
     </class>
-    
-    <query name="member.model.User.findAll"><![CDATA[
+   
+    <query name="com.glweb.module.member.model.User.findAll"><![CDATA[
         from user in class com.glweb.module.member.model.User
     ]]></query>
     
-    <query name="member.model.User.findByName"><![CDATA[
+    <query name="com.glweb.module.member.model.User.findByName"><![CDATA[
         from user in class com.glweb.module.member.model.User
-        where user.name = :name
+        where user.Name = :name
     ]]></query>
 
 </hibernate-mapping>

@@ -1,6 +1,6 @@
 /*
  *
- * $Id: JUnitForumHelper.java,v 1.2 2003/05/12 09:37:16 paxson Exp $
+ * $Id: JUnitForumHelper.java,v 1.3 2003/05/17 10:16:53 kocachen Exp $
  *
  * Copyright (c) 2003 SIWI.com
  *
@@ -35,14 +35,14 @@ import org.apache.commons.logging.LogFactory;
 
 import com.glweb.module.forum.model.Category;
 import com.glweb.module.forum.model.Message;
-import com.glweb.module.member.UserManager;
+import com.glweb.module.member.MembershipManager;
 import com.glweb.module.member.model.User;
 
 /**
  * JUnitForumHelper
  *
- * @author   $Author: paxson $
- * @version  $Revision: 1.2 $ $Date: 2003/05/12 09:37:16 $
+ * @author   $Author: kocachen $
+ * @version  $Revision: 1.3 $ $Date: 2003/05/17 10:16:53 $
  */
 public class JUnitForumHelper {
     
@@ -56,8 +56,8 @@ public class JUnitForumHelper {
         return _logger;
     }
     
-    protected static UserManager getUserManager() {
-        return UserManager.getInstance();
+    protected static MembershipManager getUserManager() {
+        return MembershipManager.getInstance();
     }
     
     protected static ForumManager getForumManager() {
@@ -67,17 +67,20 @@ public class JUnitForumHelper {
     public static void addUsers() {
         User _paxson = new User();
         _paxson.setName("Paxson Yang");
+        _paxson.setPassword("");
+		_paxson.setEmail("");
         
         User _cat = new User();
         _cat.setName("Cat Chen");
-        
+		_cat.setPassword("");
+		_cat.setEmail("");
         
         if (null == getUserManager().getUserByName(_paxson.getName())) {
-            getUserManager().createUser(_paxson);
+            getUserManager().createUser(_paxson.getName(), _paxson.getPassword(), _paxson.getEmail());
         }
         
         if (null == getUserManager().getUserByName(_cat.getName())) {
-            getUserManager().createUser(_cat);
+            getUserManager().createUser(_cat.getName(), _cat.getPassword(), _paxson.getEmail());
         }
     }
     

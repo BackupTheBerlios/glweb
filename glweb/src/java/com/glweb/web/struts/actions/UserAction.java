@@ -1,6 +1,6 @@
 /*
  *
- * $Id: UserAction.java,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ * $Id: UserAction.java,v 1.2 2003/05/17 10:16:53 kocachen Exp $
  *
  * Copyright (c) 2003 SIWI.com
  *
@@ -38,14 +38,14 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.glweb.Constants;
-import com.glweb.module.member.UserManager;
+import com.glweb.module.member.MembershipManager;
 import com.glweb.module.member.model.User;
 
 /**
  * HelloAction
  *
- * @author   $Author: paxson $
- * @version  $Revision: 1.1 $ $Date: 2003/05/10 11:41:13 $
+ * @author   $Author: kocachen $
+ * @version  $Revision: 1.2 $ $Date: 2003/05/17 10:16:53 $
  * 
  * @struts:action path="/action/userAction"
  *                name="userForm"
@@ -71,8 +71,8 @@ public class UserAction extends BaseAction {
     /**
      * @return UserManager
      */
-    protected UserManager getUserManager() {
-        return UserManager.getInstance();
+    protected MembershipManager getUserManager() {
+        return MembershipManager.getInstance();
     }
     
     /**

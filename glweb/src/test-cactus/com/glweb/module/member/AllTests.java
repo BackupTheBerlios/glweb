@@ -1,6 +1,6 @@
 /*
  *
- * $Id: AllTests.java,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ * $Id: AllTests.java,v 1.2 2003/05/17 10:16:53 kocachen Exp $
  *
  * Copyright (c) 2003 SIWI.com
  *
@@ -34,8 +34,8 @@ import junit.framework.TestSuite;
 /**
  * AllTests
  *
- * @author   $Author: paxson $
- * @version  $Revision: 1.1 $ $Date: 2003/05/10 11:41:13 $
+ * @author   $Author: kocachen $
+ * @version  $Revision: 1.2 $ $Date: 2003/05/17 10:16:53 $
  */
 public class AllTests {
 
@@ -43,7 +43,7 @@ public class AllTests {
         TestSuite _suite = new TestSuite("Test for com.glweb.module.user");
         
         //$JUnit-BEGIN$
-        _suite.addTest(UserManagerTest.suite());
+        _suite.addTest(MembershipManagerTest.suite());
         //$JUnit-END$
         
         return _suite;
