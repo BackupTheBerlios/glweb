@@ -1,6 +1,6 @@
 /*
  *
- * $Id: JUnitForumHelper.java,v 1.3 2003/05/17 10:16:53 kocachen Exp $
+ * $Id: JUnitForumHelper.java,v 1.4 2003/06/03 01:51:17 paxson Exp $
  *
  * Copyright (c) 2003 SIWI.com
  *
@@ -41,114 +41,122 @@ import com.glweb.module.member.model.User;
 /**
  * JUnitForumHelper
  *
- * @author   $Author: kocachen $
- * @version  $Revision: 1.3 $ $Date: 2003/05/17 10:16:53 $
+ * @author   $Author: paxson $
+ * @version  $Revision: 1.4 $ $Date: 2003/06/03 01:51:17 $
  */
 public class JUnitForumHelper {
-    
+
     private static Log _logger;
-    
+
     protected static Log getLogger() {
         if (null == _logger) {
             _logger = LogFactory.getLog(JUnitForumHelper.class);
         }
-        
+
         return _logger;
     }
-    
+
     protected static MembershipManager getUserManager() {
         return MembershipManager.getInstance();
     }
-    
+
     protected static ForumManager getForumManager() {
         return ForumManager.getInstance();
     }
-    
+
     public static void addUsers() {
         User _paxson = new User();
         _paxson.setName("Paxson Yang");
         _paxson.setPassword("");
-		_paxson.setEmail("");
-        
+        _paxson.setEmail("");
+
         User _cat = new User();
         _cat.setName("Cat Chen");
-		_cat.setPassword("");
-		_cat.setEmail("");
-        
+        _cat.setPassword("");
+        _cat.setEmail("");
+
         if (null == getUserManager().getUserByName(_paxson.getName())) {
-            getUserManager().createUser(_paxson.getName(), _paxson.getPassword(), _paxson.getEmail());
+            getUserManager().createUser(
+                    _paxson.getName(),
+                    _paxson.getPassword(),
+                    _paxson.getEmail());
         }
-        
+
         if (null == getUserManager().getUserByName(_cat.getName())) {
-            getUserManager().createUser(_cat.getName(), _cat.getPassword(), _paxson.getEmail());
+            getUserManager().createUser(
+                    _cat.getName(),
+                    _cat.getPassword(),
+                    _paxson.getEmail());
         }
     }
-    
+
     public static void deleteUsers() {
         getUserManager().removeUserByName("Paxson Yang");
         getUserManager().removeUserByName("Cat Chen");
     }
-    
+
     public static User getPosterPaxson() {
         return getUserManager().getUserByName("Paxson Yang");
     }
-    
+
     public static User getPosterCat() {
         return getUserManager().getUserByName("Cat Chen");
     }
-    
+
     public static Category buildCategory(String name) {
         Category _category = new Category();
         _category.setName(name);
         _category.setDescription("Description of " + name + " Category");
-        
+
         return _category;
     }
-    
+
     public static Set buildModerators() {
         Set _moderators = new HashSet();
-        
+
         _moderators.add(JUnitForumHelper.getPosterPaxson());
         _moderators.add(JUnitForumHelper.getPosterCat());
-        
+
         return _moderators;
     }
-    
+
     public static void addCategoriesAndMessages() {
         getForumManager().addCategory(buildCategory("Java"));
         getForumManager().addCategory(buildCategory("JXTA"));
     }
-    
-    public static void deleteCategoriesAndMessages() {
-        Category[] _categories = 
-                (Category[]) getForumManager().getRootCategories().toArray(new Category[0]);
 
-        for (int _i=0; _i<_categories.length; _i++) {
+    public static void deleteCategoriesAndMessages() {
+        Category[] _categories =
+            (Category[]) getForumManager().getRootCategories().toArray(
+                new Category[0]);
+
+        for (int _i = 0; _i < _categories.length; _i++) {
             getForumManager().deleteCategory(_categories[_i]);
         }
     }
-    
-    public static Category getCategoryByName(String name) {
-        Category[] _categories = 
-                (Category[]) getForumManager().getRootCategories().toArray(new Category[0]);
 
-        for (int _i=0; _i<_categories.length; _i++) {
+    public static Category getCategoryByName(String name) {
+        Category[] _categories =
+            (Category[]) getForumManager().getRootCategories().toArray(
+                new Category[0]);
+
+        for (int _i = 0; _i < _categories.length; _i++) {
             if (name.equals(_categories[_i].getName())) {
                 return _categories[_i];
             }
         }
-        
+
         return null;
     }
-    
+
     public static Message buildMassage(Category category, int index) {
         Message _message = new Message();
-        
+
         _message.setCategory(category);
         _message.setSubject("Subject of " + category.getName() + " " + index);
         _message.setMessage("Message of " + category.getName() + " " + index);
         _message.setPoster(getPosterPaxson());
-        
+
         return _message;
     }
 
