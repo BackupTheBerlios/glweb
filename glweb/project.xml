@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
- $Id: project.xml,v 1.3 2003/05/14 05:22:42 sgon29 Exp $
+ $Id: project.xml,v 1.4 2003/05/21 05:32:52 paxson Exp $
 -->
 
 <project>
@@ -102,8 +102,8 @@
   <contributors>
     <!--
     <contributor>
-      <name>James Hillyerd</name>
-      <email>james@hillyerd.com</email>
+      <name></name>
+      <email></email>
     </contributor>
     -->
   </contributors>
@@ -182,7 +182,7 @@
     <dependency>
       <id>hibernate</id>
       <version>2.0-rc1</version>
-      <url>http://hibernate.bluemars.net/</url>
+      <url>http://hibernate.sf.net/</url>
     </dependency>
     <dependency>
       <id>odmg</id>
@@ -191,13 +191,18 @@
     </dependency>
     <dependency>
       <id>cglib</id>
-      <version>SNAPSHOT</version>
-      <url></url>
+      <version>rc2-1.0</version>
+      <url>http://cglib.sf.net</url>
     </dependency>
     <dependency>
       <id>netcomponents</id>
       <version>1.3.8</version>
       <url>http://www.savarese.org/oro/downloads</url>
+    </dependency>
+    <dependency>
+      <id>xml-apis</id>
+      <version>2.0.2</version>
+      <url></url>
     </dependency>
     <!-- <XDoclet> -->
     <dependency>
@@ -236,7 +241,7 @@
     <nagEmailAddress>glweb-dev@mail.berlios.de</nagEmailAddress>
     <sourceDirectory>src/java</sourceDirectory>
     <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
-    <aspectSourceDirectory></aspectSourceDirectory>
+    <aspectSourceDirectory>src/java</aspectSourceDirectory>
 
     <unitTest>
       <includes>
