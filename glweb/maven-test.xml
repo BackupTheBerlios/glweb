@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
- $Id: maven-test.xml,v 1.2 2003/05/14 05:22:42 sgon29 Exp $
+ $Id: maven-test.xml,v 1.3 2003/06/03 08:30:43 paxson Exp $
 -->
 
 <project name="glweb-test" default="test.jboss.3X" basedir=".">
@@ -101,6 +101,10 @@
     
     <!-- ************************************************************************ -->
     <target name="test">
+    
+        <echo message="Start testing..."/>
+        
+        <mkdir dir="${maven.test-reports.dir}"/>
 
         <junit printsummary="yes" haltonfailure="yes" haltonerror="yes" fork="yes">
 
@@ -116,7 +120,12 @@
 
             <formatter type="xml"/>
             <formatter type="plain" usefile="false"/>
-            <test name="com.glweb.system.user.AllTests"/>
+            
+            <batchtest todir="${maven.test-reports.dir}">
+                <fileset dir="${maven.src.test-cactus.dir}">
+                    <include name="com/glweb/**/All*Tests.java"/>
+                </fileset>
+            </batchtest>
 
         </junit>
 
