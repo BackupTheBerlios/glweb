@@ -1,3 +1,10 @@
+<%--
+ $Id: forum_2.jsp,v 1.2 2003/06/12 05:52:18 paxson Exp $
+ $Revision: 1.2 $
+ $Date: 2003/06/12 05:52:18 $
+ $Author: paxson $
+--%>
+
 <table width="100%" border="0" cellpadding="0" cellspacing="5" class="table3">
   <tr>
     <td background="../image/title_talk-bg.jpg"><img src="../image/title_talk.jpg" width="215" height="36"></td>

@@ -1,3 +1,10 @@
+<%--
+ $Id: member_2.jsp,v 1.2 2003/06/12 05:52:46 paxson Exp $
+ $Revision: 1.2 $
+ $Date: 2003/06/12 05:52:46 $
+ $Author: paxson $
+--%>
+
 <%@ taglib uri="/WEB-INF/tlds/struts-html.tld" prefix="html" %>
 
 <html:form action="/member/MemberDataAction" method="post">

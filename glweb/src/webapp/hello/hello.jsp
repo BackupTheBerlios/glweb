@@ -1,5 +1,8 @@
 <%--
- $Id: hello.jsp,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ $Id: hello.jsp,v 1.2 2003/06/12 05:52:30 paxson Exp $
+ $Revision: 1.2 $
+ $Date: 2003/06/12 05:52:30 $
+ $Author: paxson $
 --%>
 
 <%@ page contentType="text/html" language="java" %>

@@ -1,3 +1,10 @@
+<%--
+ $Id: scriptcss.jsp,v 1.2 2003/06/12 05:53:11 paxson Exp $
+ $Revision: 1.2 $
+ $Date: 2003/06/12 05:53:11 $
+ $Author: paxson $
+--%>
+
 <script language="javascript">
 
 

@@ -1,3 +1,10 @@
+<%--
+ $Id: member_3.jsp,v 1.2 2003/06/12 05:52:46 paxson Exp $
+ $Revision: 1.2 $
+ $Date: 2003/06/12 05:52:46 $
+ $Author: paxson $
+--%>
+
 <jsp:useBean id = "user" class="com.glweb.module.member.model.User" scope="session" />
 
 <table width="100%" border="0" cellpadding="0" cellspacing="8" class="table3">

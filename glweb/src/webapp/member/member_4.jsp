@@ -1,3 +1,9 @@
+<%--
+ $Id: member_4.jsp,v 1.2 2003/06/12 05:52:46 paxson Exp $
+ $Revision: 1.2 $
+ $Date: 2003/06/12 05:52:46 $
+ $Author: paxson $
+--%>
 
 <table width="100%" border="0" cellspacing="8" cellpadding="0">
   <tr> 

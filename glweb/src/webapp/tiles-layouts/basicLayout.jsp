@@ -1,3 +1,10 @@
+<%--
+ $Id: basicLayout.jsp,v 1.2 2003/06/12 05:53:11 paxson Exp $
+ $Revision: 1.2 $
+ $Date: 2003/06/12 05:53:11 $
+ $Author: paxson $
+--%>
+
 <%@ taglib uri="/WEB-INF/tlds/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/tlds/struts-tiles.tld" prefix="tiles" %>
 
