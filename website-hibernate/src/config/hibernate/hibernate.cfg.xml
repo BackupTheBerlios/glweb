@@ -1,19 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
-
+<!-- $Id: hibernate.cfg.xml,v 1.2 2003/10/29 09:23:39 paxson Exp $ -->
 <!DOCTYPE hibernate-configuration PUBLIC
     "-//Hibernate/Hibernate Configuration DTD//EN"
-    "http://hibernate.sourceforge.net/hibernate-configuration-2.0.dtd">
-
-<!--
- $Id: hibernate.cfg.xml,v 1.1 2003/10/29 08:27:23 paxson Exp $
--->
+    "http://hibernate.sourceforge.net/hibernate-configuration-2.0.dtd"
+    >
 
 <hibernate-configuration>
-    
-    
-
     <!-- a SessionFactory instance for JLCP -->
-    <session-factory name="/glweb/hibernate/SessionFactory">
+    <session-factory name="/website/hibernate/SessionFactory">
         <!-- Database Properties -->
         <property name="show_sql">false</property>
         <property name="use_outer_join">true</property>
@@ -27,9 +21,9 @@
         <!-- Database Connection for JLCP Hibernate Session Factory -->
         <!--property name="connection.datasource">java:/MySqlDS</property-->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/glweb?useUnicode=true&amp;characterEncoding=Big5</property>
-        <property name="connection.username">glweb</property>
-        <property name="connection.password">glweb</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/website?useUnicode=true&amp;characterEncoding=Big5</property>
+        <property name="connection.username">website</property>
+        <property name="connection.password">website</property>
 
         <!-- Database Dialect -->
         <property name="dialect">net.sf.hibernate.dialect.MySQLDialect</property>

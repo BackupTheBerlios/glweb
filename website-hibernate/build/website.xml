@@ -31,7 +31,7 @@
   </path>
   
   <!-- ************************************************************************ -->
-  <fileset id="hibernate.mapping.files" dir="${maven.build.dest}">
+  <fileset id="hibernate.mapping.files" dir="${prj.classbindir}">
       <include name="**/*.hbm.xml"/>
   </fileset>
 
@@ -162,6 +162,12 @@
               <include name="com/siwi/website/ejb/**/*.properties"/>
               <include name="com/siwi/website/ejb/**/*.xml"/>
           </fileset>
+          
+          <fileset dir="${prj.hibernate}">
+              <include name="*.ccf"/>
+              <include name="*.properties"/>
+              <include name="*.xml"/>
+          </fileset>
       </jar>
   </target>
   
@@ -281,13 +287,15 @@
   
   <!-- ************************************************************************ -->
   <target name="build.ear">
-      <copy todir="${prj.buildjardir}/lib">
+      <copy todir="${prj.buildjardir}">
           <fileset dir="${prj.home}">
               <include name="${common.jar}"/>
               <include name="${website-ejb.jar}"/>
               <include name="${website-web.war}"/>
           </fileset>
+      </copy>
       
+      <copy todir="${prj.buildjardir}/lib">
           <fileset dir="${prj.lib.core}">
               <include name="hibernate-*.jar"/>
           </fileset>
@@ -299,8 +307,28 @@
   </target>
   
   <!-- ************************************************************************ -->
-  <target name="deploy">
-      <copy file="${prj.buildjardir}/${website.ear}" todir="${deploy.dir}"/>
+  <target name="deploy" depends="build.app">
+      <copy 
+          file="${prj.buildjardir}/${website.ear}" 
+          tofile="${deploy.dir}/website.ear"
+          />
+  </target>
+  
+  <!-- ************************************************************************ -->
+  <target name="createdb"> 
+      <pathconvert 
+          refid="hibernate.mapping.files" 
+          property="hibernate.mappings" 
+          pathsep=" "
+          />
+
+      <java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+          <arg line="${hibernate.mappings}"/>
+          <classpath>
+              <pathelement path="${prj.hibernate}"/>
+              <path refid="classpath"/>
+          </classpath>
+      </java>
   </target>
   
   <!-- ************************************************************************ -->
