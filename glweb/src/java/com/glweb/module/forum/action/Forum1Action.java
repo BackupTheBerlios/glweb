@@ -20,7 +20,7 @@ import org.apache.struts.action.ActionMapping;
 /**
  *
  * @author   $Author: primo $
- * @version  $Revision: 1.2 $ $Date: 2003/09/22 16:58:41 $
+ * @version  $Revision: 1.3 $ $Date: 2003/09/27 08:23:30 $
  *
  * @struts:action path="/forum/forum1"
  *                name="forum1Form"
@@ -48,6 +48,10 @@ public class Forum1Action extends BaseAction {
      Collection allCategory = ForumActionHelper.getAllCategory();
      forum1Form.setCategories(allCategory);
      request.setAttribute("forum1Form", forum1Form);
+
+     Collection allChildCategory = ForumActionHelper.getAllChildCategory(allCategory);
+     request.setAttribute("allChildCategory", allChildCategory);
+
      if (action != null && action.equals("login")) {
          String name = request.getParameter("name");
          String password = request.getParameter("password");
@@ -56,12 +60,13 @@ public class Forum1Action extends BaseAction {
              ActionErrors errors = new ActionErrors();
              errors.add(ActionErrors.GLOBAL_ERROR, new ActionError("errors.login"));
              this.saveErrors(request, errors);
+             return mapping.getInputForward();
          }else{
              request.getSession(true).setAttribute(Constants.USER_KEY, user);
-             forum1Form.setName("");
-             forum1Form.setPassword("");
+             ActionForward forward = new ActionForward();
+             forward.setPath("/forum/forum2.do?action=query&categoryId=" + forum1Form.getForumMenu());
+             return forward;
          }
-         return mapping.getInputForward();
      }
      return mapping.getInputForward();
  }

@@ -1,7 +1,7 @@
 <%--
- $Id: forum_1.jsp,v 1.4 2003/09/22 16:59:43 primo Exp $
- $Revision: 1.4 $
- $Date: 2003/09/22 16:59:43 $
+ $Id: forum_1.jsp,v 1.5 2003/09/27 08:23:30 primo Exp $
+ $Revision: 1.5 $
+ $Date: 2003/09/27 08:23:30 $
  $Author: primo $
 --%>
 <%@ page import="java.util.*, com.glweb.module.forum.model.*,com.glweb.module.member.model.*, com.glweb.Constants" %>
@@ -37,10 +37,8 @@
               　<strong>密碼:</strong>
               <html:password property="password" style="BORDER-RIGHT: #666666 1px solid; BORDER-TOP: #666666 1px solid; BORDER-LEFT: #666666 1px solid; BORDER-BOTTOM: #666666 1px solid" size="15"/>              　
 
-              <html:select property="forumMenu" onchange="MM_jumpMenu('parent',this,0)">
-                <html:option value="#">討論版一</html:option>
-                <html:option value="#">討論版二</html:option>
-                <html:option value="#">討論版三</html:option>
+              <html:select property="forumMenu">
+                <html:options collection="allChildCategory" property="id" labelProperty="name"/>
               </html:select>
               　 <html:link href="javascript:login();"><html:img width="58" height="21" align="absmiddle" border="0" src="../image/login.gif"/></html:link>
             </html:form>
