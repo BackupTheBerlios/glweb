@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
- $Id: project.xml,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ $Id: project.xml,v 1.2 2003/05/10 14:15:31 paxson Exp $
 -->
 
 <project>
   <pomVersion>3</pomVersion>
   <id>glweb</id>
   <name>Glweb</name>
-  <currentVersion>0.3-dev</currentVersion>
+  <currentVersion>0.1-dev</currentVersion>
   <organization>
     <name>SIWI</name>
     <url>http://www.siwi.com.tw/</url>
@@ -23,48 +23,38 @@
 
   <description>Glweb is the web site of GL.com.</description>
   <shortDescription>Web Site of GL</shortDescription>
-  <url>http://siwi-glweb.asynchrony-projects.com</url>
-  <issueTrackingUrl>http://www.siwi.com.tw/scarab/issues</issueTrackingUrl>
-  <siteAddress>siwi-glweb.asynchrony-projects.com</siteAddress>
-  <siteDirectory>./</siteDirectory>
-  <distributionDirectory>./builds/</distributionDirectory>
+  <url>http://glweb.berlios.de/</url>
+  <issueTrackingUrl>https://developer.berlios.de/bugs/?group_id=803</issueTrackingUrl>
+  <siteAddress>shell.berlios.de</siteAddress>
+  <siteDirectory>/home/groups/glweb/htdocs/</siteDirectory>
+  <distributionDirectory>/home/groups/ftp/pub/glweb/</distributionDirectory>
 
   <repository>
     <connection>
-      scm:cvs:ext:${maven.username}@cvs1.asynchrony-projects.com:/projects/proj-2281/source:siwi-glweb
+      scm:cvs:ext:${maven.username}@cvs.glweb.berlios.de:/cvsroot/glweb:glweb
     </connection>
     <developerConnection>
-      scm:cvs:ext:${maven.username}@cvs1.asynchrony-projects.com:/projects/proj-2281/source:siwi-glweb
+      scm:cvs:ext:${maven.username}@cvs.glweb.berlios.de:/cvsroot/glweb:glweb
     </developerConnection>
-    <url>http://www.siwi.com.tw/viewcvs/siwi-glweb/</url>
+    <url>http://cvs.berlios.de/cgi-bin/viewcvs.cgi/glweb/</url>
   </repository>
 
   <mailingLists>
-    <!--
     <mailingList>
-      <name>Torque User List</name>
-      <subscribe>torque-user-subscribe@db.apache.org</subscribe>
-      <unsubscribe>torque-user-unsubscribe@db.apache.org</unsubscribe>
+      <name>GLWeb Developer List</name>
+      <subscribe>glweb-dev-subscribe@lists.berlios.de</subscribe>
+      <unsubscribe>glweb-dev-unsubscribe@lists.berlios.de</unsubscribe>
       <archive>
-        http://archives.apache.org/eyebrowse/SummarizeList?listName=torque-user@db.apache.org
+        https://lists.berlios.de/mailman/private/glweb-dev
       </archive>
     </mailingList>
-    <mailingList>
-      <name>Torque Developer List</name>
-      <subscribe>torque-dev-subscribe@db.apache.org</subscribe>
-      <unsubscribe>torque-dev-unsubscribe@db.apache.org</unsubscribe>
-      <archive>
-        http://archives.apache.org/eyebrowse/SummarizeList?listName=torque-dev@db.apache.org
-      </archive>
-    </mailingList>
-    -->
   </mailingLists>
 
   <developers>
     <developer>
       <name>Cat Chen</name>
       <id>cat</id>
-      <email>cat@mail.siwi.com.tw</email>
+      <email>catchen@mail.berlios.de</email>
       <organization>SIWI Technology</organization>
       <roles>
         <role>User Interface Design</role>
@@ -73,7 +63,7 @@
     <developer>
       <name>Jack Chen</name>
       <id>jack</id>
-      <email>jack@mail.siwi.com.tw</email>
+      <email>sgon29@mail.berlios.de</email>
       <organization>SIWI Technology</organization>
       <roles>
         <role>Project Manager</role>
@@ -82,7 +72,7 @@
     <developer>
       <name>Koca Chen</name>
       <id>koca</id>
-      <email>koca@mail.siwi.com.tw</email>
+      <email>kocaChen@mail.berlios.de</email>
       <organization>SIWI Technology</organization>
       <roles>
         <role>Java Developer</role>
@@ -91,7 +81,7 @@
     <developer>
       <name>Paxson Yang</name>
       <id>paxson</id>
-      <email>paxson@mail.siwi.com.tw</email>
+      <email>paxson@mail.berlios.de</email>
       <organization>SIWI Technology</organization>
       <roles>
         <role>Java Developer</role>
@@ -100,7 +90,7 @@
     <developer>
       <name>Primo Chiang</name>
       <id>primo</id>
-      <email>primo@mail.siwi.com.tw</email>
+      <email>primo@mail.berlios.de</email>
       <organization>SIWI Technology</organization>
       <roles>
         <role>Java Developer</role>
@@ -243,7 +233,7 @@
   </dependencies>
 
   <build>
-    <nagEmailAddress>glweb-dev@mail.siwi.com.tw</nagEmailAddress>
+    <nagEmailAddress>glweb-dev@mail.berlios.de</nagEmailAddress>
     <sourceDirectory>src/java</sourceDirectory>
     <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
     <aspectSourceDirectory></aspectSourceDirectory>
