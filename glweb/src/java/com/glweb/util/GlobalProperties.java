@@ -1,6 +1,6 @@
 /*
  *
- * $Id: GlobalProperties.java,v 1.1 2003/05/10 11:41:13 paxson Exp $
+ * $Id: GlobalProperties.java,v 1.2 2003/09/18 06:55:26 paxson Exp $
  *
  * Copyright (c) 2003 SIWI.com
  *
@@ -40,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  * GlobalProperties
  *
  * @author   $Author: paxson $
- * @version  $Revision: 1.1 $ $Date: 2003/05/10 11:41:13 $
+ * @version  $Revision: 1.2 $ $Date: 2003/09/18 06:55:26 $
  *
  * @see java.beans.PropertyChangeListener
  * @see java.beans.PropertyChangeSupport
@@ -49,19 +49,15 @@ public class GlobalProperties {
     
     private static final String CONFIG = "glweb_config.properties";
 
-    private static final Properties _globalProperties = new Properties();
+    private static GlobalProperties _instance;
     
-    private static final GlobalProperties _instance = new GlobalProperties();
-
-    private static PropertyChangeSupport _propertySupport = 
-            new PropertyChangeSupport(_instance);
+    private Properties _globalProperties = new Properties();
+    
+    private PropertyChangeSupport _propertySupport;
             
-    private static Log _logger;
+    private Log _logger;
 
     private GlobalProperties() {
-    }
-
-    static {
         _logger = LogFactory.getLog("com.glweb.util.GlobalProperties");
         
         try {
@@ -71,7 +67,7 @@ public class GlobalProperties {
                 _logger.warn("<Unable to find the global properties from system resources/>");
                 _logger.warn("<Try to find the global properties from class resources/>");
                 
-                _in = GlobalProperties.class.getResourceAsStream(CONFIG);
+                _in = getClass().getResourceAsStream(CONFIG);
                 
                 if (null == _in) {
                     _logger.warn("<Unable to find the global properties from class resources/>");
@@ -88,29 +84,43 @@ public class GlobalProperties {
         }
     }
     
-    protected static Properties getGlobalProperties() {
+    public static GlobalProperties getInstance() {
+        synchronized (GlobalProperties.class) {
+            if (null == _instance) {
+                _instance = new GlobalProperties();
+            }
+        }
+        
+        return _instance;
+    }
+    
+    protected Properties getGlobalProperties() {
         return _globalProperties;
     }
     
-    protected static PropertyChangeSupport getPropertySupport() {
+    protected PropertyChangeSupport getPropertySupport() {
+        if (null == _propertySupport) {
+            _propertySupport = new PropertyChangeSupport(getInstance());
+        }
+
         return _propertySupport;
     }
 
-    public static String getProperty(String key) {
+    public String getProperty(String key) {
         return getGlobalProperties().getProperty(key);
     }
 
-    public static void subscribe(
+    public void subscribe(
             String propertyName, PropertyChangeListener subscriber) {
         getPropertySupport().addPropertyChangeListener(propertyName, subscriber);
     }
 
-    public static void unsubscribe(
+    public void unsubscribe(
             String propertyName, PropertyChangeListener subscriber) {
         getPropertySupport().removePropertyChangeListener(propertyName, subscriber);
     }
 
-    private static void publishPropChange(
+    private void publishPropChange(
             String propertyName, String oldValue, String newValue) {
         getPropertySupport().firePropertyChange(propertyName, oldValue, newValue);
     }
